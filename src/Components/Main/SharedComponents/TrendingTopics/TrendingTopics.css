@@ -1,0 +1,17 @@
+.trending-topics {
+  background-color: mediumpurple;
+  grid-area: trending;
+  padding: 1em;
+}
+
+.topic-list {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.topic-list li {
+  background-color: tomato;
+  width: 23%;
+  height: 175px;
+}

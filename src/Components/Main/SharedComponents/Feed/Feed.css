@@ -1,0 +1,12 @@
+.feed {
+  background-color: mediumvioletred;
+  grid-area: main-section;
+  padding: 1em;
+}
+
+.feed-list li {
+  background-color: teal;
+  margin-bottom: 1em;
+  width: 100%;
+  height: 100px;
+}

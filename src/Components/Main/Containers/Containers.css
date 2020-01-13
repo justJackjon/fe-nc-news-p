@@ -1,0 +1,13 @@
+.main-container {
+  max-width: 1024px;
+  margin: 0 auto;
+
+  display: grid;
+  grid-template-areas:
+    'trending trending trending'
+    'main-section main-section aside';
+  grid-template-columns: repeat(3, 1fr);
+  /* grid-gap included to support older browsers */
+  grid-gap: 1em;
+  gap: 1em;
+}

@@ -1,0 +1,4 @@
+.sidebar {
+  background-color: seagreen;
+  grid-area: aside;
+}

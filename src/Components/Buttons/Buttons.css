@@ -1,0 +1,30 @@
+button {
+  font-family: inherit;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  border: none;
+}
+
+.btn-sm {
+  padding: 3px 7.5px;
+  margin: 1px;
+  font-size: 0.75rem;
+}
+
+.btn-md {
+  height: 24px;
+  padding: 3px 16px;
+  margin: 1px;
+}
+
+.btn-lg {
+  height: 29px;
+  padding: 3px 24px;
+  margin: 1px;
+}
+
+.btn-solid {
+  background-color: crimson;
+  color: white;
+  border-radius: 4px;
+}

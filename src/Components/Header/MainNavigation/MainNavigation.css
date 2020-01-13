@@ -1,0 +1,48 @@
+nav.main-navigation {
+  background-color: royalblue;
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  right: -20vw;
+  height: 100vh;
+  width: 20vw;
+  overflow: hidden;
+  transition: 0.4s;
+}
+
+.main-navigation h2 {
+  margin-top: 8vh;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+#toggleDrawer:checked + nav.main-navigation {
+  transform: translateX(-20vw);
+  display: unset;
+}
+
+@media only screen and (max-width: 768px) {
+  nav.main-navigation {
+    right: -45vw;
+    width: 45vw;
+  }
+
+  #toggleDrawer:checked + nav.main-navigation {
+    transform: translateX(-45vw);
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  nav.main-navigation {
+    right: -80vw;
+    width: 80vw;
+  }
+
+  nav.main-navigation h2 {
+    margin-top: 11.5vh;
+  }
+
+  #toggleDrawer:checked + nav.main-navigation {
+    transform: translateX(-80vw);
+  }
+}
