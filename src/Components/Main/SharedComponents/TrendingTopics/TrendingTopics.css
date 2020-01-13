@@ -5,13 +5,23 @@
 }
 
 .topic-list {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  white-space: nowrap;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  scrollbar-width: none;
+}
+
+.topic-list::-webkit-scrollbar {
+  display: none;
+  width: 0;
 }
 
 .topic-list li {
-  background-color: tomato;
-  width: 23%;
-  height: 175px;
+  display: inline-block;
+  margin-right: 1rem;
+}
+
+ul.topic-list li:last-child div.topic-card {
+  background-color: palegreen;
+  margin-right: 0;
 }

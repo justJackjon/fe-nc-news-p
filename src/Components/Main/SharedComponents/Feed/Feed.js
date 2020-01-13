@@ -6,7 +6,7 @@ const Feed = () => {
   return (
     <section className="feed">
       <h2>FEED</h2>
-      <ul class="feed-list">
+      <ul className="feed-list">
         <li>
           <ArticleCard />
         </li>

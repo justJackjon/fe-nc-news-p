@@ -1,22 +1,23 @@
 import React from 'react';
+import TopicCard from '../../Cards/TopicCard/TopicCard';
 import './TrendingTopics.css';
 
 const TendingTopics = () => {
   return (
-    <nav class="trending-topics">
+    <nav className="trending-topics">
       <h2>TENDING TOPICS</h2>
-      <ul class="topic-list">
-        <li>
-          <h3>TOPIC CARD</h3>
+      <ul className="topic-list">
+        <li className="topic-item">
+          <TopicCard />
         </li>
         <li>
-          <h3>TOPIC CARD</h3>
+          <TopicCard />
         </li>
         <li>
-          <h3>TOPIC CARD</h3>
+          <TopicCard />
         </li>
         <li>
-          <h3>TOPIC CARD</h3>
+          <TopicCard />
         </li>
       </ul>
     </nav>

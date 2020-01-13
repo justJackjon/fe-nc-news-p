@@ -1,5 +1,6 @@
 import React from 'react';
 import Button from '../../../Buttons/Button/Button';
+import './ArticleCard.css';
 
 const ArticleCard = () => {
   return (

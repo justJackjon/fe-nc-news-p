@@ -11,3 +11,9 @@
   grid-gap: 1em;
   gap: 1em;
 }
+
+@media only screen and (max-width: 1024px) {
+  .main-container {
+    display: unset;
+  }
+}

@@ -1,0 +1,8 @@
+.topic-card {
+  width: 236px;
+  height: 175px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: tomato;
+}
