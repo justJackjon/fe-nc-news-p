@@ -2,11 +2,12 @@ button {
   font-family: inherit;
   font-weight: 700;
   letter-spacing: 0.5px;
-  border: none;
+  border: 2px solid transparent;
+  border-radius: 4px;
 }
 
 .btn-sm {
-  padding: 3px 7.5px;
+  padding: 2px 7.5px;
   margin: 1px;
   font-size: 0.75rem;
 }
@@ -15,16 +16,31 @@ button {
   height: 24px;
   padding: 3px 16px;
   margin: 1px;
+  font-size: 0.75rem;
 }
 
 .btn-lg {
   height: 29px;
   padding: 3px 24px;
   margin: 1px;
+  font-size: 0.75rem;
 }
 
 .btn-solid {
-  background-color: crimson;
+  background-color: #bd1732;
+  border-color: #bd1732;
   color: white;
-  border-radius: 4px;
+}
+
+.btn-regular {
+  background-color: transparent;
+  border-color: #bd1732;
+  color: #bd1732;
+}
+
+.btn-secondary {
+  font-weight: 500;
+  background-color: #f6f7f8;
+  border-color: #f6f7f8;
+  color: #bd1732;
 }
