@@ -4,9 +4,9 @@
 
   display: grid;
   grid-template-areas:
-    'trending trending trending'
-    'main-section main-section aside';
-  grid-template-columns: repeat(3, 1fr);
+    'main-section-header main-section-header main-section-header'
+    'main-section-content main-section-content main-section-aside';
+  grid-template-columns: 1fr 1fr 330px;
   /* grid-gap included to support older browsers */
   grid-gap: 1em;
   gap: 1em;

@@ -1,0 +1,25 @@
+.vote-control {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+  margin: 1px;
+}
+
+.vote-control svg {
+  padding: 6px;
+}
+
+.vote-control.inc-votes svg {
+  padding: 8px;
+}
+
+.upvote-control:hover {
+  color: seagreen;
+}
+
+.downvote-control:hover {
+  color: crimson;
+}

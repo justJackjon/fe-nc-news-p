@@ -4,7 +4,7 @@ nav.main-navigation {
   z-index: 1;
   top: 0;
   right: -20vw;
-  height: 100vh;
+  height: 200vh;
   width: 20vw;
   overflow: hidden;
   transition: 0.4s;
@@ -14,6 +14,29 @@ nav.main-navigation {
   margin-top: 8vh;
   font-size: 1rem;
   font-weight: 700;
+}
+
+.main-navigation h2 svg {
+  margin-right: 0.25rem;
+}
+
+.main-navigation ul {
+  margin: 2vh 0;
+}
+
+.main-navigation li {
+  margin: 3px 0;
+  padding: 0.75rem 0.5rem;
+}
+
+.main-navigation li a {
+  margin: 0.15rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+}
+
+.main-navigation li a svg {
+  margin-right: 0.25rem;
 }
 
 #toggleDrawer:checked + nav.main-navigation {

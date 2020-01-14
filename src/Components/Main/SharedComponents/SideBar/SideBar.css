@@ -1,6 +1,6 @@
 .sidebar {
   background-color: seagreen;
-  grid-area: aside;
+  grid-area: main-section-aside;
 }
 
 .sidebar-content {

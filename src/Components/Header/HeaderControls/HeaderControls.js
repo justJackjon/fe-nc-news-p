@@ -1,7 +1,9 @@
-import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React, { createRef } from 'react';
+import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
 import MainNavigation from '../MainNavigation/MainNavigation';
 import './HeaderControls.css';
+
+const drawerControl = createRef();
 
 const HeaderControls = () => {
   return (
@@ -11,13 +13,14 @@ const HeaderControls = () => {
         <span className="slider"></span>
       </label>
       <label className="hambuger-menu">
-        <FontAwesomeIcon icon="bars" size="lg" className="hambuger-icon" />
+        <Icon icon="bars" size="lg" className="hambuger-icon" />
         <input
           type="checkbox"
+          ref={drawerControl}
           id="toggleDrawer"
           aria-label="Toggle Main Menu"
         />
-        <MainNavigation />
+        <MainNavigation drawerControl={drawerControl} />
       </label>
     </form>
   );

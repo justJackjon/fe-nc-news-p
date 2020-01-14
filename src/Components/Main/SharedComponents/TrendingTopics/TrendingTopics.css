@@ -1,6 +1,6 @@
 .trending-topics {
   background-color: mediumpurple;
-  grid-area: trending;
+  grid-area: main-section-header;
   padding: 1em;
 }
 

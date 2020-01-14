@@ -1,4 +1,19 @@
 .sub-header {
   background-color: lightcoral;
-  height: 2.6rem;
+  /* height: 2.6rem; */
+}
+
+.sub-navigation li {
+  display: inline-block;
+  margin: 0.25rem 0.5rem;
+}
+
+.sub-navigation li a {
+  margin: 0.15rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+}
+
+.sub-navigation li a svg {
+  margin-right: 0.25rem;
 }

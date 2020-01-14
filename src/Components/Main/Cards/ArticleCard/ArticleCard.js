@@ -1,11 +1,14 @@
 import React from 'react';
-import Button from '../../../Buttons/Button/Button';
+import Button from '../../../Controls/Buttons/Button';
+import VoteControl from '../../../Controls/VoteControls/VoteControl';
 import './ArticleCard.css';
 
 const ArticleCard = () => {
   return (
     <article className="article-card">
       <h3>ARTICLE CARD</h3>
+      <VoteControl className="vote-control inc-votes" />
+      <br />
       <Button className="btn-sm btn-solid">BUTTON</Button>
       <Button className="btn-md btn-solid">BUTTON</Button>
       <Button className="btn-lg btn-solid">BUTTON</Button>

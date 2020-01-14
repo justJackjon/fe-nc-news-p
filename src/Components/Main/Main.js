@@ -4,6 +4,9 @@ import { Router } from '@reach/router';
 
 import SubHeader from './SubHeader/SubHeader';
 import HomeFeedContainer from './Containers/HomeFeedContainer/HomeFeedContainer';
+import TopicContainer from './Containers/HomeFeedContainer/HomeFeedContainer';
+import ArticleContainer from './Containers/ArticleContainer/ArticleContainer';
+import UserContainer from './Containers/HomeFeedContainer/HomeFeedContainer';
 
 import TrendingTopics from './SharedComponents/TrendingTopics/TendingTopics';
 import Feed from './SharedComponents/Feed/Feed';
@@ -13,14 +16,37 @@ import './Main.css';
 
 export class Main extends Component {
   static contextType = MainContext;
+
   render() {
-    const HomeFeed = () => {
+    const { windowWidth } = this.context;
+    const HomePage = () => {
       return (
         <HomeFeedContainer>
-          {this.context.windowWidth > 480 && <TrendingTopics />}
-          {this.context.windowWidth > 1024 && <SideBar />}
+          {windowWidth > 480 && <TrendingTopics />}
+          {windowWidth > 1024 && <SideBar />}
           <Feed />
         </HomeFeedContainer>
+      );
+    };
+    const TopicPage = () => {
+      return (
+        <TopicContainer>
+          {windowWidth > 1024 && <SideBar />}
+          <Feed />
+        </TopicContainer>
+      );
+    };
+    const ArticlePage = () => {
+      return (
+        <ArticleContainer>{windowWidth > 1024 && <SideBar />}</ArticleContainer>
+      );
+    };
+    const UserPage = () => {
+      return (
+        <UserContainer>
+          {windowWidth > 1024 && <SideBar />}
+          <Feed />
+        </UserContainer>
       );
     };
 
@@ -29,8 +55,11 @@ export class Main extends Component {
         <SubHeader />
         <h2>MAIN COMPONENT</h2>
 
-        <Router>
-          <HomeFeed path="/" />
+        <Router primary={false}>
+          <HomePage path="/" />
+          <TopicPage path="/topics" />
+          <ArticlePage path="/articles" />
+          <UserPage path="/users" />
         </Router>
       </main>
     );

@@ -8,6 +8,15 @@
   overflow-x: hidden;
 }
 
+a {
+  text-decoration: none;
+  color: #878a8c;
+}
+
+a svg {
+  color: #bd1732;
+}
+
 h1 {
   font-size: 1.5rem;
   font-weight: 700;

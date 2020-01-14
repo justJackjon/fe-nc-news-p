@@ -1,0 +1,37 @@
+.article-header {
+  grid-area: main-section-header;
+  background-color: black;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 4.25vw;
+}
+
+div.article-container.main-container {
+  background-color: teal;
+  max-width: 1600px;
+
+  grid-template-areas:
+    'main-section-header main-section-header main-section-header main-section-header main-section-header'
+    'left main-section-content main-section-content main-section-aside right';
+  grid-template-columns: 4vw 1fr 1fr 330px 4vw;
+  margin: 0 4vw;
+  /* grid-gap included to support older browsers */
+  grid-gap: 1em;
+  gap: 1em;
+}
+
+button.article-close {
+  background-color: transparent;
+  color: white;
+}
+
+button.article-close * {
+  vertical-align: middle;
+  padding: 0.2rem;
+}
+
+button.article-close svg {
+  margin-top: 1px;
+}
