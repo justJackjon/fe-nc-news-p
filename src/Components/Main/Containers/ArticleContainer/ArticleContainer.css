@@ -1,22 +1,27 @@
 .article-header {
-  grid-area: main-section-header;
+  /* constrained within .main-router grid */
+  grid-column: 3 / span 20;
+  /* constrained within .main-router grid */
   background-color: black;
   color: white;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 4.25vw;
+  padding: 0.75rem 9vw;
 }
 
-div.article-container.main-container {
-  background-color: teal;
-  max-width: 1600px;
+div.article-container {
+  /* constrained within .main-router grid */
+  grid-column: 3 / span 20;
+  /* constrained within .main-router grid */
+  background-color: #f5f9fd;
+  padding: 2rem 9vw;
+}
 
-  grid-template-areas:
-    'main-section-header main-section-header main-section-header main-section-header main-section-header'
-    'left main-section-content main-section-content main-section-aside right';
-  grid-template-columns: 4vw 1fr 1fr 330px 4vw;
-  margin: 0 4vw;
+.article-sub-container {
+  display: grid;
+  grid-template-areas: 'main-section-content main-section-content main-section-aside';
+  grid-template-columns: 1fr 1fr 330px;
   /* grid-gap included to support older browsers */
   grid-gap: 1em;
   gap: 1em;
@@ -24,7 +29,14 @@ div.article-container.main-container {
 
 button.article-close {
   background-color: transparent;
-  color: white;
+  border: none;
+  border-radius: 4px;
+  color: #818384;
+  padding: 3px;
+}
+
+button.article-close:hover {
+  background-color: #343536;
 }
 
 button.article-close * {
@@ -34,4 +46,20 @@ button.article-close * {
 
 button.article-close svg {
   margin-top: 1px;
+}
+
+@media only screen and (max-width: 768px) {
+  div.article-container {
+    padding: 1rem;
+  }
+}
+
+@media only screen and (max-width: 1500px) {
+  .article-sub-container {
+    display: block;
+  }
+
+  .article-header {
+    padding: 0.75rem 1rem;
+  }
 }

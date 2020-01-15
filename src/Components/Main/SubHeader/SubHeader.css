@@ -1,6 +1,55 @@
-.sub-header {
-  background-color: lightcoral;
-  /* height: 2.6rem; */
+.subheader {
+  background-color: white;
+  grid-column: 1 / span 24;
+  padding: 0.75rem 0.3rem;
+  border-bottom: 1px solid #edeff1;
+}
+
+.topic-subheader {
+  text-align: left;
+  max-width: calc(1024px - 2rem);
+  padding: 1.5rem 1rem;
+  margin: 0 auto;
+  display: flex;
+}
+
+.topic-subhead-text {
+  align-self: center;
+  margin-left: 1em;
+}
+
+.topic-image-container {
+  background-color: #f0f0f0;
+  min-width: 5em;
+  min-height: 5em;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+}
+
+img.topic-image {
+  width: 3em;
+  height: 3em;
+  align-self: center;
+  position: relative;
+  top: -0.15rem;
+  left: 0.05rem;
+}
+
+h1.topic-subheader {
+  font-size: 1.75rem;
+}
+
+p.topic-uri {
+  font-size: 0.875rem;
+  color: #7c7c7c;
+  margin-top: 0.2rem;
+}
+
+.sub-navigation {
+  max-width: 1024px;
+  text-align: left;
+  margin: 0 auto;
 }
 
 .sub-navigation li {
@@ -16,4 +65,10 @@
 
 .sub-navigation li a svg {
   margin-right: 0.25rem;
+}
+
+@media only screen and (max-width: 480px) {
+  .sub-navigation {
+    text-align: center;
+  }
 }

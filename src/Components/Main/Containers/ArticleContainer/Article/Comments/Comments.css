@@ -1,5 +1,6 @@
-.comments {
-  background-color: yellowgreen;
+.sort-comments-form {
+  margin: 0 1em;
+  border-bottom: 1px solid #edeff1;
 }
 
 .comment {
@@ -8,7 +9,7 @@
 }
 
 .comment-left-column {
-  padding: 0 0.7rem;
+  padding: 0 1.1rem;
   overflow: hidden;
 }
 

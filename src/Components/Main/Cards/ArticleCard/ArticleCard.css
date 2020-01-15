@@ -1,5 +1,41 @@
 .article-card {
-  background-color: teal;
-  margin-bottom: 1em;
-  width: 100%;
+  display: flex;
+}
+
+.article-left-column {
+  padding: 1rem 0.7rem;
+}
+
+.article-card-left-column {
+  padding: 1rem 0.7rem;
+  background-color: #f8f9fa;
+  border-radius: 4px 0 0 4px;
+}
+
+.article-right-column {
+  padding: 1rem 0.7rem;
+  text-align: left;
+}
+
+.article-subhead-topic {
+  font-weight: 700;
+}
+
+.article-card-title {
+  padding: 0.7rem 0;
+}
+
+.article-body {
+  font-size: 1.25rem;
+  font-weight: 500;
+  padding: 0.7rem 1rem 0.7rem 0;
+}
+
+.article-subfoot {
+  color: #878a8c;
+  font-weight: 700;
+}
+
+.article-subfoot svg {
+  margin-right: 0.25rem;
 }

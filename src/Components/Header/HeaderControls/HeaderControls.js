@@ -1,11 +1,15 @@
-import React, { createRef } from 'react';
+import React, { useState } from 'react';
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
 import MainNavigation from '../MainNavigation/MainNavigation';
 import './HeaderControls.css';
 
-const drawerControl = createRef();
-
 const HeaderControls = () => {
+  const [open, setOpen] = useState(false);
+
+  const toggleDrawer = event => {
+    setOpen(event.target.checked || false);
+  };
+
   return (
     <form className="main-header-controls">
       <label className="toggle-switch">
@@ -13,14 +17,19 @@ const HeaderControls = () => {
         <span className="slider"></span>
       </label>
       <label className="hambuger-menu">
-        <Icon icon="bars" size="lg" className="hambuger-icon" />
+        <Icon
+          icon={open ? 'times' : 'bars'}
+          size="lg"
+          className="hambuger-icon"
+        />
         <input
           type="checkbox"
-          ref={drawerControl}
           id="toggleDrawer"
           aria-label="Toggle Main Menu"
+          checked={open}
+          onChange={toggleDrawer}
         />
-        <MainNavigation drawerControl={drawerControl} />
+        <MainNavigation toggleDrawer={toggleDrawer} />
       </label>
     </form>
   );

@@ -20,7 +20,7 @@ const ArticleContainer = ({ children }) => {
   });
 
   return (
-    <div className="article-container main-container">
+    <>
       <div className="article-header">
         <h2>{article.title}</h2>
         <button className="article-close" onClick={() => window.history.back()}>
@@ -28,9 +28,13 @@ const ArticleContainer = ({ children }) => {
           <span>CLOSE</span>
         </button>
       </div>
-      <Article article={article} />
-      {children}
-    </div>
+      <div className="article-container">
+        <div className="article-sub-container">
+          <Article article={article} />
+          {children}
+        </div>
+      </div>
+    </>
   );
 };
 

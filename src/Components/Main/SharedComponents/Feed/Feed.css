@@ -1,10 +1,42 @@
 .feed {
-  background-color: mediumvioletred;
   grid-area: main-section-content;
-  padding: 1em;
 }
 
-ul.feed-list li:last-child .article-card {
-  background-color: tomato !important;
+ul.feed-list li.topic-list-subhead {
+  padding: 1em;
+  text-align: left;
+  border: 1px solid #ccc;
+  border-radius: 4px 4px 0 0;
+  background-color: #f6f7f8;
+}
+
+ul.feed-list li.topic-list-item {
+  background-color: white;
+  border: 1px solid #ccc;
+  border-top: none;
+}
+
+ul.feed-list li.topic-list-item:last-child {
+  border-radius: 0 0 4px 4px;
+}
+
+ul.feed-list li.article-list-item {
+  margin-bottom: 1em;
+  border-radius: 4px;
+  background-color: white;
+  border: 1px solid #ccc;
+}
+
+ul.feed-list li.article-list-item:hover {
+  border: 1px solid #878a8c;
+}
+
+ul.feed-list li.article-list-item:last-child {
   margin-bottom: 0;
+}
+
+@media only screen and (max-width: 1024px) {
+  .feed {
+    padding: 1em;
+  }
 }

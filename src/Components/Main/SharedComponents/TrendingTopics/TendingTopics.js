@@ -1,5 +1,5 @@
 import React from 'react';
-import TopicCard from '../../Cards/TopicCard/TopicCard';
+import TopicCard from '../../Cards/TopicCards/TopicCard/TopicCard';
 import './TrendingTopics.css';
 
 const TendingTopics = () => {

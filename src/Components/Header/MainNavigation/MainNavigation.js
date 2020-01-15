@@ -3,11 +3,7 @@ import { Link } from '@reach/router';
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
 import './MainNavigation.css';
 
-const MainNavigation = ({ drawerControl }) => {
-  const toggleDrawer = () => {
-    drawerControl.current.checked = false;
-  };
-
+const MainNavigation = ({ toggleDrawer }) => {
   return (
     <nav className="main-navigation">
       <h2>

@@ -1,5 +1,6 @@
 nav.main-navigation {
-  background-color: royalblue;
+  background-color: white;
+  border-left: 2px solid whitesmoke;
   position: absolute;
   z-index: 1;
   top: 0;
@@ -41,6 +42,7 @@ nav.main-navigation {
 
 #toggleDrawer:checked + nav.main-navigation {
   transform: translateX(-20vw);
+  box-shadow: 0 0 10rem black;
   display: unset;
 }
 

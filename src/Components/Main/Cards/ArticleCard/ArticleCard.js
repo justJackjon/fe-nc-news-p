@@ -1,25 +1,34 @@
 import React from 'react';
-import Button from '../../../Controls/Buttons/Button';
+import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
 import VoteControl from '../../../Controls/VoteControls/VoteControl';
 import './ArticleCard.css';
 
-const ArticleCard = () => {
+const ArticleCard = ({ article, mainArticle }) => {
   return (
     <article className="article-card">
-      <h3>ARTICLE CARD</h3>
-      <VoteControl className="vote-control inc-votes" />
-      <br />
-      <Button className="btn-sm btn-solid">BUTTON</Button>
-      <Button className="btn-md btn-solid">BUTTON</Button>
-      <Button className="btn-lg btn-solid">BUTTON</Button>
-      <br />
-      <Button className="btn-sm btn-regular">BUTTON</Button>
-      <Button className="btn-md btn-regular">BUTTON</Button>
-      <Button className="btn-lg btn-regular">BUTTON</Button>
-      <br />
-      <Button className="btn-sm btn-secondary">BUTTON</Button>
-      <Button className="btn-md btn-secondary">BUTTON</Button>
-      <Button className="btn-lg btn-secondary">BUTTON</Button>
+      <div
+        className={
+          mainArticle ? 'article-left-column' : 'article-card-left-column'
+        }
+      >
+        <VoteControl voteCount={article.votes} className="inc-votes" />
+      </div>
+      <div className="article-right-column">
+        <p className="article-subhead">
+          <span className="article-subhead-topic">{article.topic}</span>
+          <span className="article-subhead-author">{` • Posted by ${article.author}`}</span>
+        </p>
+        {!mainArticle && (
+          <h2 className="article-card-title">{article?.title}</h2>
+        )}
+        <p className="article-body">{article.body}</p>
+        <p className="article-subfoot">
+          <span className="article-subfoot-comcount">
+            <Icon icon="comment"></Icon>
+            {`${article.comment_count} Comments`}
+          </span>
+        </p>
+      </div>
     </article>
   );
 };

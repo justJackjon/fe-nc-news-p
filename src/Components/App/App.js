@@ -12,13 +12,16 @@ import {
   faTimes,
   faAngleUp,
   faAngleDown,
-  faComment
+  faComment,
+  faImage
 } from '@fortawesome/free-solid-svg-icons';
 
 import Header from '../Header/Header';
 import Main from '../Main/Main';
 
+import './reset.css';
 import './App.css';
+import '../Controls/Buttons/Buttons.css';
 
 library.add(
   faBars,
@@ -31,7 +34,8 @@ library.add(
   faTimes,
   faAngleUp,
   faAngleDown,
-  faComment
+  faComment,
+  faImage
 );
 
 export class App extends Component {

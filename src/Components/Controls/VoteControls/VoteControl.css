@@ -9,11 +9,12 @@
 }
 
 .vote-control svg {
-  padding: 6px;
+  color: #878a8c;
+  padding: 2px;
 }
 
 .vote-control.inc-votes svg {
-  padding: 8px;
+  padding: 4px;
 }
 
 .upvote-control:hover {
@@ -22,4 +23,14 @@
 
 .downvote-control:hover {
   color: crimson;
+}
+
+@media only screen and (max-width: 1024px) {
+  .vote-control svg {
+    padding: 7px;
+  }
+
+  .vote-control.inc-votes svg {
+    padding: 8px;
+  }
 }

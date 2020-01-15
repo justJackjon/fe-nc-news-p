@@ -1,0 +1,40 @@
+.topic-list-container {
+  text-align: left;
+  max-width: calc(1024px - 2rem);
+  padding: 1rem 1rem;
+  margin: 0 auto;
+  display: flex;
+}
+
+.topic-list-text {
+  align-self: center;
+  margin-left: 1em;
+}
+
+.topic-list-image-container {
+  background-color: #f0f0f0;
+  min-width: 3rem;
+  min-height: 3rem;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+}
+
+img.topic-list-image {
+  width: 2rem;
+  height: 2rem;
+  align-self: center;
+  position: relative;
+  top: -0.15rem;
+  left: 0.05rem;
+}
+
+h1.topic-list-slug {
+  font-size: 1.75rem;
+}
+
+p.topic-list-desc {
+  font-size: 0.875rem;
+  color: #7c7c7c;
+  margin-top: 0.2rem;
+}

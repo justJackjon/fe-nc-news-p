@@ -1,4 +1,9 @@
-.main-container {
+.main-content {
+  grid-column: 1 / span 24;
+}
+
+.main-content-container {
+  width: 100%;
   max-width: 1024px;
   margin: 0 auto;
 
@@ -13,7 +18,7 @@
 }
 
 @media only screen and (max-width: 1024px) {
-  .main-container {
-    display: unset;
+  .main-content-container {
+    display: block;
   }
 }
