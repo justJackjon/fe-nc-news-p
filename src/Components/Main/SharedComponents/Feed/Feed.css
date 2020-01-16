@@ -2,7 +2,7 @@
   grid-area: main-section-content;
 }
 
-ul.feed-list li.topic-list-subhead {
+ul.feed-list li.list-subhead {
   padding: 1em;
   text-align: left;
   border: 1px solid #ccc;
@@ -10,13 +10,13 @@ ul.feed-list li.topic-list-subhead {
   background-color: #f6f7f8;
 }
 
-ul.feed-list li.topic-list-item {
+ul.feed-list li.list-item {
   background-color: white;
   border: 1px solid #ccc;
   border-top: none;
 }
 
-ul.feed-list li.topic-list-item:last-child {
+ul.feed-list li.list-item:last-child {
   border-radius: 0 0 4px 4px;
 }
 

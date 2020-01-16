@@ -1,8 +1,37 @@
 .topic-card {
-  width: 236px;
+  width: 244px;
   height: 175px;
+  background-color: #dae0e6;
+  border-radius: 10px;
+}
+
+.topic-card-overlay {
+  position: relative;
+  display: block;
+  width: 244px;
+  height: 175px;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 0;
+  cursor: pointer;
+  border-radius: 10px;
+}
+
+.topic-card-content {
+  color: white;
+  height: 100%;
+  white-space: normal;
+  box-sizing: border-box;
+  padding: 2em;
   display: flex;
+  flex-direction: column;
+  align-content: center;
   justify-content: center;
-  align-items: center;
-  background-color: tomato;
+}
+
+.trending-topic-title {
+  color: white;
+}
+
+.trending-topic-desc {
+  margin-top: 0.15rem;
 }

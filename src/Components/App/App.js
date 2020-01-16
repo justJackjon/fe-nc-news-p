@@ -13,7 +13,8 @@ import {
   faAngleUp,
   faAngleDown,
   faComment,
-  faImage
+  faImage,
+  faAngleDoubleRight
 } from '@fortawesome/free-solid-svg-icons';
 
 import Header from '../Header/Header';
@@ -35,7 +36,8 @@ library.add(
   faAngleUp,
   faAngleDown,
   faComment,
-  faImage
+  faImage,
+  faAngleDoubleRight
 );
 
 export class App extends Component {

@@ -133,6 +133,53 @@ export class Main extends Component {
       {
         slug: 'cooking',
         description: 'Hey good looking, what you got cooking?'
+      },
+      {
+        slug: 'NASA',
+        description:
+          'Explore the universe and discover our home planet with NASA.'
+      },
+      {
+        slug: 'National Geographic',
+        description:
+          'Bringing the world to your coffee table since 1888. Let’s explore.'
+      }
+    ],
+    users: [
+      {
+        username: 'tickle122',
+        avatar_url:
+          'https://www.spiritsurfers.net/monastery/wp-content/uploads/_41500270_mrtickle.jpg',
+        name: 'Tom Tickle'
+      },
+      {
+        username: 'grumpy19',
+        avatar_url:
+          'https://www.tumbit.com/profile-image/4/original/mr-grumpy.jpg',
+        name: 'Paul Grump'
+      },
+      {
+        username: 'happyamy2016',
+        avatar_url:
+          'https://vignette1.wikia.nocookie.net/mrmen/images/7/7f/Mr_Happy.jpg/revision/latest?cb=20140102171729',
+        name: 'Amy Happy'
+      },
+      {
+        username: 'cooljmessy',
+        avatar_url: 'https://i.imgur.com/WfX0Neu.jpg',
+        name: 'Peter Messy'
+      },
+      {
+        username: 'weegembump',
+        avatar_url:
+          'https://www.upandrunning.co.uk/media/catalog/product/cache/1/image/650x/040ec09b1e35df139433887a97daa66f/m/r/mr-bump.jpg',
+        name: 'Gemma Bump'
+      },
+      {
+        username: 'jessjelly',
+        avatar_url:
+          'https://s-media-cache-ak0.pinimg.com/564x/39/62/ec/3962eca164e60cf46f979c1f57d4078b.jpg',
+        name: 'Jess Jelly'
       }
     ]
   };
@@ -140,21 +187,22 @@ export class Main extends Component {
 
   render() {
     const { windowWidth } = this.context;
-    const { articles, topics } = this.state;
+    const { articles, topics, users } = this.state;
 
     const HomePage = () => {
       return (
         <>
           <SubHeader />
           <HomeFeedContainer>
-            {windowWidth > 480 && <TrendingTopics />}
+            {windowWidth > 480 && <TrendingTopics topics={topics} />}
             {windowWidth > 1024 && <SideBar />}
             <Feed dataType="articles" articles={articles} />
           </HomeFeedContainer>
         </>
       );
     };
-    const TopicPage = props => {
+
+    const TopicsPage = props => {
       return (
         <>
           <SubHeader parent={props} />
@@ -165,18 +213,20 @@ export class Main extends Component {
         </>
       );
     };
+
     const ArticlePage = () => {
       return (
         <ArticleContainer>{windowWidth > 1500 && <SideBar />}</ArticleContainer>
       );
     };
-    const UserPage = () => {
+
+    const UsersPage = () => {
       return (
         <>
           <SubHeader />
           <UserContainer>
             {windowWidth > 1024 && <SideBar />}
-            <Feed dataType="articles" articles={articles} />
+            <Feed dataType="users" users={users} />
           </UserContainer>
         </>
       );
@@ -186,9 +236,9 @@ export class Main extends Component {
       <main className="main">
         <Router className="main-router" primary={false}>
           <HomePage path="/" />
-          <TopicPage path="/topics/:topic" />
+          <TopicsPage path="/topics/:topic" />
           <ArticlePage path="/articles" />
-          <UserPage path="/users" />
+          <UsersPage path="/users" />
         </Router>
       </main>
     );

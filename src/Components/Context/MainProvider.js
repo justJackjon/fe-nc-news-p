@@ -27,7 +27,6 @@ export class MainProvider extends Component {
       windowWidth: window.innerWidth,
       windowHeight: window.innerHeight
     });
-    console.log('doin tings');
   };
 
   componentDidUpdate() {

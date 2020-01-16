@@ -1,7 +1,7 @@
 .trending-topics {
-  background-color: mediumpurple;
   grid-area: main-section-header;
-  padding: 1em;
+  margin-top: 1em;
+  position: relative;
 }
 
 .topic-list {
@@ -9,6 +9,7 @@
   overflow-x: scroll;
   overflow-y: hidden;
   scrollbar-width: none;
+  display: flex;
 }
 
 .topic-list::-webkit-scrollbar {
@@ -21,7 +22,40 @@
   margin-right: 1rem;
 }
 
-ul.topic-list li:last-child div.topic-card {
-  background-color: palegreen;
+ul.topic-list li.topic-item:last-child {
+  background-color: #dae0e6;
   margin-right: 0;
+}
+
+.view-more-right {
+  background-color: rgba(255, 255, 255, 0.6);
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  top: calc(50% - 20px);
+  right: 0.5em;
+  border-radius: 50%;
+  z-index: 0;
+  cursor: pointer;
+}
+
+.view-more-right:hover {
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
+.view-more-right svg {
+  color: #bd1732;
+  align-self: center;
+}
+
+@media only screen and (max-width: 1024px) {
+  .trending-topics {
+    padding: 0 1em;
+  }
+
+  .view-more-right {
+    right: 1.5em;
+  }
 }

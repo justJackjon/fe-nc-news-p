@@ -12,6 +12,12 @@
 a {
   text-decoration: none;
   color: inherit;
+  font-size: inherit;
+}
+
+p {
+  font-size: 0.875rem;
+  line-height: 1.3125rem;
 }
 
 a svg {
@@ -19,8 +25,9 @@ a svg {
 }
 
 h1 {
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   font-weight: 700;
+  line-height: 1.5rem;
 }
 
 h2 {
@@ -32,4 +39,5 @@ h2 {
 h3 {
   font-size: 1rem;
   font-weight: 500;
+  line-height: normal;
 }

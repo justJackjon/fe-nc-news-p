@@ -22,7 +22,7 @@ const ArticleContainer = ({ children }) => {
   return (
     <>
       <div className="article-header">
-        <h2>{article.title}</h2>
+        <h1>{article.title}</h1>
         <button className="article-close" onClick={() => window.history.back()}>
           <Icon icon="times" />
           <span>CLOSE</span>

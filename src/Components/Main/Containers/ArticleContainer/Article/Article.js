@@ -1,5 +1,4 @@
 import React from 'react';
-import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
 
 import ArticleCard from '../../../Cards/ArticleCard/ArticleCard';
 import Comments from './Comments/Comments';
