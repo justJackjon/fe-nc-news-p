@@ -1,6 +1,30 @@
+.main {
+  min-height: calc(100vh - 45.6px);
+}
+
 .main-router {
   display: grid;
   grid-template-columns: repeat(24, 1fr);
+}
+
+.loading {
+  min-height: calc(100vh - 45.6px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.loading * {
+  color: #878a8c;
+  align-self: center;
+}
+
+.loading svg {
+  padding: 1rem;
+}
+
+.loading h1 {
+  margin: 1rem 0 3.5rem 0;
 }
 
 @media only screen and (max-width: 768px) {

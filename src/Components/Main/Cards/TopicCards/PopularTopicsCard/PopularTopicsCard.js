@@ -1,6 +1,6 @@
 import React from 'react';
 
-const PopularTopics = () => {
+const PopularTopicsCard = () => {
   return (
     <section className="popular-topics">
       <h2>POPULAR TOPICS</h2>
@@ -8,4 +8,4 @@ const PopularTopics = () => {
   );
 };
 
-export default PopularTopics;
+export default PopularTopicsCard;

@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { MainContext } from '../Context/MainProvider';
 import { Router } from '@reach/router';
+import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
+import * as api from '../../api';
 
 import SubHeader from './SubHeader/SubHeader';
 import HomeFeedContainer from './Containers/HomeFeedContainer/HomeFeedContainer';
@@ -15,7 +17,9 @@ import SideBar from './SharedComponents/SideBar/SideBar';
 import './Main.css';
 
 export class Main extends Component {
+  static contextType = MainContext;
   state = {
+    isLoading: true,
     articles: [
       {
         article_id: 6,
@@ -183,11 +187,16 @@ export class Main extends Component {
       }
     ]
   };
-  static contextType = MainContext;
+
+  componentDidMount() {
+    api.getArticles().then(articles => {
+      this.setState({ articles, isLoading: false });
+    });
+  }
 
   render() {
     const { windowWidth } = this.context;
-    const { articles, topics, users } = this.state;
+    const { isLoading, articles, topics, users } = this.state;
 
     const HomePage = () => {
       return (
@@ -234,12 +243,19 @@ export class Main extends Component {
 
     return (
       <main className="main">
-        <Router className="main-router" primary={false}>
-          <HomePage path="/" />
-          <TopicsPage path="/topics/:topic" />
-          <ArticlePage path="/articles" />
-          <UsersPage path="/users" />
-        </Router>
+        {isLoading ? (
+          <div className="loading">
+            <Icon icon="spinner" size="4x" pulse />
+            <h1>LOADING JUICY ARTICLES...</h1>
+          </div>
+        ) : (
+          <Router className="main-router" primary={false}>
+            <HomePage path="/" />
+            <TopicsPage path="/topics/:topic" />
+            <ArticlePage path="/articles" />
+            <UsersPage path="/users" />
+          </Router>
+        )}
       </main>
     );
   }

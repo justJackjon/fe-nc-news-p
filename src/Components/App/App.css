@@ -5,7 +5,11 @@
   /* background-color: #2e2f30; */
   background-color: #dae0e6;
   font-family: 'IBM Plex Sans', Arial, sans-serif;
-  height: 100vh;
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
   overflow-x: hidden;
 }
 

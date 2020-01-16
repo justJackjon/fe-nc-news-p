@@ -1,5 +1,6 @@
 .feed {
   grid-area: main-section-content;
+  padding-bottom: 1em;
 }
 
 ul.feed-list li.list-subhead {

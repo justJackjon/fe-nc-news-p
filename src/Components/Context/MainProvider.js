@@ -6,7 +6,6 @@ export class MainProvider extends Component {
   loadMainState = this.loadState.call(this, 'MainContext'); // saveState/loadState is also passed via the Context API
   saveMainState = this.saveState.bind(this, 'MainContext'); // to other components, so we implicitly bind it here.
   state = this.loadMainState || {
-    displayMode: 'light',
     windowWidth: 0,
     windowHeight: 0
   };
@@ -37,6 +36,7 @@ export class MainProvider extends Component {
     return (
       <MainContext.Provider
         value={{
+          loggedInUser: this.state.loggedInUser,
           displayMode: this.state.displayMode,
           windowWidth: this.state.windowWidth,
           windowHeight: this.state.windowHeight,

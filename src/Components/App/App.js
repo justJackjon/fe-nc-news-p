@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { MainProvider } from '../Context/MainProvider';
 import { MainContext } from '../Context/MainProvider';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {
@@ -14,7 +15,8 @@ import {
   faAngleDown,
   faComment,
   faImage,
-  faAngleDoubleRight
+  faAngleDoubleRight,
+  faSpinner
 } from '@fortawesome/free-solid-svg-icons';
 
 import Header from '../Header/Header';
@@ -37,7 +39,8 @@ library.add(
   faAngleDown,
   faComment,
   faImage,
-  faAngleDoubleRight
+  faAngleDoubleRight,
+  faSpinner
 );
 
 export class App extends Component {
@@ -51,10 +54,12 @@ export class App extends Component {
 
   render() {
     return (
+      // <MainProvider>
       <div className="App">
         <Header />
         <Main />
       </div>
+      // </MainProvider>
     );
   }
 }

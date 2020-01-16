@@ -1,6 +1,6 @@
 import React from 'react';
 
-const TopAuthors = () => {
+const TopAuthorsCard = () => {
   return (
     <section className="top-authors">
       <h2>TOP AUTHORS</h2>
@@ -8,4 +8,4 @@ const TopAuthors = () => {
   );
 };
 
-export default TopAuthors;
+export default TopAuthorsCard;

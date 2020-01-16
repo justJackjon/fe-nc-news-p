@@ -1,8 +1,8 @@
 import React from 'react';
 import './SideBar.css';
-import UserProfile from './UserProfile/UserProfile';
-import TopAuthors from './TopAuthors/TopAuthors';
-import PopularTopics from './PopularTopics/PopularTopics';
+import UserProfileCard from '../../Cards/UserCards/UserProfileCard/UserProfileCard';
+import TopUsersCard from '../../Cards/UserCards/TopUsersCard/TopUsersCard';
+import PopularTopicsCard from '../../Cards/TopicCards/PopularTopicsCard/PopularTopicsCard';
 import Footer from '../../../Footer/Footer';
 
 const SideBar = () => {
@@ -11,13 +11,13 @@ const SideBar = () => {
       <ul className="sidebar-content">
         <h2>SIDEBAR</h2>
         <li>
-          <UserProfile />
+          <UserProfileCard />
         </li>
         <li>
-          <TopAuthors />
+          <TopUsersCard />
         </li>
         <li>
-          <PopularTopics />
+          <PopularTopicsCard />
         </li>
         <li>
           <Footer />
