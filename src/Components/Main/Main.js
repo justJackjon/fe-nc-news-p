@@ -207,7 +207,7 @@ export class Main extends Component {
     const ComposedSideBar = () => (
       <SideBar>
         <UserProfileCard />
-        {windowHeight > 960 && <TopUsersCard users={users?.slice(0, 5)} />}
+        {windowHeight > 945 && <TopUsersCard users={users?.slice(0, 5)} />}
         {/* <PopularTopicsCard /> */}
       </SideBar>
     );
@@ -216,7 +216,8 @@ export class Main extends Component {
       <>
         <SubHeader />
         <HomeFeedContainer>
-          {windowWidth > 480 && <TrendingTopics topics={topics} />}
+          {/* {windowWidth > 480 && <TrendingTopics topics={topics} />} */}
+          <TrendingTopics topics={topics} />
           {windowWidth > 1024 && <ComposedSideBar />}
           <Feed dataType="articles" articles={articles} />
         </HomeFeedContainer>

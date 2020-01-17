@@ -1,5 +1,5 @@
 .main {
-  min-height: calc(100vh - 45.6px);
+  min-height: 100vh;
 }
 
 .main-router {
@@ -11,7 +11,9 @@
 }
 
 .loading {
-  min-height: calc(100vh - 45.6px);
+  min-height: calc(100vh - 48px);
+  position: relative;
+  top: 48px;
   display: flex;
   flex-direction: column;
   justify-content: center;

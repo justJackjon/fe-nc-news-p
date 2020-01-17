@@ -59,3 +59,9 @@ ul.topic-list li.topic-item:last-child {
     right: 1.5em;
   }
 }
+
+@media only screen and (max-width: 480px) {
+  .trending-topics {
+    margin-top: 1em;
+  }
+}
