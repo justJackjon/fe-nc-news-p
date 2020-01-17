@@ -17,7 +17,7 @@ const Footer = () => {
       </a>
       <h4>
         Created for educational purposes at{' '}
-        <span class="northcoders">
+        <span className="northcoders">
           <span>N</span>ORTHCODERS
         </span>
       </h4>
