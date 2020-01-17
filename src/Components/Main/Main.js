@@ -240,9 +240,9 @@ export class Main extends Component {
       </ArticleContainer>
     );
 
-    const UsersPage = () => (
+    const UsersPage = props => (
       <>
-        <SubHeader />
+        <SubHeader parent={props} />
         <UserContainer>
           {windowWidth > 1024 && <ComposedSideBar />}
           <Feed dataType="users" users={users} />
@@ -262,7 +262,7 @@ export class Main extends Component {
             <HomePage path="/" />
             <TopicsPage path="/topics/:topic" />
             <ArticlePage path="/articles" />
-            <UsersPage path="/users" />
+            <UsersPage path="/users/:user" />
           </Router>
         )}
       </main>
