@@ -5,7 +5,7 @@
 .sidebar-content-sticky {
   width: 312px;
   position: fixed;
-  top: 1rem;
+  top: calc(1rem + 48px);
 }
 
 .sidebar-content li {
@@ -20,5 +20,5 @@
 }
 
 ul.sidebar-content li:last-child {
-  margin-bottom: 1em;
+  margin-bottom: 5em;
 }

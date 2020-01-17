@@ -200,14 +200,14 @@ export class Main extends Component {
   }
 
   render() {
-    const { windowWidth } = this.context;
+    const { windowWidth, windowHeight } = this.context;
     const { isLoading, articles, topics, users } = this.state;
 
     // At a later stage different sidebar compositions (with different card combinations) can be added.
     const ComposedSideBar = () => (
       <SideBar>
         <UserProfileCard />
-        <TopUsersCard users={users?.slice(0, 5)} />
+        {windowHeight > 960 && <TopUsersCard users={users?.slice(0, 5)} />}
         {/* <PopularTopicsCard /> */}
       </SideBar>
     );

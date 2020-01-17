@@ -1,8 +1,9 @@
 .main-header-controls {
-  padding-top: 1px;
+  padding: 1px 1rem 0;
   display: flex;
   justify-content: center;
   align-items: center;
+  height: inherit;
 }
 
 label.toggle-switch:before {
@@ -91,5 +92,9 @@ label.toggle-switch:before {
 
   .toggle-switch {
     margin-left: 37px;
+  }
+
+  .main-header-controls {
+    padding-right: 0.3rem;
   }
 }

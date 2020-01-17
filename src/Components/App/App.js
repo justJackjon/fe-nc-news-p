@@ -18,7 +18,7 @@ import {
   faSpinner,
   faCaretUp
 } from '@fortawesome/free-solid-svg-icons';
-import { faGithub } from '@fortawesome/free-brands-svg-icons';
+import { faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons';
 
 import Header from '../Header/Header';
 import Main from '../Main/Main';
@@ -43,7 +43,8 @@ library.add(
   faAngleDoubleRight,
   faSpinner,
   faCaretUp,
-  faGithub
+  faGithub,
+  faLinkedin
 );
 
 export class App extends Component {

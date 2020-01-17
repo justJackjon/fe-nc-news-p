@@ -16,8 +16,13 @@
   border-radius: 10px;
 }
 
+.topic-card-overlay:hover {
+  background-color: rgba(0, 0, 0, 0.45);
+}
+
 .topic-card-content {
   color: white;
+  text-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.4), 0 0 2rem rgba(0, 0, 0, 0.4);
   height: 100%;
   white-space: normal;
   box-sizing: border-box;
@@ -26,6 +31,10 @@
   flex-direction: column;
   align-content: center;
   justify-content: center;
+}
+
+.topic-card p {
+  letter-spacing: 0.03125rem;
 }
 
 .trending-topic-title {

@@ -13,10 +13,12 @@ const TendingTopics = ({ topics }) => {
         'wheel',
         event => {
           event.preventDefault();
-          topicList.current.scrollBy({
-            left: event.deltaY > 0 ? +250 : -250,
-            behavior: 'smooth'
-          });
+          if (topicList) {
+            topicList.current.scrollBy({
+              left: event.deltaY > 0 ? +250 : -250,
+              behavior: 'smooth'
+            });
+          }
         },
         { passive: false }
       ),

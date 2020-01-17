@@ -5,6 +5,9 @@
 .main-router {
   display: grid;
   grid-template-columns: repeat(24, 1fr);
+  position: relative;
+  top: 48px;
+  margin-bottom: 3.5rem;
 }
 
 .loading {

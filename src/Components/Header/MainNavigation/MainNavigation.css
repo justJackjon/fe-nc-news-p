@@ -1,14 +1,21 @@
 nav.main-navigation {
+  box-sizing: border-box;
   background-color: white;
-  border-left: 2px solid whitesmoke;
-  position: absolute;
+  border-left: 1px solid #edeff1;
+  position: fixed;
   z-index: 1;
   top: 0;
-  right: -20vw;
   height: 200vh;
-  width: 20vw;
+  width: 20rem;
+  right: -20rem;
   overflow: hidden;
   transition: 0.4s;
+}
+
+#toggleDrawer:checked + nav.main-navigation {
+  transform: translateX(-20rem);
+  box-shadow: 0 0 10rem black;
+  display: unset;
 }
 
 .main-navigation h2 {
@@ -40,27 +47,10 @@ nav.main-navigation {
   margin-right: 0.25rem;
 }
 
-#toggleDrawer:checked + nav.main-navigation {
-  transform: translateX(-20vw);
-  box-shadow: 0 0 10rem black;
-  display: unset;
-}
-
-@media only screen and (max-width: 768px) {
-  nav.main-navigation {
-    right: -45vw;
-    width: 45vw;
-  }
-
-  #toggleDrawer:checked + nav.main-navigation {
-    transform: translateX(-45vw);
-  }
-}
-
 @media only screen and (max-width: 480px) {
   nav.main-navigation {
-    right: -80vw;
     width: 80vw;
+    right: -80vw;
   }
 
   nav.main-navigation h2 {
