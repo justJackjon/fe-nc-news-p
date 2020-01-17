@@ -22,7 +22,7 @@ const SideBar = ({ children }) => {
           child?.type?.name ? <li key={child.type.name}>{child}</li> : undefined
         )}
         <li>
-          <Footer />
+          <Footer displayLocation="sidebar" />
         </li>
       </ul>
     </aside>

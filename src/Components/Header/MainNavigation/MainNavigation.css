@@ -1,19 +1,19 @@
-nav.main-navigation {
+.main-navigation {
   box-sizing: border-box;
   background-color: white;
   border-left: 1px solid #edeff1;
   position: fixed;
   z-index: 1;
   top: 0;
-  height: 200vh;
-  width: 20rem;
-  right: -20rem;
+  height: 100vh;
+  width: calc(312px + 2rem);
+  right: calc(-312px - 2rem);
   overflow: hidden;
   transition: 0.4s;
 }
 
-#toggleDrawer:checked + nav.main-navigation {
-  transform: translateX(-20rem);
+#toggleDrawer:checked + .main-navigation {
+  transform: translateX(calc(-312px - 2rem));
   box-shadow: 0 0 10rem black;
   display: unset;
 }
@@ -48,16 +48,16 @@ nav.main-navigation {
 }
 
 @media only screen and (max-width: 480px) {
-  nav.main-navigation {
-    width: 80vw;
-    right: -80vw;
+  .main-navigation {
+    width: 82.5vw;
+    right: -82.5vw;
   }
 
-  nav.main-navigation h2 {
+  .main-navigation h2 {
     margin-top: 11.5vh;
   }
 
-  #toggleDrawer:checked + nav.main-navigation {
-    transform: translateX(-80vw);
+  #toggleDrawer:checked + .main-navigation {
+    transform: translateX(-82.5vw);
   }
 }

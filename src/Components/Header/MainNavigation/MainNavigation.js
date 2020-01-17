@@ -1,11 +1,12 @@
 import React from 'react';
 import { Link } from '@reach/router';
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
+import Footer from '../../Footer/Footer';
 import './MainNavigation.css';
 
 const MainNavigation = ({ toggleDrawer }) => {
   return (
-    <nav className="main-navigation">
+    <div className="main-navigation">
       <h2>
         <Icon icon="compass" />
         NAVIGATION
@@ -42,7 +43,8 @@ const MainNavigation = ({ toggleDrawer }) => {
           </Link>
         </li>
       </ul>
-    </nav>
+      <Footer displayLocation="main-navigation" />
+    </div>
   );
 };
 

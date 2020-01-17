@@ -4,17 +4,34 @@
   line-height: 1.25rem;
 }
 
+.main-navigation-footer {
+  position: absolute;
+  bottom: 0;
+  z-index: 1;
+  box-sizing: border-box;
+  padding: 1.25rem;
+  margin: 0 1rem;
+  width: 312px;
+  border-top: 1px solid silver;
+  font-size: 0.7rem;
+  line-height: 1.25rem;
+}
+
+.main-navigation-footer > h4 {
+  font-weight: 400;
+}
+
 .ncnews-footer-logo {
-  width: 28%;
+  width: 75.8px;
   margin-right: 0.25rem;
 }
 
-.sidebar-footer > h3 {
+footer > h3 {
   display: inline-block;
   color: #1a1a1b;
 }
 
-.icons-horizontal-rule {
+.sidebar-icons-hr {
   display: inline-block;
   width: 85px;
   margin: 0 0.5rem 0.3rem;
@@ -22,12 +39,29 @@
   border-top: 1px dotted silver;
 }
 
-.footer-icons svg {
+.main-navigation-icons-hr {
+  display: inline-block;
+  width: 65px;
+  margin: 0 0.5rem 1.1rem;
+  border: none;
+  border-top: 1px dotted silver;
+}
+
+.sidebar-footer-icons svg {
   color: #1a1a1b;
   margin: 0.4rem 0.3rem 0.1rem;
 }
 
-.footer-icons svg:hover {
+.main-navigation-footer-icons svg {
+  color: #1a1a1b;
+  margin: 0.5rem;
+}
+
+.sidebar-footer-icons svg:hover {
+  color: #bd1732;
+}
+
+.main-navigation-footer-icons svg:hover {
   color: #bd1732;
 }
 
@@ -38,4 +72,14 @@ footer .northcoders {
 
 footer .northcoders::first-letter {
   color: #bd1732;
+}
+
+@media only screen and (max-width: 480px) {
+  .main-navigation-footer {
+    width: calc(82.5vw - 2rem);
+  }
+
+  .main-navigation-icons-hr {
+    width: 10vw;
+  }
 }
