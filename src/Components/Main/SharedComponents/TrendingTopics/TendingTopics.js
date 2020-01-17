@@ -2,6 +2,7 @@ import React, { createRef, useEffect } from 'react';
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
 import TopicCard from '../../Cards/TopicCards/TopicCard/TopicCard';
 import './TrendingTopics.css';
+import Button from '../../../Controls/Buttons/Button';
 
 const TendingTopics = ({ topics }) => {
   const topicList = createRef();
@@ -41,9 +42,13 @@ const TendingTopics = ({ topics }) => {
           </li>
         ))}
       </ul>
-      <div className="view-more-right" onClick={handleClick}>
+      <Button
+        className="btn-direction view-more-right"
+        onClick={handleClick}
+        aria-label="Scroll right"
+      >
         <Icon icon="angle-double-right"></Icon>
-      </div>
+      </Button>
     </nav>
   );
 };

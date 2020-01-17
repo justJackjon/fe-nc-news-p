@@ -30,24 +30,13 @@ ul.topic-list li.topic-item:last-child {
 .view-more-right {
   background-color: rgba(255, 255, 255, 0.6);
   position: absolute;
-  width: 40px;
-  height: 40px;
-  display: flex;
-  justify-content: center;
   top: calc(50% - 20px);
   right: 0.5em;
-  border-radius: 50%;
   z-index: 0;
-  cursor: pointer;
 }
 
 .view-more-right:hover {
   background-color: rgba(255, 255, 255, 0.9);
-}
-
-.view-more-right svg {
-  color: #bd1732;
-  align-self: center;
 }
 
 @media only screen and (max-width: 1024px) {

@@ -15,6 +15,7 @@ import {
   faComment,
   faImage,
   faAngleDoubleRight,
+  faAngleDoubleUp,
   faSpinner,
   faCaretUp
 } from '@fortawesome/free-solid-svg-icons';
@@ -41,6 +42,7 @@ library.add(
   faComment,
   faImage,
   faAngleDoubleRight,
+  faAngleDoubleUp,
   faSpinner,
   faCaretUp,
   faGithub,
