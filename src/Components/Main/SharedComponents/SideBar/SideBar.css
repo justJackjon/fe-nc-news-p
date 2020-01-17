@@ -1,23 +1,24 @@
 .sidebar {
-  background-color: seagreen;
   grid-area: main-section-aside;
 }
 
-.sidebar-content {
-  padding: 1em;
-  background-color: yellowgreen;
+.sidebar-content-sticky {
+  width: 312px;
+  position: fixed;
+  top: 1rem;
 }
 
 .sidebar-content li {
-  background-color: thistle;
-  height: 250px;
+  background-color: white;
   margin-bottom: 1em;
   display: flex;
   justify-content: center;
   align-items: center;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  overflow: hidden;
 }
 
 ul.sidebar-content li:last-child {
-  background-color: tomato !important;
-  margin-bottom: 0;
+  margin-bottom: 1em;
 }

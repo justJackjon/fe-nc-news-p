@@ -1,28 +1,31 @@
 import React, { Component, createContext } from 'react';
-import { MainContext } from './MainProvider';
 
 export const UserSettingsContext = createContext();
 
 export class UserSettingsProvider extends Component {
-  static contextType = MainContext;
-  actions = this.context.actions;
-  loadUserSettingsState = this.actions.loadState.call(
-    this,
-    'UserSettingsContext'
-  );
-  saveUserSettingsState = this.actions.saveState.bind(
-    this,
-    'UserSettingsContext'
-  );
+  loadUserSettingsState = this.loadState.call(this, 'UserSettingsContext'); // saveState/loadState is also passed via the Context API
+  saveUserSettingsState = this.saveState.bind(this, 'UserSettingsContext'); // to other components, so we implicitly bind it here.
+
   state = this.loadUserSettingsState || {
     loggedInUser: {
-      username: 'tickle122',
+      username: 'grumpy19',
       avatar_url:
-        'https://www.spiritsurfers.net/monastery/wp-content/uploads/_41500270_mrtickle.jpg',
-      name: 'Tom Tickle'
+        'https://www.tumbit.com/profile-image/4/original/mr-grumpy.jpg',
+      name: 'Paul Grump'
     },
     displayMode: 'light'
   };
+
+  loadState(stateName) {
+    const state = JSON.parse(sessionStorage.getItem(stateName));
+    if (!state) return null;
+    return { ...state };
+  }
+
+  saveState(stateName, stateItems) {
+    const state = stateItems || this.state;
+    sessionStorage.setItem(stateName, JSON.stringify(state));
+  }
 
   componentDidUpdate() {
     this.saveUserSettingsState();
@@ -33,7 +36,11 @@ export class UserSettingsProvider extends Component {
       <UserSettingsContext.Provider
         value={{
           loggedInUser: this.state.loggedInUser,
-          displayMode: this.state.displayMode
+          displayMode: this.state.displayMode,
+          actions: {
+            loadState: this.loadState,
+            saveState: this.saveState
+          }
         }}
       >
         {this.props.children}

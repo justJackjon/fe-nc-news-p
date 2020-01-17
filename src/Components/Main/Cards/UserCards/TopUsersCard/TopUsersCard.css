@@ -1,0 +1,68 @@
+.sidebar-top-users {
+  position: relative;
+  width: 100%;
+  padding: 1rem 0;
+  z-index: 0;
+}
+
+.top-users-cover-image {
+  background-image: url('../../../../../banner-bg-red.png');
+  background-position: -10px -10px;
+  background-size: 200%;
+  background-color: #bd1732;
+  width: 100%;
+  height: 80px;
+  position: absolute;
+  top: 0rem;
+  left: 0rem;
+  z-index: -1;
+}
+
+.sidebar-list-subhead {
+  margin-top: 34px;
+  text-align: left;
+  color: white;
+  font-size: 1rem;
+  padding: 0 1rem;
+}
+
+.top-users-list {
+  margin-top: 10px;
+}
+
+ul.top-users-list > .sidebar-user-list-item {
+  background-color: transparent;
+  margin-bottom: 0em;
+  display: block;
+  border: none;
+  border-bottom: 1px solid gainsboro;
+  border-radius: 0px;
+  padding: 0.5rem 1rem;
+}
+
+ul.sidebar-content li:last-child.sidebar-user-list-item {
+  margin-bottom: 0.25rem;
+  border-bottom: none;
+}
+
+.user-profile-card {
+  position: relative;
+  width: 100%;
+  height: 240px;
+  padding: 1em;
+  z-index: 0;
+}
+
+.user-profile-cover-image {
+  background-color: #bd1732;
+  width: 100%;
+  height: 94px;
+  position: absolute;
+  top: 0rem;
+  left: 0rem;
+  z-index: -1;
+}
+
+.sidebar-top-users .view-all-users {
+  width: calc(100% - 2rem);
+}

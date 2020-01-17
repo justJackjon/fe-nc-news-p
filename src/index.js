@@ -1,18 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { MainProvider } from './Components/Context/MainProvider';
+import { WindowProvider } from './Components/Context/WindowProvider';
 import { UserSettingsProvider } from './Components/Context/UserSettingsProvider';
 import { SearchProvider } from './Components/Context/SearchProvider';
 import './index.css';
 import App from './Components/App/App';
 
 ReactDOM.render(
-  <MainProvider>
-    <UserSettingsProvider>
-      <SearchProvider>
+  <UserSettingsProvider>
+    <SearchProvider>
+      <WindowProvider>
         <App />
-      </SearchProvider>
-    </UserSettingsProvider>
-  </MainProvider>,
+      </WindowProvider>
+    </SearchProvider>
+  </UserSettingsProvider>,
   document.getElementById('root')
 );

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from '@reach/router';
 
-import { MainConsumer } from '../Context/MainProvider';
+import { WindowConsumer } from '../Context/WindowProvider';
 import ncnewsLogo from '../../ncnewslogo-rb.svg';
 import ncnLogo from '../../ncnlogo-rb.svg';
 import SearchBar from './SearchBar';
@@ -11,7 +11,7 @@ import './Header.css';
 
 const Header = () => {
   return (
-    <MainConsumer>
+    <WindowConsumer>
       {({ windowWidth }) => (
         <header className="main-header">
           <Link to="/">
@@ -25,7 +25,7 @@ const Header = () => {
           <HeaderControls />
         </header>
       )}
-    </MainConsumer>
+    </WindowConsumer>
   );
 };
 

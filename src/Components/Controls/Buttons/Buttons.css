@@ -4,25 +4,24 @@ button {
   letter-spacing: 0.5px;
   border: 2px solid transparent;
   border-radius: 4px;
+  margin: 4px 0;
+  cursor: pointer;
 }
 
 .btn-sm {
   padding: 2px 7.5px;
-  margin: 1px;
   font-size: 0.75rem;
 }
 
 .btn-md {
   height: 24px;
   padding: 3px 16px;
-  margin: 1px;
   font-size: 0.75rem;
 }
 
 .btn-lg {
-  height: 29px;
+  height: 32px;
   padding: 3px 24px;
-  margin: 1px;
   font-size: 0.75rem;
 }
 
@@ -32,10 +31,20 @@ button {
   color: white;
 }
 
+.btn-solid:hover {
+  background-color: #d46a6a;
+  border-color: #d46a6a;
+}
+
 .btn-regular {
   background-color: transparent;
   border-color: #bd1732;
   color: #bd1732;
+}
+
+.btn-regular:hover {
+  border-color: #d46a6a;
+  color: #d46a6a;
 }
 
 .btn-secondary {
@@ -43,4 +52,8 @@ button {
   background-color: #f6f7f8;
   border-color: #f6f7f8;
   color: #bd1732;
+}
+
+.btn-secondary:hover {
+  background-color: #edeff1;
 }

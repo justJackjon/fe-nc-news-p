@@ -6,9 +6,45 @@
   display: flex;
 }
 
+.user-profile-container {
+  text-align: left;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-user-list-container {
+  text-align: left;
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+
+.sidebar-user-list-container * {
+  align-self: center;
+}
+
+.user-list-item-number {
+  font-weight: 500;
+}
+
+.rank-movement-icon {
+  color: #46d160;
+  margin: 0 0.6rem;
+}
+
 .user-list-text {
   align-self: center;
-  margin-left: 1em;
+  margin-left: 1rem;
+}
+
+.user-profile-text {
+  margin: 0.5rem 0.1rem;
+}
+
+.sidebar-user-list-text {
+  margin-left: 0.6rem;
 }
 
 .user-list-image-container {
@@ -21,9 +57,50 @@
   overflow: hidden;
 }
 
+.user-profile-image-container {
+  margin-top: 1.25rem;
+  background-color: #f0f0f0;
+  width: 4.75rem;
+  height: 4.75rem;
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+  border: 4px solid white;
+  border-radius: 4px;
+}
+
+.sidebar-user-list-image-container {
+  background-color: #f0f0f0;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+  border: 1px solid #ccc;
+}
+
+.user-profile-image-container:hover {
+  border: 4px solid #ccc;
+}
+
 img.user-list-image {
   width: 4rem;
   height: 4rem;
+  object-fit: cover;
+  align-self: center;
+}
+
+img.user-profile-image {
+  width: 4.75rem;
+  height: 4.75rem;
+  object-fit: cover;
+  align-self: center;
+}
+
+img.sidebar-user-list-image {
+  width: 2rem;
+  height: 2rem;
   object-fit: cover;
   align-self: center;
 }

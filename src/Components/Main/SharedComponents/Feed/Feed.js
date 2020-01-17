@@ -32,7 +32,7 @@ const Feed = ({ dataType, articles, topics, users }) => {
         </li>
         {users?.map(user => (
           <li key={user.username} className="list-item">
-            <UserListCard user={user} />
+            <UserListCard displayLocation="user-list" user={user} />
           </li>
         ))}
       </>

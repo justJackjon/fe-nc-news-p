@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { MainProvider } from '../Context/MainProvider';
-import { MainContext } from '../Context/MainProvider';
+import { WindowContext } from '../Context/WindowProvider';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {
   faBars,
@@ -16,8 +15,10 @@ import {
   faComment,
   faImage,
   faAngleDoubleRight,
-  faSpinner
+  faSpinner,
+  faCaretUp
 } from '@fortawesome/free-solid-svg-icons';
+import { faGithub } from '@fortawesome/free-brands-svg-icons';
 
 import Header from '../Header/Header';
 import Main from '../Main/Main';
@@ -40,11 +41,13 @@ library.add(
   faComment,
   faImage,
   faAngleDoubleRight,
-  faSpinner
+  faSpinner,
+  faCaretUp,
+  faGithub
 );
 
 export class App extends Component {
-  static contextType = MainContext;
+  static contextType = WindowContext;
   updateWindowDimensions = this.context.actions.updateWindowDimensions;
 
   componentDidMount() {
@@ -54,12 +57,10 @@ export class App extends Component {
 
   render() {
     return (
-      // <MainProvider>
       <div className="App">
         <Header />
         <Main />
       </div>
-      // </MainProvider>
     );
   }
 }

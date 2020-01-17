@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { MainContext } from '../Context/MainProvider';
+import { WindowContext } from '../Context/WindowProvider';
 import { Router } from '@reach/router';
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
 import * as api from '../../api';
@@ -14,10 +14,15 @@ import TrendingTopics from './SharedComponents/TrendingTopics/TendingTopics';
 import Feed from './SharedComponents/Feed/Feed';
 import SideBar from './SharedComponents/SideBar/SideBar';
 
+// Sidebar components:
+import UserProfileCard from '../../Components/Main/Cards/UserCards/UserProfileCard/UserProfileCard';
+import TopUsersCard from '../../Components/Main/Cards/UserCards/TopUsersCard/TopUsersCard';
+import PopularTopicsCard from '../../Components/Main/Cards/TopicCards/PopularTopicsCard/PopularTopicsCard';
+
 import './Main.css';
 
 export class Main extends Component {
-  static contextType = MainContext;
+  static contextType = WindowContext;
   state = {
     isLoading: true,
     articles: [
@@ -198,48 +203,51 @@ export class Main extends Component {
     const { windowWidth } = this.context;
     const { isLoading, articles, topics, users } = this.state;
 
-    const HomePage = () => {
-      return (
-        <>
-          <SubHeader />
-          <HomeFeedContainer>
-            {windowWidth > 480 && <TrendingTopics topics={topics} />}
-            {windowWidth > 1024 && <SideBar />}
-            <Feed dataType="articles" articles={articles} />
-          </HomeFeedContainer>
-        </>
-      );
-    };
+    // At a later stage different sidebar compositions (with different card combinations) can be added.
+    const ComposedSideBar = () => (
+      <SideBar>
+        <UserProfileCard />
+        <TopUsersCard users={users?.slice(0, 5)} />
+        {/* <PopularTopicsCard /> */}
+      </SideBar>
+    );
 
-    const TopicsPage = props => {
-      return (
-        <>
-          <SubHeader parent={props} />
-          <TopicContainer>
-            {windowWidth > 1024 && <SideBar />}
-            <Feed dataType="topics" topics={topics} />
-          </TopicContainer>
-        </>
-      );
-    };
+    const HomePage = () => (
+      <>
+        <SubHeader />
+        <HomeFeedContainer>
+          {windowWidth > 480 && <TrendingTopics topics={topics} />}
+          {windowWidth > 1024 && <ComposedSideBar />}
+          <Feed dataType="articles" articles={articles} />
+        </HomeFeedContainer>
+      </>
+    );
 
-    const ArticlePage = () => {
-      return (
-        <ArticleContainer>{windowWidth > 1500 && <SideBar />}</ArticleContainer>
-      );
-    };
+    const TopicsPage = props => (
+      <>
+        <SubHeader parent={props} />
+        <TopicContainer>
+          {windowWidth > 1024 && <ComposedSideBar />}
+          <Feed dataType="topics" topics={topics} />
+        </TopicContainer>
+      </>
+    );
 
-    const UsersPage = () => {
-      return (
-        <>
-          <SubHeader />
-          <UserContainer>
-            {windowWidth > 1024 && <SideBar />}
-            <Feed dataType="users" users={users} />
-          </UserContainer>
-        </>
-      );
-    };
+    const ArticlePage = () => (
+      <ArticleContainer>
+        {windowWidth > 1500 && <ComposedSideBar />}
+      </ArticleContainer>
+    );
+
+    const UsersPage = () => (
+      <>
+        <SubHeader />
+        <UserContainer>
+          {windowWidth > 1024 && <ComposedSideBar />}
+          <Feed dataType="users" users={users} />
+        </UserContainer>
+      </>
+    );
 
     return (
       <main className="main">

@@ -1,10 +1,10 @@
 import React, { Component, createContext } from 'react';
-import { MainContext } from './MainProvider';
+import { UserSettingsContext } from './UserSettingsProvider';
 
 export const SearchContext = createContext();
 
 export class SearchProvider extends Component {
-  static contextType = MainContext;
+  static contextType = UserSettingsContext;
   actions = this.context.actions;
   loadSearchState = this.actions.loadState.call(this, 'SearchContext');
   saveSearchState = this.actions.saveState.bind(this, 'SearchContext');

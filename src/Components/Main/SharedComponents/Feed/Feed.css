@@ -38,6 +38,12 @@ ul.feed-list li.article-list-item:last-child {
 
 @media only screen and (max-width: 1024px) {
   .feed {
-    padding: 1em;
+    padding: 1.5rem 1rem;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .feed {
+    padding: 1rem;
   }
 }
