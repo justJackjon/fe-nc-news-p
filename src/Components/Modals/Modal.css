@@ -15,7 +15,7 @@
 .modal-sm {
   align-self: center;
   margin: 2rem;
-  padding: 1.5rem 2rem;
+  padding: 2.5rem 3rem;
   background-color: white;
   border-radius: 4px;
   border: 1px solid #edeff1;
@@ -24,11 +24,11 @@
 }
 
 .modal-sm * {
-  margin: 0.75em 0;
+  margin: 0.75rem 0;
 }
 
 .modal-sm button {
-  margin: 0.75em;
+  margin: 0.75rem;
 }
 
 @keyframes gradual-load {
@@ -41,25 +41,25 @@
 }
 
 @media only screen and (min-width: 480px) {
-  .modal-sm {
-    width: 50%;
+  .modal-vw {
+    width: 50vw;
   }
 }
 
 @media only screen and (min-width: 768px) {
-  .modal-sm {
-    width: 40%;
+  .modal-vw {
+    width: 40vw;
   }
 }
 
-@media only screen and (min-width: 1025px) {
-  .modal-sm {
-    width: 30%;
+@media only screen and (min-width: 1024px) {
+  .modal-vw {
+    width: 30vw;
   }
 }
 
 @media only screen and (min-width: 1600px) {
-  .modal-sm {
-    width: 20%;
+  .modal-vw {
+    width: 20vw;
   }
 }

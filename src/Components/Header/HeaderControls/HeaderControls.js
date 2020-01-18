@@ -35,7 +35,8 @@ const HeaderControls = () => {
         <span className="slider"></span>
       </label>
       {openModal && (
-        <Modal className="modal-sm">
+        <Modal className="modal-sm modal-vw">
+          <Icon icon="info-circle" size="4x" />
           <h1>This feature is on it's way!</h1>
           <p>Hang tight, DARK MODE is coming soon.</p>
 

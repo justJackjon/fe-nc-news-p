@@ -18,7 +18,8 @@ import {
   faAngleDoubleUp,
   faSpinner,
   faCaretUp,
-  faMoon
+  faMoon,
+  faInfoCircle
 } from '@fortawesome/free-solid-svg-icons';
 import { faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons';
 
@@ -49,7 +50,8 @@ library.add(
   faCaretUp,
   faGithub,
   faLinkedin,
-  faMoon
+  faMoon,
+  faInfoCircle
 );
 
 export class App extends Component {
