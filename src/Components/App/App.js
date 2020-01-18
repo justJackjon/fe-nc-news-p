@@ -17,7 +17,8 @@ import {
   faAngleDoubleRight,
   faAngleDoubleUp,
   faSpinner,
-  faCaretUp
+  faCaretUp,
+  faMoon
 } from '@fortawesome/free-solid-svg-icons';
 import { faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons';
 
@@ -27,6 +28,7 @@ import Main from '../Main/Main';
 import './reset.css';
 import './App.css';
 import '../Controls/Buttons/Buttons.css';
+import '../Modals/Modal.css';
 
 library.add(
   faBars,
@@ -46,7 +48,8 @@ library.add(
   faSpinner,
   faCaretUp,
   faGithub,
-  faLinkedin
+  faLinkedin,
+  faMoon
 );
 
 export class App extends Component {

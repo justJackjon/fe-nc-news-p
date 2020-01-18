@@ -3,31 +3,31 @@ import { Link } from '@reach/router';
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
 
 const Navigation = [
-  <li>
+  <li key="home">
     <Link to="/">
       <Icon icon="home" />
       HOME
     </Link>
   </li>,
-  <li>
+  <li key="articles">
     <Link to="/articles">
       <Icon icon="newspaper" />
       ARTICLES
     </Link>
   </li>,
-  <li>
+  <li key="topics">
     <Link to="/topics/All Topics">
       <Icon icon="archive" />
       TOPICS
     </Link>
   </li>,
-  <li>
+  <li key="users">
     <Link to="/users/All Users">
       <Icon icon="users" />
       USERS
     </Link>
   </li>,
-  <li>
+  <li key="sign in">
     <Link to="/">
       <Icon icon="sign-in-alt" />
       Login / Sign Up

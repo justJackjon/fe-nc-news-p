@@ -80,7 +80,6 @@ button.back-to-top {
   }
 }
 
-/* @media only screen and (min-width: 1370px) { */
 button.back-to-top {
   display: flex;
   visibility: hidden;
@@ -93,10 +92,8 @@ button.back-to-top {
   box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.35);
 }
 
-button.back-to-top.display,
-button.back-to-top.display span {
+button.back-to-top.display {
   visibility: visible;
   opacity: 1;
   transition: 0.4s;
 }
-/* } */

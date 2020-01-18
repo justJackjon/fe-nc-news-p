@@ -62,6 +62,17 @@ button:focus {
   background-color: #edeff1;
 }
 
+.btn-accept {
+  background-color: #0eaa24;
+  border-color: #0eaa24;
+  color: white;
+}
+
+.btn-accept:hover {
+  background-color: #6ce07f;
+  border-color: #6ce07f;
+}
+
 .btn-direction {
   background-color: rgba(255, 255, 255, 0.6);
   padding: 0;
