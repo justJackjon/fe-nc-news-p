@@ -84,21 +84,21 @@
   border: 4px solid #ccc;
 }
 
-img.user-list-image {
+.user-list-image {
   width: 4rem;
   height: 4rem;
   object-fit: cover;
   align-self: center;
 }
 
-img.user-profile-image {
+.user-profile-image {
   width: 4.75rem;
   height: 4.75rem;
   object-fit: cover;
   align-self: center;
 }
 
-img.sidebar-user-list-image {
+.sidebar-user-list-image {
   width: 2rem;
   height: 2rem;
   object-fit: cover;

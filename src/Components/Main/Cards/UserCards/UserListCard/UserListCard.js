@@ -1,6 +1,8 @@
 import React from 'react';
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
 import { Link } from '@reach/router';
+
+import placeholderAvatar from '../../../../../placeholder-avatar.svg';
 import './UserListCard.css';
 
 const UserListCard = ({ itemNumber, displayLocation, user, children }) => {
@@ -15,11 +17,13 @@ const UserListCard = ({ itemNumber, displayLocation, user, children }) => {
       )}
       <Link to={`../${user.username}`}>
         <div className={`${displayLocation}-image-container`}>
-          <img
-            className={`${displayLocation}-image`}
-            src={user.avatar_url}
-            alt="User Profile"
-          />
+          <object data={user.avatar_url} className={`${displayLocation}-image`}>
+            <img
+              className={`${displayLocation}-image`}
+              src={placeholderAvatar}
+              alt="Placeholder User Profile"
+            />
+          </object>
         </div>
       </Link>
       <div className={`${displayLocation}-text`}>
