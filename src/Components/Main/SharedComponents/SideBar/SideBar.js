@@ -1,23 +1,53 @@
-import React, { createRef, useEffect } from 'react';
+import React, { useContext, createRef, useEffect } from 'react';
+import { WindowContext } from '../../../Context/WindowProvider';
 import './SideBar.css';
 import Footer from '../../../Footer/Footer';
 
-const sidebarContent = createRef();
-
 const SideBar = ({ children }) => {
+  const {
+    stickySidebar,
+    stuckSidebar,
+    actions: { setStickySidebar, setStuckSidebar }
+  } = useContext(WindowContext);
+
+  const sidebarContent = createRef();
+  const sidebarContainer = createRef();
+
+  const initClassNames = () => {
+    if (stuckSidebar) return 'sidebar-content sidebar-content-stuck';
+    if (stickySidebar) return 'sidebar-content sidebar-content-sticky';
+    return 'sidebar-content';
+  };
+
   const stickyStuff = () => {
+    const containerRect = sidebarContainer?.current?.getBoundingClientRect();
+    // sticky header + margin = 64px
+    const scrolled = window.scrollY + 64;
     if (sidebarContent.current) {
-      document.body.scrollTop > 248 || document.documentElement.scrollTop > 248
-        ? sidebarContent.current.classList.add('sidebar-content-sticky')
-        : sidebarContent.current.classList.remove('sidebar-content-sticky');
+      if (scrolled >= window.scrollY + containerRect.top) {
+        setStickySidebar(true);
+      } else {
+        setStickySidebar(false);
+        setStuckSidebar(false);
+      }
     }
   };
 
-  useEffect(() => window.addEventListener('scroll', stickyStuff), []);
+  useEffect(() => {
+    stickyStuff();
+    window.addEventListener('scroll', stickyStuff);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      window.removeEventListener('scroll', stickyStuff);
+    };
+  });
 
   return (
-    <aside className="sidebar">
-      <ul ref={sidebarContent} className="sidebar-content">
+    <aside ref={sidebarContainer} className="sidebar">
+      <ul ref={sidebarContent} className={initClassNames()}>
         {children.map(child =>
           child?.type?.name ? <li key={child.type.name}>{child}</li> : undefined
         )}

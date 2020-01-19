@@ -1,10 +1,21 @@
 import React from 'react';
+import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
+import { Link } from '@reach/router';
+
 import ArticleCard from '../../Cards/ArticleCard/ArticleCard';
 import TopicListCard from '../../Cards/TopicCards/TopicListCard/TopicListCard';
 import UserListCard from '../../Cards/UserCards/UserListCard/UserListCard';
+
 import './Feed.css';
 
-const Feed = ({ dataType, articles, topics, users }) => {
+const Feed = ({
+  dataType,
+  articles,
+  topics,
+  users,
+  loadAddtlData,
+  dataAvailable
+}) => {
   const feedList = () => {
     const articleList = articles?.map(article => (
       <li key={article.article_id} className="article-list-item">
@@ -50,6 +61,24 @@ const Feed = ({ dataType, articles, topics, users }) => {
   return (
     <section className="feed">
       <ul className="feed-list">{feedList()}</ul>
+      <div className="end-infinite-feed">
+        {loadAddtlData && (
+          <>
+            <Icon icon="spinner" size="4x" pulse />
+            <h3>LOADING MORE {`${dataType.toUpperCase()}`}...</h3>
+          </>
+        )}
+        {!dataAvailable && (
+          <h3>
+            No more {dataType}.<br />
+            {dataType !== 'users' && (
+              <span>
+                Would you like to <Link to={`/${dataType}`}>add one?</Link>
+              </span>
+            )}
+          </h3>
+        )}
+      </div>
     </section>
   );
 };
