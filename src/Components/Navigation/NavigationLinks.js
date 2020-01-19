@@ -10,7 +10,7 @@ const Navigation = [
     </Link>
   </li>,
   <li key="articles">
-    <Link to="/articles">
+    <Link to="/articles/All Articles">
       <Icon icon="newspaper" />
       ARTICLES
     </Link>

@@ -65,17 +65,27 @@ const Feed = ({
         {loadAddtlData && (
           <>
             <Icon icon="spinner" size="4x" pulse />
-            <h3>LOADING MORE {`${dataType.toUpperCase()}`}...</h3>
+            <h3>LOADING MORE {dataType.toUpperCase()}...</h3>
           </>
         )}
-        {!dataAvailable && (
+        {!dataAvailable && dataType === 'articles' && (
           <h3>
             No more {dataType}.<br />
-            {dataType !== 'users' && (
-              <span>
-                Would you like to <Link to={`/${dataType}`}>add one?</Link>
+            Would you like to
+            <Link to={`/${dataType}`}>
+              <span className="end-feed-submit"> add one?</span>
+            </Link>
+          </h3>
+        )}
+        {dataType !== 'articles' && (
+          <h3>
+            Would you like to
+            <Link to={`/${dataType}`}>
+              <span className="end-feed-submit">
+                {' '}
+                add a {dataType.slice(0, -1)}?
               </span>
-            )}
+            </Link>
           </h3>
         )}
       </div>

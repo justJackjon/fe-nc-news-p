@@ -13,7 +13,7 @@ const SubHeader = ({ parent, children }) => {
           </div>
           <div className="topic-subhead-text">
             <h1 className="topic-title">
-              {parent.topic || parent.articles || parent.user}
+              {parent.topic || parent.article || parent.user}
             </h1>
             <p className="topic-uri">{parent.uri}</p>
           </div>

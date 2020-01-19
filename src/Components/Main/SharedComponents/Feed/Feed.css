@@ -50,6 +50,10 @@ ul.feed-list li.article-list-item:last-child {
   font-weight: 700;
 }
 
+.end-feed-submit {
+  color: #ef657b;
+}
+
 @media only screen and (max-width: 1024px) {
   .feed {
     padding: 1.5rem 1rem;
