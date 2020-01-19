@@ -36,6 +36,20 @@ ul.feed-list li.article-list-item:last-child {
   margin-bottom: 0;
 }
 
+.end-infinite-feed {
+  padding: 2rem 0 1rem;
+  color: #878a8c;
+}
+
+.end-infinite-feed svg {
+  padding: 1rem;
+}
+
+.end-infinite-feed h3 {
+  margin: 0.5rem 0;
+  font-weight: 700;
+}
+
 @media only screen and (max-width: 1024px) {
   .feed {
     padding: 1.5rem 1rem;

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { WindowContext } from '../Context/WindowProvider';
 import { Router } from '@reach/router';
+import debounce from 'lodash.debounce';
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
 import * as api from '../../api';
 
@@ -23,8 +24,16 @@ import './Main.css';
 
 export class Main extends Component {
   static contextType = WindowContext;
+  setStuckSidebar = this.context.actions.setStuckSidebar;
   state = {
-    isLoading: true,
+    error: false,
+    initialLoad: true,
+    longLoad: false,
+    veryLongLoad: false,
+    loadAddtlData: false,
+    dataAvailable: true,
+    mountSidebar: true,
+    mountAddtlCard: true,
     articles: [
       {
         article_id: 6,
@@ -193,21 +202,98 @@ export class Main extends Component {
     ]
   };
 
+  fetchArticles = () => {
+    this.setStuckSidebar(true);
+    this.setState({ loadAddtlData: true }, () => {
+      const { articles: existingData } = this.state;
+      api
+        .getArticles()
+        .then(newArticles => {
+          this.setState({
+            articles: [...existingData, ...newArticles],
+            dataAvailable: existingData.length < newArticles[0].total_count,
+            loadAddtlData: false
+          });
+        })
+        .catch(err => {
+          this.setStuckSidebar(false);
+          this.setState({
+            error: err.message,
+            loadAddtlData: false
+          });
+        });
+    });
+  };
+
+  getAddtlData = debounce(() => {
+    const {
+      fetchArticles,
+      state: { error, loadAddtlData, dataAvailable }
+    } = this;
+
+    if (error || loadAddtlData || !dataAvailable) return;
+
+    const windowHeight = window.innerHeight;
+    const amountScrolled = document.documentElement.scrollTop;
+    const totalHeight = document.documentElement.offsetHeight;
+    const twoThirds = windowHeight * 0.66;
+
+    if (windowHeight + amountScrolled >= totalHeight - twoThirds) {
+      fetchArticles();
+    }
+  }, 100);
+
   componentDidMount() {
     api.getArticles().then(articles => {
-      this.setState({ articles, isLoading: false });
+      this.setState({ articles, initialLoad: false });
     });
+
+    setTimeout(() => this.setState({ longLoad: true }), 2000);
+    setTimeout(() => this.setState({ veryLongLoad: true }), 5000);
+
+    window.addEventListener('scroll', this.getAddtlData);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.getAddtlData);
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const { windowWidth, windowHeight } = this.context;
+
+    const mountSidebar = windowWidth > 1024;
+    const mountAddtlCard = windowHeight > 945;
+
+    if (
+      mountSidebar === prevState.mountSidebar &&
+      mountAddtlCard === prevState.mountAddtlCard
+    )
+      return;
+
+    this.setState({ mountSidebar, mountAddtlCard });
   }
 
   render() {
-    const { windowWidth, windowHeight } = this.context;
-    const { isLoading, articles, topics, users } = this.state;
+    const {
+      error,
+      initialLoad,
+      longLoad,
+      veryLongLoad,
+      loadAddtlData,
+      dataAvailable,
+      mountSidebar,
+      mountAddtlCard,
+      articles,
+      topics,
+      users
+    } = this.state;
+    const infiniteFeedProps = { loadAddtlData, dataAvailable };
 
     // At a later stage different sidebar compositions (with different card combinations) can be added.
     const ComposedSideBar = () => (
       <SideBar>
         <UserProfileCard />
-        {windowHeight > 945 && <TopUsersCard users={users?.slice(0, 5)} />}
+        {mountAddtlCard && <TopUsersCard users={users?.slice(0, 5)} />}
         {/* <PopularTopicsCard /> */}
       </SideBar>
     );
@@ -216,10 +302,13 @@ export class Main extends Component {
       <>
         <SubHeader />
         <HomeFeedContainer>
-          {/* {windowWidth > 480 && <TrendingTopics topics={topics} />} */}
           <TrendingTopics topics={topics} />
-          {windowWidth > 1024 && <ComposedSideBar />}
-          <Feed dataType="articles" articles={articles} />
+          {mountSidebar && <ComposedSideBar />}
+          <Feed
+            dataType="articles"
+            articles={articles}
+            {...infiniteFeedProps}
+          />
         </HomeFeedContainer>
       </>
     );
@@ -228,35 +317,43 @@ export class Main extends Component {
       <>
         <SubHeader parent={props} />
         <TopicContainer>
-          {windowWidth > 1024 && <ComposedSideBar />}
-          <Feed dataType="topics" topics={topics} />
+          {mountSidebar && <ComposedSideBar />}
+          <Feed dataType="topics" topics={topics} {...infiniteFeedProps} />
         </TopicContainer>
       </>
     );
 
     const ArticlePage = () => (
-      <ArticleContainer>
-        {windowWidth > 1500 && <ComposedSideBar />}
-      </ArticleContainer>
+      <ArticleContainer>{mountSidebar && <ComposedSideBar />}</ArticleContainer>
     );
 
     const UsersPage = props => (
       <>
         <SubHeader parent={props} />
         <UserContainer>
-          {windowWidth > 1024 && <ComposedSideBar />}
-          <Feed dataType="users" users={users} />
+          {mountSidebar && <ComposedSideBar />}
+          <Feed dataType="users" users={users} {...infiniteFeedProps} />
         </UserContainer>
       </>
     );
 
     return (
       <main className="main">
-        {isLoading ? (
+        {initialLoad ? (
           <div className="loading">
             <Icon icon="spinner" size="4x" pulse />
             <h1>LOADING JUICY ARTICLES...</h1>
+            {longLoad && (
+              <h3 className="long-load-message">
+                It's taking longer than usual...
+              </h3>
+            )}
+            {veryLongLoad && (
+              <h3 className="long-load-message-2">Hang tight...</h3>
+            )}
           </div>
+        ) : error ? (
+          <div style={{ color: '#900' }}>{error}</div>
         ) : (
           <Router className="main-router" primary={false}>
             <HomePage path="/" />

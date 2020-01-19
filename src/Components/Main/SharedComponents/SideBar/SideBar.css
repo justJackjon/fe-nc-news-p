@@ -2,10 +2,27 @@
   grid-area: main-section-aside;
 }
 
-.sidebar-content-sticky {
+.sidebar-content {
   width: 312px;
+}
+
+.sidebar-content-stuck {
   position: fixed;
   top: calc(1rem + 48px);
+}
+
+.sidebar-content-sticky {
+  position: fixed;
+  animation: stick 0.75s forwards;
+}
+
+@keyframes stick {
+  0% {
+    top: 0;
+  }
+  100% {
+    top: calc(1rem + 48px);
+  }
 }
 
 .sidebar-content li {

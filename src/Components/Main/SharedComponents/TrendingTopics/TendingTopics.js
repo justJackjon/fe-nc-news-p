@@ -1,10 +1,10 @@
-import React, { createRef, useEffect } from 'react';
+import React, { memo, createRef, useEffect } from 'react';
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
 import TopicCard from '../../Cards/TopicCards/TopicCard/TopicCard';
 import './TrendingTopics.css';
 import Button from '../../../Controls/Buttons/Button';
 
-const TendingTopics = ({ topics }) => {
+const TendingTopics = memo(({ topics }) => {
   const topicList = createRef();
   // So far as I can tell, React does not support passive event listeners.
   // See https://github.com/facebook/react/issues/6436 for further info.
@@ -51,6 +51,6 @@ const TendingTopics = ({ topics }) => {
       </Button>
     </nav>
   );
-};
+});
 
 export default TendingTopics;
