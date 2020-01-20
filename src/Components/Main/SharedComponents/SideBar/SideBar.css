@@ -25,6 +25,20 @@
   }
 }
 
+.sidebar-content-sticky-a-pg {
+  position: fixed;
+  animation: stick-a-pg 0.75s forwards;
+}
+
+@keyframes stick-a-pg {
+  0% {
+    top: 0;
+  }
+  100% {
+    top: calc(1rem + 96px);
+  }
+}
+
 .sidebar-content li {
   background-color: white;
   margin-bottom: 1em;

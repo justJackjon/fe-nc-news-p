@@ -6,16 +6,19 @@ import Footer from '../../../Footer/Footer';
 const sidebarContent = createRef();
 const sidebarContainer = createRef();
 
-const SideBar = ({ children }) => {
+const SideBar = ({ parent, children }) => {
   const {
     stickySidebar,
     stuckSidebar,
     actions: { setStickySidebar, setStuckSidebar }
   } = useContext(SidebarContext);
 
+  const onArticlePage = parent?.path === '/articles/:articleId' ? '-a-pg' : '';
+
   const initClassNames = () => {
     if (stuckSidebar) return 'sidebar-content sidebar-content-stuck';
-    if (stickySidebar) return 'sidebar-content sidebar-content-sticky';
+    if (stickySidebar)
+      return `sidebar-content sidebar-content-sticky${onArticlePage}`;
     return 'sidebar-content';
   };
 

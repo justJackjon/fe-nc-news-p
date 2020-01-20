@@ -9,7 +9,7 @@ const Article = ({ article }) => {
   return (
     <div className="article-and-comments">
       <ArticleCard article={article} mainArticle={true} />
-      <Comments />
+      <Comments articleId={article.article_id} />
     </div>
   );
 };

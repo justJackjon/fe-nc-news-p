@@ -123,14 +123,22 @@ export class Main extends Component {
     const infiniteFeedProps = { loadAddtlData, dataAvailable };
 
     // At a later stage different sidebar compositions (with different card combinations) can be added.
-    const ComposedSideBar = () => (
-      <SideBar>
-        <UserProfileCard />
-        {windowHeight > 945 && <TopUsersCard users={users?.slice(0, 5)} />}
-        {/* <PopularTopicsCard /> */}
-      </SideBar>
-    );
-
+    const ComposedSidebar = ({ parent: { ...props } }) => {
+      console.log(props, '<----- props');
+      const numOfTopUsers = props?.path === '/articles/:articleId' ? 3 : 5;
+      return (
+        <SideBar parent={{ ...props }}>
+          <UserProfileCard />
+          {windowHeight > 945 && (
+            <TopUsersCard users={users?.slice(0, numOfTopUsers)} />
+          )}
+          {windowHeight <= 945 && windowHeight >= 840 && (
+            <TopUsersCard users={users?.slice(0, 3)} />
+          )}
+          {/* <PopularTopicsCard /> */}
+        </SideBar>
+      );
+    };
     // const LoadedFeed = () => (
     //   <Feed
     //     articles={articles}
@@ -154,7 +162,7 @@ export class Main extends Component {
           <SubHeader />
           <HomeFeedContainer>
             <TrendingTopics topics={topics} />
-            {windowWidth > 1024 && <ComposedSideBar />}
+            {windowWidth > 1024 && <ComposedSidebar />}
             <Feed
               articles={articles}
               topics={topics}
@@ -179,7 +187,7 @@ export class Main extends Component {
           <SubHeader parent={props} />
           <HomeFeedContainer>
             {/* <TrendingTopics topics={topics} /> */}
-            {windowWidth > 1024 && <ComposedSideBar />}
+            {windowWidth > 1024 && <ComposedSidebar />}
             <Feed
               articles={articles}
               topics={topics}
@@ -198,7 +206,7 @@ export class Main extends Component {
     const ArticlePage = props => {
       return (
         <ArticleContainer parent={props}>
-          {windowWidth > 1500 && <ComposedSideBar />}
+          {windowWidth > 1024 && <ComposedSidebar parent={props} />}
         </ArticleContainer>
       );
     };
@@ -207,7 +215,7 @@ export class Main extends Component {
       <>
         <SubHeader parent={props} />
         <HomeFeedContainer>
-          {windowWidth > 1024 && <ComposedSideBar />}
+          {windowWidth > 1024 && <ComposedSidebar />}
           <Feed
             articles={articles}
             topics={topics}
@@ -226,7 +234,7 @@ export class Main extends Component {
       <>
         <SubHeader parent={props} />
         <TopicContainer parent={props}>
-          {windowWidth > 1024 && <ComposedSideBar />}
+          {windowWidth > 1024 && <ComposedSidebar />}
         </TopicContainer>
       </>
     );
@@ -235,7 +243,7 @@ export class Main extends Component {
       <>
         <SubHeader parent={props} />
         <UserContainer>
-          {windowWidth > 1024 && <ComposedSideBar />}
+          {windowWidth > 1024 && <ComposedSidebar />}
           <Feed
             articles={articles}
             topics={topics}

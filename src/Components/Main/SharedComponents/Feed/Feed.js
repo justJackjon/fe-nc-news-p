@@ -19,7 +19,7 @@ const Feed = ({
   parent,
   updateArticles
 }) => {
-  let previousSortBy = useRef(parent?.sort_by);
+  const previousSortBy = useRef(parent?.sort_by);
 
   useEffect(() => {
     const refreshFeed = () => {

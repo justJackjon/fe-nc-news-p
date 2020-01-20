@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
 import * as api from '../../../../api';
 
@@ -9,19 +9,21 @@ import '../Containers.css';
 import './ArticleContainer.css';
 
 const ArticleContainer = ({ parent: { articleId }, children }) => {
+  const prevArticleId = useRef(articleId);
   const [article, setArticle] = useState(null);
 
-  const fetchArticle = () => {
+  const fetchArticle = useCallback(() => {
     api.getData(`/articles/${articleId}`, 'article').then(article => {
       setArticle(article);
     });
-  };
+  }, [articleId]);
 
   useEffect(() => {
-    if (!article) fetchArticle();
-    if (article?.article_id !== articleId) fetchArticle();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    if (prevArticleId !== articleId) {
+      fetchArticle();
+      prevArticleId.current = articleId;
+    }
+  }, [articleId, fetchArticle]);
 
   return (
     <>

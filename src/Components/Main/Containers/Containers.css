@@ -1,5 +1,4 @@
 .main-content {
-  grid-column: 1 / span 24;
   /* must have a minimum height, as sidebar content is sticky - see .sidebar-content-sticky in SideBar.css */
   min-height: 1024px;
 }
