@@ -17,7 +17,11 @@ const UserListCard = ({ itemNumber, displayLocation, user, children }) => {
       )}
       <Link to={`../${user.username}`}>
         <div className={`${displayLocation}-image-container`}>
-          <object data={user.avatar_url} className={`${displayLocation}-image`}>
+          <object
+            data={user.avatar_url}
+            className={`${displayLocation}-image`}
+            type="image/jpeg"
+          >
             <img
               className={`${displayLocation}-image`}
               src={placeholderAvatar}

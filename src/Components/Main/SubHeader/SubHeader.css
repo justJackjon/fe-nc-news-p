@@ -46,10 +46,32 @@ p.topic-uri {
   margin-top: 0.2rem;
 }
 
-.sub-navigation {
-  max-width: 1024px;
+.topic-subheader {
   text-align: left;
+  max-width: calc(1024px - 2rem);
+  padding: 1.5rem 1rem;
   margin: 0 auto;
+  display: flex;
+}
+
+.sub-navigation-container {
+  text-align: left;
+  max-width: calc(1024px);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.sub-navigation-hr {
+  border: none;
+  border-right: 1px solid black;
+  height: 1.25rem;
+  margin: 0 1rem;
+}
+
+.sub-navigation {
+  display: inline-block;
 }
 
 .sub-navigation li {
@@ -70,5 +92,9 @@ p.topic-uri {
 @media only screen and (max-width: 480px) {
   .sub-navigation {
     text-align: center;
+  }
+
+  .sub-navigation-hr {
+    border: none;
   }
 }

@@ -3,11 +3,14 @@ import { WindowContext } from '../Context/WindowProvider';
 import { Router } from '@reach/router';
 import debounce from 'lodash.debounce';
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
+
 import * as api from '../../api';
+import ScrollToTop from '../Utils/ScrollToTop';
+import Loader from '../Utils/Loader/Loader';
 
 import SubHeader from './SubHeader/SubHeader';
 import HomeFeedContainer from './Containers/HomeFeedContainer/HomeFeedContainer';
-import TopicContainer from './Containers/HomeFeedContainer/HomeFeedContainer';
+import TopicContainer from './Containers/TopicContainer/TopicContainer';
 import ArticleContainer from './Containers/ArticleContainer/ArticleContainer';
 import UserContainer from './Containers/HomeFeedContainer/HomeFeedContainer';
 
@@ -28,23 +31,23 @@ export class Main extends Component {
   state = {
     error: false,
     initialLoad: true,
-    longLoad: false,
-    veryLongLoad: false,
     loadAddtlData: false,
     dataAvailable: true,
     dataPage: 1,
-    mountSidebar: true,
-    mountAddtlCard: true,
     articles: [],
     topics: [],
     users: []
   };
 
-  fetchNewData = dataType => {
-    this.setStuckSidebar(true);
+  updateArticles = articles => {
+    this.setState({ articles });
+  };
+
+  fetchNewData = (endPoint, dataType) => {
+    // this.setStuckSidebar(true);
     this.setState({ loadAddtlData: true }, () => {
       api
-        .getData([dataType], { p: this.state.dataPage + 1 })
+        .getData(endPoint, dataType, { params: { p: this.state.dataPage + 1 } })
         .then(newData => {
           this.setState(prevState => {
             const { [dataType]: existingData } = prevState;
@@ -58,7 +61,7 @@ export class Main extends Component {
           });
         })
         .catch(err => {
-          this.setStuckSidebar(false);
+          // this.setStuckSidebar(false);
           this.setState({
             error: err.message,
             loadAddtlData: false
@@ -81,7 +84,7 @@ export class Main extends Component {
     const twoThirds = windowHeight * 0.66;
 
     if (windowHeight + amountScrolled >= totalHeight - twoThirds) {
-      fetchNewData('articles');
+      fetchNewData('articles', 'articles');
     }
   }, 100);
 
@@ -98,36 +101,21 @@ export class Main extends Component {
         initialLoad: false
       });
     });
-    setTimeout(() => this.setState({ longLoad: true }), 2500);
-    setTimeout(() => this.setState({ veryLongLoad: true }), 5000);
   }
 
   componentWillUnmount() {
     // clean-up here - leave as placeholder
   }
 
-  componentDidUpdate(_, prevState) {
-    const { windowWidth, windowHeight } = this.context;
-    const mountSidebar = windowWidth > 1024;
-    const mountAddtlCard = windowHeight > 945;
-    if (
-      mountSidebar === prevState.mountSidebar &&
-      mountAddtlCard === prevState.mountAddtlCard
-    )
-      return;
-    this.setState({ mountSidebar, mountAddtlCard });
-  }
+  componentDidUpdate(prevProps, prevState) {}
 
   render() {
+    const { windowWidth, windowHeight } = this.context;
     const {
       error,
       initialLoad,
-      longLoad,
-      veryLongLoad,
       loadAddtlData,
       dataAvailable,
-      mountSidebar,
-      mountAddtlCard,
       articles,
       topics,
       users
@@ -138,31 +126,42 @@ export class Main extends Component {
     const ComposedSideBar = () => (
       <SideBar>
         <UserProfileCard />
-        {mountAddtlCard && <TopUsersCard users={users?.slice(0, 5)} />}
+        {windowHeight > 945 && <TopUsersCard users={users?.slice(0, 5)} />}
         {/* <PopularTopicsCard /> */}
       </SideBar>
     );
+
+    // const LoadedFeed = () => (
+    //   <Feed
+    //     articles={articles}
+    //     topics={topics}
+    //     users={users}
+    //     initialLoad={initialLoad}
+    //     updateArticles={this.updateArticles}
+    //     dataType="articles"
+    //     parent={props}
+    //     {...infiniteFeedProps}
+    //   />
+    // );
 
     const HomePage = () => {
       useEffect(() => {
         window.addEventListener('scroll', this.getAddtlData);
       }, []);
 
-      useEffect(() => {
-        return () => {
-          window.removeEventListener('scroll', this.getAddtlData);
-        };
-      });
-
       return (
         <>
           <SubHeader />
           <HomeFeedContainer>
             <TrendingTopics topics={topics} />
-            {mountSidebar && <ComposedSideBar />}
+            {windowWidth > 1024 && <ComposedSideBar />}
             <Feed
-              dataType="articles"
               articles={articles}
+              topics={topics}
+              users={users}
+              initialLoad={initialLoad}
+              updateArticles={this.updateArticles}
+              dataType="articles"
               {...infiniteFeedProps}
             />
           </HomeFeedContainer>
@@ -175,21 +174,20 @@ export class Main extends Component {
         window.addEventListener('scroll', this.getAddtlData);
       }, []);
 
-      useEffect(() => {
-        return () => {
-          window.removeEventListener('scroll', this.getAddtlData);
-        };
-      });
-
       return (
         <>
           <SubHeader parent={props} />
           <HomeFeedContainer>
             {/* <TrendingTopics topics={topics} /> */}
-            {mountSidebar && <ComposedSideBar />}
+            {windowWidth > 1024 && <ComposedSideBar />}
             <Feed
-              dataType="articles"
               articles={articles}
+              topics={topics}
+              users={users}
+              initialLoad={initialLoad}
+              updateArticles={this.updateArticles}
+              dataType="articles"
+              parent={props}
               {...infiniteFeedProps}
             />
           </HomeFeedContainer>
@@ -197,26 +195,57 @@ export class Main extends Component {
       );
     };
 
+    const ArticlePage = props => {
+      return (
+        <ArticleContainer parent={props}>
+          {windowWidth > 1500 && <ComposedSideBar />}
+        </ArticleContainer>
+      );
+    };
+
     const TopicsPage = props => (
       <>
         <SubHeader parent={props} />
-        <TopicContainer>
-          {mountSidebar && <ComposedSideBar />}
-          <Feed dataType="topics" topics={topics} {...infiniteFeedProps} />
-        </TopicContainer>
+        <HomeFeedContainer>
+          {windowWidth > 1024 && <ComposedSideBar />}
+          <Feed
+            articles={articles}
+            topics={topics}
+            users={users}
+            initialLoad={initialLoad}
+            updateArticles={this.updateArticles}
+            dataType="topics"
+            parent={props}
+            {...infiniteFeedProps}
+          />
+        </HomeFeedContainer>
       </>
     );
 
-    const ArticlePage = () => (
-      <ArticleContainer>{mountSidebar && <ComposedSideBar />}</ArticleContainer>
+    const TopicPage = props => (
+      <>
+        <SubHeader parent={props} />
+        <TopicContainer parent={props}>
+          {windowWidth > 1024 && <ComposedSideBar />}
+        </TopicContainer>
+      </>
     );
 
     const UsersPage = props => (
       <>
         <SubHeader parent={props} />
         <UserContainer>
-          {mountSidebar && <ComposedSideBar />}
-          <Feed dataType="users" users={users} {...infiniteFeedProps} />
+          {windowWidth > 1024 && <ComposedSideBar />}
+          <Feed
+            articles={articles}
+            topics={topics}
+            users={users}
+            initialLoad={initialLoad}
+            updateArticles={this.updateArticles}
+            dataType="users"
+            parent={props}
+            {...infiniteFeedProps}
+          />
         </UserContainer>
       </>
     );
@@ -224,27 +253,20 @@ export class Main extends Component {
     return (
       <main className="main">
         {initialLoad ? (
-          <div className="loading">
-            <Icon icon="spinner" size="4x" pulse />
-            <h1>LOADING JUICY ARTICLES...</h1>
-            {longLoad && (
-              <h3 className="long-load-message">
-                It's taking longer than usual...
-              </h3>
-            )}
-            {veryLongLoad && (
-              <h3 className="long-load-message-2">Hang tight...</h3>
-            )}
-          </div>
+          <Loader />
         ) : error ? (
           <div>{error}</div>
         ) : (
-          <Router className="main-router" primary={false}>
+          <Router className="route-container" primary={false}>
+            {/* <ScrollToTop  path="/"> */}
             <HomePage path="/" />
-            <TopicsPage path="/topics/:topic" />
-            <ArticlesPage path="/articles/:article" />
-            <ArticlePage path="/articles/example" />
-            <UsersPage path="/users/:user" />
+            <TopicsPage path="/topics" />
+            <TopicPage path="/topics/:topic" />
+            <ArticlesPage path="/articles" />
+            <ArticlesPage path="/articles/sort_by/:sort_by" />
+            <ArticlePage path="/articles/:articleId" />
+            <UsersPage path="/users" />
+            {/* </ScrollToTop> */}
           </Router>
         )}
       </main>

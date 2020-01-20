@@ -1,0 +1,72 @@
+.select-label {
+  position: relative;
+  top: 1px;
+  font-size: 0.875rem;
+  font-weight: 700;
+  display: inline-block;
+  margin: 0 0.5rem;
+  letter-spacing: 0.5px;
+}
+
+.select-container {
+  display: inline-block;
+}
+
+.select-container svg {
+  margin: 0 0.25rem;
+  color: #bd1732;
+}
+
+.selected-option > button.selected-button {
+  padding: 0.6rem 0 0.6rem 0.25rem;
+  display: flex;
+}
+
+.dropdown-sort-icon {
+  position: relative;
+  top: -1px;
+}
+
+.select-container button {
+  font-size: inherit;
+  background-color: transparent;
+  width: 100%;
+  height: 100%;
+  padding: 0.6rem 0.75rem;
+  margin: 0;
+  border: 0;
+}
+
+.select-dropdown {
+  width: 8.5rem;
+  display: none;
+  background-color: white;
+  position: absolute;
+  z-index: 1;
+  flex-direction: column;
+  border-radius: 4px;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.25);
+}
+
+.show-dropdown {
+  display: flex;
+}
+
+.select-dropdown li {
+  border-top: 1px solid #edeff1;
+  cursor: pointer;
+}
+
+.select-dropdown li:hover {
+  background-color: rgba(239, 101, 123, 0.15);
+}
+
+.select-dropdown * {
+  text-align: left;
+}
+
+@media only screen and (max-width: 480px) {
+  .select-label {
+    padding-left: 1rem;
+  }
+}

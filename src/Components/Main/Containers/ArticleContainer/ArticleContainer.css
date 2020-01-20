@@ -1,7 +1,7 @@
 .article-header {
-  /* constrained within .main-router grid */
+  /* constrained within .route-container grid */
   grid-column: 3 / span 20;
-  /* constrained within .main-router grid */
+  /* constrained within .route-container grid */
   background-color: black;
   color: white;
   display: flex;
@@ -11,9 +11,9 @@
 }
 
 div.article-container {
-  /* constrained within .main-router grid */
+  /* constrained within .route-container grid */
   grid-column: 3 / span 20;
-  /* constrained within .main-router grid */
+  /* constrained within .route-container grid */
   background-color: #f5f9fd;
   padding: 2rem 9vw;
 }

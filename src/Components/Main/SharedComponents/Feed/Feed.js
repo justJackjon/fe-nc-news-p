@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
 import { Link } from '@reach/router';
+import * as api from '../../../../api';
 
 import ArticleCard from '../../Cards/ArticleCard/ArticleCard';
 import TopicListCard from '../../Cards/TopicCards/TopicListCard/TopicListCard';
@@ -14,8 +15,29 @@ const Feed = ({
   topics,
   users,
   loadAddtlData,
-  dataAvailable
+  dataAvailable,
+  parent,
+  updateArticles
 }) => {
+  let previousSortBy = useRef(parent?.sort_by);
+
+  useEffect(() => {
+    const refreshFeed = () => {
+      api
+        .getData('/articles', 'articles', {
+          params: { sort_by: parent.sort_by }
+        })
+        .then(articles => {
+          updateArticles(articles);
+        });
+    };
+    if (previousSortBy.current !== parent?.sort_by) {
+      refreshFeed();
+      previousSortBy.current = parent.sort_by;
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [parent?.sort_by, updateArticles]);
+
   const feedList = () => {
     const articleList = articles?.map(article => (
       <li key={article.article_id} className="article-list-item">
@@ -58,9 +80,25 @@ const Feed = ({
     return dataList[dataType];
   };
 
+  const sortByRef = {
+    created_at: 'DATE',
+    comment_count: 'COMMENTS',
+    votes: 'VOTES'
+  };
+
   return (
     <section className="feed">
-      <ul className="feed-list">{feedList()}</ul>
+      <ul className="feed-list">
+        {parent?.sort_by && (
+          <li className="article-list-item sort-by-notification">
+            <h3>
+              ARTICLES SORTED BY {sortByRef[parent?.sort_by]}{' '}
+              <Icon icon="check" />
+            </h3>
+          </li>
+        )}
+        {feedList()}
+      </ul>
       <div className="end-infinite-feed">
         {loadAddtlData && (
           <>

@@ -15,10 +15,19 @@
 .article-right-column {
   padding: 1rem 0.7rem;
   text-align: left;
+  width: 100%;
+}
+
+.article-right-column * {
+  width: calc(100% - 2rem);
 }
 
 .article-subhead-topic {
   font-weight: 700;
+}
+
+.article-subhead-topic:hover {
+  text-decoration: underline;
 }
 
 .article-card-title {
@@ -32,9 +41,14 @@
   padding: 0.7rem 1rem 0.7rem 0;
 }
 
-.article-subfoot {
+.article-subfoot * {
   color: #878a8c;
   font-weight: 700;
+}
+
+.article-subfoot-comcount:hover,
+.article-subfoot-comcount:hover * {
+  color: #bd1732;
 }
 
 .article-subfoot svg {

@@ -10,23 +10,7 @@ export class WindowProvider extends Component {
   saveWindowState = this.actions.saveState.bind(this, 'WindowContext');
   state = this.loadWindowState || {
     windowWidth: 0,
-    windowHeight: 0,
-    stickySidebar: false,
-    stuckSidebar: false
-  };
-
-  setStickySidebar = stickySidebar => {
-    this.setState(prevState => {
-      return stickySidebar !== prevState.stickySidebar
-        ? { stickySidebar }
-        : null;
-    });
-  };
-
-  setStuckSidebar = stuckSidebar => {
-    this.setState(prevState => {
-      return stuckSidebar !== prevState.stuckSidebar ? { stuckSidebar } : null;
-    });
+    windowHeight: 0
   };
 
   updateWindowDimensions = () => {
@@ -46,12 +30,8 @@ export class WindowProvider extends Component {
         value={{
           windowWidth: this.state.windowWidth,
           windowHeight: this.state.windowHeight,
-          stickySidebar: this.state.stickySidebar,
-          stuckSidebar: this.state.stuckSidebar,
           actions: {
-            updateWindowDimensions: this.updateWindowDimensions,
-            setStickySidebar: this.setStickySidebar,
-            setStuckSidebar: this.setStuckSidebar
+            updateWindowDimensions: this.updateWindowDimensions
           }
         }}
       >

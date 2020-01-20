@@ -1,5 +1,9 @@
 import React from 'react';
+
+import { WindowConsumer } from '../../Context/WindowProvider';
+import SelectDropdown from '../../Controls/SelectDropdown/SelectDropdown';
 import Links from '../../Navigation/NavigationLinks';
+
 import './SubHeader.css';
 import ncnLogo from '../../../ncnlogo-rb.svg';
 
@@ -13,16 +17,34 @@ const SubHeader = ({ parent, children }) => {
           </div>
           <div className="topic-subhead-text">
             <h1 className="topic-title">
-              {parent.topic || parent.article || parent.user}
+              {parent.path
+                .match(/\/(\w+)/)[1]
+                .replace(/^\w/, first => first.toUpperCase())}
             </h1>
             <p className="topic-uri">{parent.uri}</p>
           </div>
         </div>
       )}
 
-      <nav className="sub-navigation">
-        <ul>{Links.slice(0, 4)}</ul>
-      </nav>
+      <div className="sub-navigation-container">
+        {
+          <WindowConsumer>
+            {({ windowWidth }) => {
+              if (windowWidth > 600)
+                return (
+                  <>
+                    <nav className="sub-navigation">
+                      <ul>{Links.slice(0, 4)}</ul>
+                    </nav>
+                    <hr className="sub-navigation-hr" />
+                  </>
+                );
+            }}
+          </WindowConsumer>
+        }
+        <SelectDropdown />
+        <hr className="sub-navigation-hr" />
+      </div>
     </div>
   );
 };

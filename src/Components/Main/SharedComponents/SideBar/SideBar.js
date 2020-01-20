@@ -1,17 +1,17 @@
 import React, { useContext, createRef, useEffect } from 'react';
-import { WindowContext } from '../../../Context/WindowProvider';
+import { SidebarContext } from '../../../Context/SidebarProvider';
 import './SideBar.css';
 import Footer from '../../../Footer/Footer';
+
+const sidebarContent = createRef();
+const sidebarContainer = createRef();
 
 const SideBar = ({ children }) => {
   const {
     stickySidebar,
     stuckSidebar,
     actions: { setStickySidebar, setStuckSidebar }
-  } = useContext(WindowContext);
-
-  const sidebarContent = createRef();
-  const sidebarContainer = createRef();
+  } = useContext(SidebarContext);
 
   const initClassNames = () => {
     if (stuckSidebar) return 'sidebar-content sidebar-content-stuck';
@@ -28,7 +28,7 @@ const SideBar = ({ children }) => {
         setStickySidebar(true);
       } else {
         setStickySidebar(false);
-        setStuckSidebar(false);
+        // setStuckSidebar(false);
       }
     }
   };
@@ -38,12 +38,6 @@ const SideBar = ({ children }) => {
     window.addEventListener('scroll', stickyStuff);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  useEffect(() => {
-    return () => {
-      window.removeEventListener('scroll', stickyStuff);
-    };
-  });
 
   return (
     <aside ref={sidebarContainer} className="sidebar">

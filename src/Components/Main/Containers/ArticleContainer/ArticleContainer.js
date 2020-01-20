@@ -1,39 +1,52 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
+import * as api from '../../../../api';
 
+import Loader from '../../../Utils/Loader/Loader';
 import Article from '../ArticleContainer/Article/Article';
 
 import '../Containers.css';
 import './ArticleContainer.css';
 
-const ArticleContainer = ({ children }) => {
-  const [article, setArticle] = useState({
-    article_id: 1,
-    title: 'Running a Node App',
-    body:
-      'This is part two of a series on how to get up and running with Systemd and Node.js. This part dives deeper into how to successfully run your app with systemd long-term, and how to set it up in a production environment.',
-    votes: 0,
-    topic: 'coding',
-    author: 'jessjelly',
-    created_at: '2016-08-18T12:07:52.389Z',
-    comment_count: '8'
-  });
+const ArticleContainer = ({ parent: { articleId }, children }) => {
+  const [article, setArticle] = useState(null);
+
+  const fetchArticle = () => {
+    api.getData(`/articles/${articleId}`, 'article').then(article => {
+      setArticle(article);
+    });
+  };
+
+  useEffect(() => {
+    if (!article) fetchArticle();
+    if (article?.article_id !== articleId) fetchArticle();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <>
-      <div className="article-header">
-        <h1>{article.title}</h1>
-        <button className="article-close" onClick={() => window.history.back()}>
-          <Icon icon="times" />
-          <span>CLOSE</span>
-        </button>
-      </div>
-      <div className="article-container">
-        <div className="article-sub-container">
-          <Article article={article} />
-          {children}
-        </div>
-      </div>
+      {!article ? (
+        <Loader />
+      ) : (
+        <>
+          <div className="article-header">
+            <h1>{article.title}</h1>
+            <button
+              className="article-close"
+              onClick={() => window.history.back()}
+            >
+              <Icon icon="times" />
+              <span>CLOSE</span>
+            </button>
+          </div>
+          <div className="article-container">
+            <div className="article-sub-container">
+              <Article article={article} />
+              {children}
+            </div>
+          </div>
+        </>
+      )}
     </>
   );
 };

@@ -1,51 +1,17 @@
 .main {
   min-height: 100vh;
-}
-
-.main-router {
-  display: grid;
-  grid-template-columns: repeat(24, 1fr);
   position: relative;
   top: 48px;
+}
+
+.route-container {
+  display: grid;
+  grid-template-columns: repeat(24, 1fr);
   margin-bottom: 3.5rem;
 }
 
-.loading {
-  min-height: calc(100vh - 48px);
-  position: relative;
-  top: 48px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.loading * {
-  color: #878a8c;
-  align-self: center;
-  position: relative;
-  top: -2.5rem;
-}
-
-.loading svg {
-  padding: 1rem;
-}
-
-.loading h1 {
-  margin-top: 1rem;
-}
-
-.loading .long-load-message {
-  position: absolute;
-  top: 52vh;
-}
-
-.loading .long-load-message-2 {
-  position: absolute;
-  top: 55.6vh;
-}
-
 @media only screen and (max-width: 768px) {
-  .main-router {
+  .route-container {
     display: block;
   }
 }
