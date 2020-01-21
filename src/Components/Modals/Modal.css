@@ -12,6 +12,10 @@
   animation: gradual-load 0.5s;
 }
 
+.modal-container p {
+  font-weight: 400;
+}
+
 .modal-sm {
   align-self: center;
   margin: 2rem;

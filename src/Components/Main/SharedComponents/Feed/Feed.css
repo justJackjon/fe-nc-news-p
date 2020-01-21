@@ -53,6 +53,7 @@ ul.feed-list li.article-list-item:last-child {
 .end-infinite-feed {
   padding: 2rem 0 1rem;
   color: #878a8c;
+  margin-bottom: 3.5rem;
 }
 
 .end-infinite-feed svg {

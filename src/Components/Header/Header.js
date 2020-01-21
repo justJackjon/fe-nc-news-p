@@ -8,6 +8,7 @@ import ncnLogo from '../../ncnlogo-rb.svg';
 import SearchBar from './SearchBar';
 import HeaderControls from './HeaderControls/HeaderControls';
 import Button from '../Controls/Buttons/Button';
+import { articleHeader } from '../Main/Containers/ArticleContainer/ArticleContainer';
 
 import './Header.css';
 
@@ -29,6 +30,13 @@ const Header = () => {
     if (backToTop.current) {
       const className = backToTop.current.classList;
       scrolled ? className.add('display') : className.remove('display');
+    }
+
+    if (articleHeader.current) {
+      const className = articleHeader.current.classList;
+      scrolled
+        ? className.add('article-header-onscroll')
+        : className.remove('article-header-onscroll');
     }
   };
 

@@ -1,4 +1,5 @@
 div.article-header {
+  z-index: 1;
   background-color: black;
   color: white;
   display: flex;
@@ -12,9 +13,13 @@ div.article-header {
   margin: 0 7vw;
 }
 
+.article-header-onscroll {
+  box-shadow: -1px 1px 0.25rem rgba(0, 0, 0, 0.25);
+}
+
 div.article-container {
   position: relative;
-  z-index: -1;
+  z-index: 0;
   top: 48px;
   max-width: 76vw;
   width: 100%;
@@ -53,9 +58,23 @@ button.article-close svg {
   margin-top: 1px;
 }
 
+@media only screen and (max-width: 480px) {
+  div.article-header {
+    max-width: 100vw;
+    padding: 0;
+    margin: 0;
+  }
+
+  div.article-container {
+    max-width: calc(100vw - 2rem);
+    padding: 1;
+    margin: 0 0 6rem;
+  }
+}
+
 @media only screen and (max-width: 768px) {
   div.article-container {
-    padding: 1rem;
+    padding: 1.5rem 4vw;
   }
 }
 
@@ -66,5 +85,22 @@ button.article-close svg {
 
   .article-header {
     padding: 0.75rem 1rem;
+  }
+}
+
+@media only screen and (min-width: 1500px) {
+  div.article-header {
+    max-width: 62vw;
+    width: 100%;
+    height: 48px;
+    padding: 0 2vw;
+    margin: 0 17vw;
+  }
+
+  div.article-container {
+    max-width: 58vw;
+    width: 100%;
+    padding: 2.5rem 4vw;
+    margin: 0 17vw 10rem;
   }
 }

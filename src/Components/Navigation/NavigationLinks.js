@@ -26,12 +26,6 @@ const Navigation = [
       <Icon icon="users" />
       USERS
     </Link>
-  </li>,
-  <li key="sign in">
-    <Link to="/">
-      <Icon icon="sign-in-alt" />
-      Login / Sign Up
-    </Link>
   </li>
 ];
 

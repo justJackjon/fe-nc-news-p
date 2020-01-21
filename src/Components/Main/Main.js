@@ -1,4 +1,4 @@
-import React, { Component, useEffect } from 'react';
+import React, { Component, useEffect, useCallback } from 'react';
 import { WindowContext } from '../Context/WindowProvider';
 import { Router } from '@reach/router';
 import debounce from 'lodash.debounce';
@@ -104,7 +104,7 @@ export class Main extends Component {
   }
 
   componentWillUnmount() {
-    // clean-up here - leave as placeholder
+    //
   }
 
   componentDidUpdate(prevProps, prevState) {}
@@ -124,7 +124,6 @@ export class Main extends Component {
 
     // At a later stage different sidebar compositions (with different card combinations) can be added.
     const ComposedSidebar = ({ parent: { ...props } }) => {
-      console.log(props, '<----- props');
       const numOfTopUsers = props?.path === '/articles/:articleId' ? 3 : 5;
       return (
         <SideBar parent={{ ...props }}>
@@ -152,15 +151,13 @@ export class Main extends Component {
     //   />
     // );
 
-    const HomePage = () => {
-      useEffect(() => {
-        window.addEventListener('scroll', this.getAddtlData);
-      }, []);
+    const HomePage = props => {
+      const { getAddtlData } = this;
 
       return (
         <>
           <SubHeader />
-          <HomeFeedContainer>
+          <HomeFeedContainer parent={props} getAddtlData={getAddtlData}>
             <TrendingTopics topics={topics} />
             {windowWidth > 1024 && <ComposedSidebar />}
             <Feed
@@ -178,14 +175,12 @@ export class Main extends Component {
     };
 
     const ArticlesPage = props => {
-      useEffect(() => {
-        window.addEventListener('scroll', this.getAddtlData);
-      }, []);
+      const { getAddtlData } = this;
 
       return (
         <>
           <SubHeader parent={props} />
-          <HomeFeedContainer>
+          <HomeFeedContainer parent={props} getAddtlData={getAddtlData}>
             {/* <TrendingTopics topics={topics} /> */}
             {windowWidth > 1024 && <ComposedSidebar />}
             <Feed
@@ -214,7 +209,7 @@ export class Main extends Component {
     const TopicsPage = props => (
       <>
         <SubHeader parent={props} />
-        <HomeFeedContainer>
+        <HomeFeedContainer parent={props}>
           {windowWidth > 1024 && <ComposedSidebar />}
           <Feed
             articles={articles}
@@ -242,7 +237,7 @@ export class Main extends Component {
     const UsersPage = props => (
       <>
         <SubHeader parent={props} />
-        <UserContainer>
+        <HomeFeedContainer parent={props}>
           {windowWidth > 1024 && <ComposedSidebar />}
           <Feed
             articles={articles}
@@ -254,7 +249,7 @@ export class Main extends Component {
             parent={props}
             {...infiniteFeedProps}
           />
-        </UserContainer>
+        </HomeFeedContainer>
       </>
     );
 
@@ -266,15 +261,15 @@ export class Main extends Component {
           <div>{error}</div>
         ) : (
           <Router className="route-container" primary={false}>
-            {/* <ScrollToTop  path="/"> */}
-            <HomePage path="/" />
-            <TopicsPage path="/topics" />
-            <TopicPage path="/topics/:topic" />
-            <ArticlesPage path="/articles" />
-            <ArticlesPage path="/articles/sort_by/:sort_by" />
-            <ArticlePage path="/articles/:articleId" />
-            <UsersPage path="/users" />
-            {/* </ScrollToTop> */}
+            <ScrollToTop path="/">
+              <HomePage path="/" />
+              <TopicsPage path="/topics" />
+              <TopicPage path="/topics/:topic" />
+              <ArticlesPage path="/articles" />
+              <ArticlesPage path="/articles/sort_by/:sort_by" />
+              <ArticlePage path="/articles/:articleId" />
+              <UsersPage path="/users" />
+            </ScrollToTop>
           </Router>
         )}
       </main>

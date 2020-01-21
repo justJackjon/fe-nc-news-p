@@ -5,7 +5,13 @@ import { Link } from '@reach/router';
 import placeholderAvatar from '../../../../../placeholder-avatar.svg';
 import './UserListCard.css';
 
-const UserListCard = ({ itemNumber, displayLocation, user, children }) => {
+const UserListCard = ({
+  itemNumber,
+  displayLocation,
+  user,
+  loggedIn,
+  children
+}) => {
   // displayLocation = user-list || user-profile || sidebar-user-list
   return (
     <div className={`${displayLocation}-container`}>

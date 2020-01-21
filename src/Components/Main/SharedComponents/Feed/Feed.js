@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useCallback } from 'react';
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
 import { Link } from '@reach/router';
 import * as api from '../../../../api';
@@ -21,22 +21,35 @@ const Feed = ({
 }) => {
   const previousSortBy = useRef(parent?.sort_by);
 
+  const refreshFeed = useCallback(() => {
+    api
+      .getData('/articles', 'articles', {
+        params: { sort_by: parent.sort_by }
+      })
+      .then(articles => {
+        updateArticles(articles);
+      });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [parent?.sort_by]);
+
   useEffect(() => {
-    const refreshFeed = () => {
-      api
-        .getData('/articles', 'articles', {
-          params: { sort_by: parent.sort_by }
-        })
-        .then(articles => {
-          updateArticles(articles);
-        });
-    };
+    console.log(previousSortBy.current, '<-------------------------');
+    console.log(parent?.sort_by, '<-------------------------');
+    console.log(
+      previousSortBy.current !== parent?.sort_by,
+      '<-------------------------'
+    );
     if (previousSortBy.current !== parent?.sort_by) {
       refreshFeed();
       previousSortBy.current = parent.sort_by;
     }
+    return () => {
+      console.log(
+        'unnnmmmmmmmooooooooooounnnnnnnnnnnnnntiiiiiiiiiiiinnnnnnnnnnggggggg'
+      );
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [parent?.sort_by, updateArticles]);
+  }, [parent?.sort_by, refreshFeed]);
 
   const feedList = () => {
     const articleList = articles?.map(article => (

@@ -1,4 +1,10 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, {
+  useState,
+  useEffect,
+  useRef,
+  useCallback,
+  createRef
+} from 'react';
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
 import * as api from '../../../../api';
 
@@ -7,6 +13,8 @@ import Article from '../ArticleContainer/Article/Article';
 
 import '../Containers.css';
 import './ArticleContainer.css';
+
+export const articleHeader = createRef();
 
 const ArticleContainer = ({ parent: { articleId }, children }) => {
   const prevArticleId = useRef(articleId);
@@ -31,7 +39,7 @@ const ArticleContainer = ({ parent: { articleId }, children }) => {
         <Loader />
       ) : (
         <>
-          <div className="article-header">
+          <div ref={articleHeader} className="article-header">
             <h1>{article.title}</h1>
             <button
               className="article-close"

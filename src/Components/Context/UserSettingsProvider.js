@@ -1,4 +1,5 @@
 import React, { Component, createContext } from 'react';
+import placeholderAvatar from '../../placeholder-avatar.svg';
 
 export const UserSettingsContext = createContext();
 
@@ -7,11 +8,11 @@ export class UserSettingsProvider extends Component {
   saveUserSettingsState = this.saveState.bind(this, 'UserSettingsContext'); // to other components, so we implicitly bind it here.
 
   state = this.loadUserSettingsState || {
+    loggedIn: false,
     loggedInUser: {
-      username: 'grumpy19',
-      avatar_url:
-        'https://www.tumbit.com/profile-image/4/original/mr-grumpy.jpg',
-      name: 'Paul Grump'
+      username: 'You are not logged in.',
+      avatar_url: placeholderAvatar,
+      name: 'Create an account or login'
     },
     displayMode: 'light'
   };
@@ -26,6 +27,31 @@ export class UserSettingsProvider extends Component {
     const state = stateItems || this.state;
     sessionStorage.setItem(stateName, JSON.stringify(state));
   }
+
+  logOut = () => {
+    this.setState({
+      loggedIn: false,
+      loggedInUser: {
+        username: 'You are not logged in.',
+        avatar_url: placeholderAvatar,
+        name: 'Create an account or login'
+      }
+    });
+  };
+
+  logInDefaultUser = event => {
+    event.preventDefault();
+    console.log('logging in default user...');
+    // this.setState({
+    //   loggedIn: true,
+    //   loggedInUser: {
+    //     username: 'jessjelly',
+    //     avatar_url:
+    //       'https://s-media-cache-ak0.pinimg.com/564x/39/62/ec/3962eca164e60cf46f979c1f57d4078b.jpg',
+    //     name: 'Jess Jelly'
+    //   }
+    // });
+  };
 
   componentDidUpdate() {
     this.saveUserSettingsState();

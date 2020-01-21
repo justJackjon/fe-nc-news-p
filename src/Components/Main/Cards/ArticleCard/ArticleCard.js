@@ -3,7 +3,7 @@ import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
 import { Link } from '@reach/router';
 
 import VoteControl from '../../../Controls/VoteControls/VoteControl';
-
+import { articleComments } from '../../Containers/ArticleContainer/Article/Comments/Comments';
 import './ArticleCard.css';
 
 const ArticleCard = ({ article, mainArticle }) => {
@@ -26,10 +26,21 @@ const ArticleCard = ({ article, mainArticle }) => {
     if (minutes) return `${minutes} minute${minutes > 1 ? 's' : ''} ago`;
     // diffInSeconds -= minutes * 60;
 
-    // const seconds = diffInSeconds % 60; // in theory the modulus is not required
-
+    // const seconds = diffInSeconds % 60;
     return `just now`;
   };
+
+  const handleClick = () => {
+    console.log('special click....');
+    if (/\/articles\/\d+/.test(window.location.pathname)) {
+      articleComments.current.scrollIntoView({
+        behavior: 'smooth',
+        block: 'nearest'
+        // inline: 'nearest'
+      });
+    }
+  };
+
   return (
     <article className="article-card">
       <div
@@ -55,7 +66,7 @@ const ArticleCard = ({ article, mainArticle }) => {
           )}
           <p className="article-body">{article.body}</p>
           <p className="article-subfoot">
-            <span className="article-subfoot-comcount">
+            <span className="article-subfoot-comcount" onClick={handleClick}>
               <Icon icon="comment"></Icon>
               {`${article.comment_count} Comments`}
             </span>
