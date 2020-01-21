@@ -11,17 +11,30 @@ import Button from '../../Controls/Buttons/Button';
 import './MainNavigation.css';
 
 const MainNavigation = ({ toggleDrawer }) => {
-  const { loggedInUser: user, loggedIn, logInDefaultUser, logOut } = useContext(
-    UserSettingsContext
-  );
+  const {
+    loggedInUser: user,
+    loggedIn,
+    actions: { logInDefaultUser, logOut }
+  } = useContext(UserSettingsContext);
   const [openModal, setOpenModal] = useState(false);
 
   const handleOpen = () => {
     setOpenModal(true);
   };
 
-  const handleClose = () => {
+  const goBack = () => {
     setOpenModal(false);
+    toggleDrawer(true);
+  };
+
+  const closeAndLogIn = () => {
+    setOpenModal(false);
+    logInDefaultUser();
+  };
+
+  const closeAndLogOut = () => {
+    setOpenModal(false);
+    logOut();
   };
 
   const handleClick = event => {
@@ -32,21 +45,50 @@ const MainNavigation = ({ toggleDrawer }) => {
     });
   };
 
+  const logInModalContent = (
+    <>
+      <h1>Welcome to NCNews</h1>
+      <p>
+        As this application is for portfolio purposes only, it is recommended
+        that you login as the default user.
+      </p>
+      <h3>Would you like to login as the default user?</h3>
+      <Button className="btn-accept btn-lg" onClick={closeAndLogIn}>
+        LOGIN
+      </Button>
+    </>
+  );
+
+  const logOutModalContent = (
+    <>
+      <h1>Thank you for using NCNews!</h1>
+      <p>Questions or comments? Email support@redrobincreative.com</p>
+      <h3>Would you like to log out?</h3>
+      <Button className="btn-accept btn-lg" onClick={closeAndLogOut}>
+        LOG OUT
+      </Button>
+    </>
+  );
+
+  const logInOutButton = loggedIn ? (
+    <li key="log out" onClick={handleOpen}>
+      <Icon icon="sign-out-alt" />
+      Log Out
+    </li>
+  ) : (
+    <li key="log in" onClick={handleOpen}>
+      <Icon icon="sign-in-alt" />
+      Login / Sign Up
+    </li>
+  );
+
   return (
     <>
       {openModal && (
         <Modal className="modal-sm modal-vw welcome-login-modal">
           <Icon icon="info-circle" size="3x" />
-          <h1>Welcome to NCNews</h1>
-          <p>
-            As this application is for portfolio purposes only, it is
-            recommended that you login as the default user.
-          </p>
-          <h3>Would you like to login as the default user?</h3>
-          <Button className="btn-accept btn-lg" onClick={logInDefaultUser}>
-            LOGIN
-          </Button>
-          <Button className="btn-solid btn-lg" onClick={handleClose}>
+          {loggedIn ? logOutModalContent : logInModalContent}
+          <Button className="btn-solid btn-lg" onClick={goBack}>
             GO BACK
           </Button>
         </Modal>
@@ -58,12 +100,7 @@ const MainNavigation = ({ toggleDrawer }) => {
         </h2>
         <ul onClick={handleClick}>
           {Links}
-          <li key="sign in">
-            <Link to="/" onClick={handleOpen}>
-              <Icon icon="sign-in-alt" />
-              Login / Sign Up
-            </Link>
-          </li>
+          {logInOutButton}
         </ul>
         <Footer displayLocation="main-navigation" />
       </div>

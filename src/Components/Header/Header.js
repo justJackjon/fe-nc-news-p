@@ -9,6 +9,7 @@ import SearchBar from './SearchBar';
 import HeaderControls from './HeaderControls/HeaderControls';
 import Button from '../Controls/Buttons/Button';
 import { articleHeader } from '../Main/Containers/ArticleContainer/ArticleContainer';
+import UserNotifcationBar from '../Modals/UserNotification/UserNotificationBar';
 
 import './Header.css';
 
@@ -50,33 +51,37 @@ const Header = () => {
   };
 
   return (
-    <WindowConsumer>
-      {({ windowWidth }) => (
-        <>
-          <header ref={mainHeader} className="main-header-container">
-            <div className="main-header">
-              <Link to="/">
-                <img
-                  src={windowWidth <= 480 ? ncnLogo : ncnewsLogo}
-                  className="header-logo"
-                  alt="NCNews Logo"
-                />
-              </Link>
-              <SearchBar />
-              <HeaderControls />
-            </div>
-          </header>
-          <Button
-            ref={backToTop}
-            className="btn-direction back-to-top"
-            onClick={handleClick}
-            aria-label="Back to top"
-          >
-            <Icon icon="angle-double-up"></Icon>
-          </Button>
-        </>
-      )}
-    </WindowConsumer>
+    <>
+      <UserNotifcationBar className="notification-bar-top success" />
+
+      <WindowConsumer>
+        {({ windowWidth }) => (
+          <>
+            <header ref={mainHeader} className="main-header-container">
+              <div className="main-header">
+                <Link to="/">
+                  <img
+                    src={windowWidth <= 480 ? ncnLogo : ncnewsLogo}
+                    className="header-logo"
+                    alt="NCNews Logo"
+                  />
+                </Link>
+                <SearchBar />
+                <HeaderControls />
+              </div>
+            </header>
+            <Button
+              ref={backToTop}
+              className="btn-direction back-to-top"
+              onClick={handleClick}
+              aria-label="Back to top"
+            >
+              <Icon icon="angle-double-up"></Icon>
+            </Button>
+          </>
+        )}
+      </WindowConsumer>
+    </>
   );
 };
 

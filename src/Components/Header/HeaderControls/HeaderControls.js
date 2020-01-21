@@ -10,8 +10,8 @@ const HeaderControls = () => {
   // const [darkMode, setDarkMode] = useState(false);
   const [openModal, setOpenModal] = useState(false);
 
-  const toggleDrawer = event => {
-    setOpen(event.target.checked || false);
+  const toggleDrawer = (event, value) => {
+    setOpen(event.target?.checked || value || false);
   };
 
   const handleChange = () => {

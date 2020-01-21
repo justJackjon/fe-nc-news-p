@@ -9,6 +9,7 @@ export class UserSettingsProvider extends Component {
 
   state = this.loadUserSettingsState || {
     loggedIn: false,
+    displayNotification: '',
     loggedInUser: {
       username: 'You are not logged in.',
       avatar_url: placeholderAvatar,
@@ -28,29 +29,29 @@ export class UserSettingsProvider extends Component {
     sessionStorage.setItem(stateName, JSON.stringify(state));
   }
 
+  logInDefaultUser = () => {
+    this.setState({
+      loggedIn: true,
+      displayNotification: 'Success - logged in as jessjelly',
+      loggedInUser: {
+        username: 'jessjelly',
+        avatar_url:
+          'https://s-media-cache-ak0.pinimg.com/564x/39/62/ec/3962eca164e60cf46f979c1f57d4078b.jpg',
+        name: 'Jess Jelly'
+      }
+    });
+  };
+
   logOut = () => {
     this.setState({
       loggedIn: false,
+      displayNotification: 'Success - you are now logged out',
       loggedInUser: {
         username: 'You are not logged in.',
         avatar_url: placeholderAvatar,
         name: 'Create an account or login'
       }
     });
-  };
-
-  logInDefaultUser = event => {
-    event.preventDefault();
-    console.log('logging in default user...');
-    // this.setState({
-    //   loggedIn: true,
-    //   loggedInUser: {
-    //     username: 'jessjelly',
-    //     avatar_url:
-    //       'https://s-media-cache-ak0.pinimg.com/564x/39/62/ec/3962eca164e60cf46f979c1f57d4078b.jpg',
-    //     name: 'Jess Jelly'
-    //   }
-    // });
   };
 
   componentDidUpdate() {
@@ -61,11 +62,15 @@ export class UserSettingsProvider extends Component {
     return (
       <UserSettingsContext.Provider
         value={{
+          loggedIn: this.state.loggedIn,
+          displayNotification: this.state.displayNotification,
           loggedInUser: this.state.loggedInUser,
           displayMode: this.state.displayMode,
           actions: {
             loadState: this.loadState,
-            saveState: this.saveState
+            saveState: this.saveState,
+            logInDefaultUser: this.logInDefaultUser,
+            logOut: this.logOut
           }
         }}
       >

@@ -6,6 +6,7 @@
   display: inline-block;
   margin: 0 0.5rem;
   letter-spacing: 0.5px;
+  user-select: none;
 }
 
 .select-container {

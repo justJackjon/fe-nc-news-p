@@ -33,18 +33,33 @@
 }
 
 .main-navigation li {
-  margin: 3px 0;
-  padding: 0.75rem 0.5rem;
+  border-top: 1px solid gainsboro;
+}
+
+.main-navigation li:last-child {
+  border-bottom: 1px solid gainsboro;
+}
+
+.main-navigation li a,
+.main-navigation li:last-child {
+  display: inline-block;
+  padding: 1.35rem 0;
+  width: 100%;
+  cursor: pointer;
 }
 
 .main-navigation li a {
-  margin: 0.15rem;
   font-size: 0.875rem;
   font-weight: 700;
 }
 
-.main-navigation li a svg {
+.main-navigation li svg {
   margin-right: 0.25rem;
+  color: #bd1732;
+}
+
+.main-navigation li:hover {
+  background-color: rgba(239, 101, 123, 0.15);
 }
 
 @media only screen and (max-width: 480px) {
@@ -54,10 +69,15 @@
   }
 
   .main-navigation h2 {
-    margin-top: 11.5vh;
+    margin-top: 10vh;
   }
 
   #toggleDrawer:checked + .main-navigation {
     transform: translateX(-82.5vw);
+  }
+
+  .main-navigation li a,
+  .main-navigation li:last-child {
+    padding: 1.15rem 0;
   }
 }
