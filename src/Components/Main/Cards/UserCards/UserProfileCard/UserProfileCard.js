@@ -10,15 +10,25 @@ import Button from '../../../../Controls/Buttons/Button';
 import './UserProfileCard.css';
 
 const UserProfileCard = () => {
-  const { loggedInUser: user, loggedIn } = useContext(UserSettingsContext);
+  const {
+    loggedInUser: user,
+    loggedIn,
+    actions: { logInDefaultUser, logOut }
+  } = useContext(UserSettingsContext);
   const [openModal, setOpenModal] = useState(false);
-
-  const handleClick = () => {
-    setOpenModal(true);
-  };
 
   const handleClose = () => {
     setOpenModal(false);
+  };
+
+  const closeAndLogIn = () => {
+    setOpenModal(false);
+    logInDefaultUser();
+  };
+
+  const closeAndLogOut = () => {
+    setOpenModal(false);
+    logOut();
   };
 
   return (
@@ -47,10 +57,16 @@ const UserProfileCard = () => {
           user={user}
           loggedIn={loggedIn}
         >
-          <button className="btn-lg btn-regular" onClick={handleClick}>
+          <button
+            className="btn-lg btn-regular"
+            onClick={() => setOpenModal(true)}
+          >
             {loggedIn ? 'LOG OUT' : 'LOG IN'}
           </button>
-          <button className="btn-lg btn-solid" onClick={handleClick}>
+          <button
+            className="btn-lg btn-solid"
+            onClick={() => setOpenModal(true)}
+          >
             {loggedIn ? 'NEW POST' : 'SIGN UP'}
           </button>
         </UserListCard>

@@ -1,6 +1,6 @@
 .notification-bar-top {
   position: fixed;
-  z-index: 9999;
+  z-index: 1;
   width: 100%;
   top: 48px;
   left: 0;

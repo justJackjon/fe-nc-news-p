@@ -9,6 +9,7 @@ export class UserSettingsProvider extends Component {
 
   state = this.loadUserSettingsState || {
     loggedIn: false,
+    openAuthModal: false,
     displayNotification: '',
     loggedInUser: {
       username: 'You are not logged in.',
@@ -28,6 +29,21 @@ export class UserSettingsProvider extends Component {
     const state = stateItems || this.state;
     sessionStorage.setItem(stateName, JSON.stringify(state));
   }
+
+  setOpenAuthModal = openAuthModal => {
+    console.log('openAuthModal fired!!.......');
+    this.setState({ openAuthModal });
+  };
+
+  closeModalAndLogIn = () => {
+    this.setOpenAuthModal(false);
+    this.logInDefaultUser();
+  };
+
+  closeModalAndLogOut = () => {
+    this.setOpenAuthModal(false);
+    this.logOut();
+  };
 
   logInDefaultUser = () => {
     this.setState({
@@ -63,12 +79,16 @@ export class UserSettingsProvider extends Component {
       <UserSettingsContext.Provider
         value={{
           loggedIn: this.state.loggedIn,
+          openAuthModal: this.state.openAuthModal,
           displayNotification: this.state.displayNotification,
           loggedInUser: this.state.loggedInUser,
           displayMode: this.state.displayMode,
           actions: {
             loadState: this.loadState,
             saveState: this.saveState,
+            setOpenAuthModal: this.setOpenAuthModal,
+            closeModalAndLogIn: this.closeModalAndLogIn,
+            closeModalAndLogOut: this.closeModalAndLogOut,
             logInDefaultUser: this.logInDefaultUser,
             logOut: this.logOut
           }
