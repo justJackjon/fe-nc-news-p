@@ -16,7 +16,7 @@ label.toggle-switch:before {
 }
 
 .toggle-switch input,
-.hambuger-menu input {
+.hamburger-menu input {
   position: absolute;
   clip: rect(0, 0, 0, 0);
 }
@@ -30,7 +30,7 @@ label.toggle-switch:before {
   margin-left: 6.25rem;
 }
 
-.hambuger-menu {
+.hamburger-menu {
   margin-left: 1rem;
   padding: 0.25rem;
   width: 13.2px;

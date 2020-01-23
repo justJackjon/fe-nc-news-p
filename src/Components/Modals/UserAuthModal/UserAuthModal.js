@@ -7,13 +7,13 @@ import Button from '../../Controls/Buttons/Button';
 const UserAuthModal = ({ toggleDrawer }) => {
   const {
     loggedIn,
-    actions: { setOpenAuthModal, closeModalAndLogIn, closeModalAndLogOut }
+    actions: {
+      setOpenAuthModal,
+      closeModalAndGoBack,
+      closeModalAndLogIn,
+      closeModalAndLogOut
+    }
   } = useContext(UserSettingsContext);
-
-  const goBack = () => {
-    setOpenAuthModal(false);
-    toggleDrawer(true);
-  };
 
   const logInModalContent = (
     <>
@@ -23,7 +23,11 @@ const UserAuthModal = ({ toggleDrawer }) => {
         that you login as the default user.
       </p>
       <h3>Would you like to login as the default user?</h3>
-      <Button className="btn-accept btn-lg" onClick={closeModalAndLogIn}>
+      <Button
+        className="btn-accept btn-lg"
+        onClick={event => closeModalAndLogIn(event)}
+        value={'logIn'}
+      >
         LOGIN
       </Button>
     </>
@@ -34,7 +38,10 @@ const UserAuthModal = ({ toggleDrawer }) => {
       <h1>Thank you for using NCNews!</h1>
       <p>Questions or comments? Email support@redrobincreative.com</p>
       <h3>Would you like to log out?</h3>
-      <Button className="btn-accept btn-lg" onClick={closeModalAndLogOut}>
+      <Button
+        className="btn-accept btn-lg"
+        onClick={event => closeModalAndLogOut(event)}
+      >
         LOG OUT
       </Button>
     </>
@@ -42,10 +49,12 @@ const UserAuthModal = ({ toggleDrawer }) => {
 
   return (
     <Modal className="modal-sm modal-vw welcome-login-modal">
-      {console.log("I'm here somewhere, you just can't see me!!!!")}
       <Icon icon="info-circle" size="3x" />
       {loggedIn ? logOutModalContent : logInModalContent}
-      <Button className="btn-solid btn-lg" onClick={goBack}>
+      <Button
+        className="btn-solid btn-lg"
+        onClick={event => closeModalAndGoBack(event)}
+      >
         GO BACK
       </Button>
     </Modal>

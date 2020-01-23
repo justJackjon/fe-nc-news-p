@@ -27,12 +27,18 @@ const MainNavigation = ({ toggleDrawer }) => {
   };
 
   const logInOutButton = loggedIn ? (
-    <li key="log out" onClick={() => setOpenAuthModal(true)}>
+    <li
+      key="log out"
+      onClick={event => setOpenAuthModal(true, 'MainNavigation', event)}
+    >
       <Icon icon="sign-out-alt" />
       Log Out
     </li>
   ) : (
-    <li key="log in" onClick={() => setOpenAuthModal(true)}>
+    <li
+      key="log in"
+      onClick={event => setOpenAuthModal(true, 'MainNavigation', event)}
+    >
       <Icon icon="sign-in-alt" />
       Login / Sign Up
     </li>

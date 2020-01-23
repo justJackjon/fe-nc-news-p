@@ -1,11 +1,7 @@
-import React, { useContext, useState } from 'react';
-import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
-import { Link } from '@reach/router';
+import React, { useContext } from 'react';
 
 import { UserSettingsContext } from '../../../../Context/UserSettingsProvider';
 import UserListCard from '../UserListCard/UserListCard';
-import Modal from '../../../../Modals/Modal';
-import Button from '../../../../Controls/Buttons/Button';
 
 import './UserProfileCard.css';
 
@@ -13,65 +9,31 @@ const UserProfileCard = () => {
   const {
     loggedInUser: user,
     loggedIn,
-    actions: { logInDefaultUser, logOut }
+    actions: { setOpenAuthModal }
   } = useContext(UserSettingsContext);
-  const [openModal, setOpenModal] = useState(false);
-
-  const handleClose = () => {
-    setOpenModal(false);
-  };
-
-  const closeAndLogIn = () => {
-    setOpenModal(false);
-    logInDefaultUser();
-  };
-
-  const closeAndLogOut = () => {
-    setOpenModal(false);
-    logOut();
-  };
 
   return (
-    <>
-      {openModal && (
-        <Modal className="modal-sm modal-vw welcome-login-modal">
-          <Icon icon="info-circle" size="3x" />
-          <h1>Welcome to NCNews</h1>
-          <p>
-            As this application is for portfolio purposes only, it is
-            recommended that you login as the default user.
-          </p>
-          <h3>Would you like to login as the default user?</h3>
-          <Button className="btn-accept btn-lg" onClick={handleClose}>
-            LOGIN
-          </Button>
-          <Button className="btn-solid btn-lg" onClick={handleClose}>
-            GO BACK
-          </Button>
-        </Modal>
-      )}
-      <div className="user-profile-card">
-        <div className="user-profile-cover-image"></div>
-        <UserListCard
-          displayLocation="user-profile"
-          user={user}
-          loggedIn={loggedIn}
+    <div className="user-profile-card">
+      <div className="user-profile-cover-image"></div>
+      <UserListCard
+        displayLocation="user-profile"
+        user={user}
+        loggedIn={loggedIn}
+      >
+        <button
+          className="btn-lg btn-regular"
+          onClick={event => setOpenAuthModal(true, 'UserProfileCard', event)}
         >
-          <button
-            className="btn-lg btn-regular"
-            onClick={() => setOpenModal(true)}
-          >
-            {loggedIn ? 'LOG OUT' : 'LOG IN'}
-          </button>
-          <button
-            className="btn-lg btn-solid"
-            onClick={() => setOpenModal(true)}
-          >
-            {loggedIn ? 'NEW POST' : 'SIGN UP'}
-          </button>
-        </UserListCard>
-      </div>
-    </>
+          {loggedIn ? 'LOG OUT' : 'LOG IN'}
+        </button>
+        <button
+          className="btn-lg btn-solid"
+          onClick={event => setOpenAuthModal(true, 'UserProfileCard', event)}
+        >
+          {loggedIn ? 'NEW POST' : 'SIGN UP'}
+        </button>
+      </UserListCard>
+    </div>
   );
 };
 

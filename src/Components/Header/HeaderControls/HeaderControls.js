@@ -58,7 +58,7 @@ const HeaderControls = () => {
         //   </Button>
         // </Modal>
       )}
-      <label className="hambuger-menu">
+      <label className="hamburger-menu">
         <Icon
           icon={open ? 'times' : 'bars'}
           size="lg"

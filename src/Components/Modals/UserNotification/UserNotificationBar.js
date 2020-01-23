@@ -14,10 +14,12 @@ const UserNotificationBar = props => {
       notificationBar.current.classList.remove('fade-out');
       notificationBar.current.classList.remove('remove');
       setTimeout(() => {
-        notificationBar.current.classList.add('fade-out');
+        notificationBar?.current &&
+          notificationBar.current.classList.add('fade-out');
       }, 2000);
       setTimeout(() => {
-        notificationBar.current.classList.add('remove');
+        notificationBar?.current &&
+          notificationBar.current.classList.add('remove');
       }, 2450);
     };
     if (notificationBar.current) fadeOutAndRemove();

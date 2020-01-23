@@ -10,6 +10,7 @@ export class UserSettingsProvider extends Component {
   state = this.loadUserSettingsState || {
     loggedIn: false,
     openAuthModal: false,
+    authModalRequestedBy: '',
     displayNotification: '',
     loggedInUser: {
       username: 'You are not logged in.',
@@ -30,22 +31,31 @@ export class UserSettingsProvider extends Component {
     sessionStorage.setItem(stateName, JSON.stringify(state));
   }
 
-  setOpenAuthModal = openAuthModal => {
-    console.log('openAuthModal fired!!.......');
-    this.setState({ openAuthModal });
+  setOpenAuthModal = (openAuthModal, authModalRequestedBy, event) => {
+    event && event.preventDefault();
+    this.setState({ openAuthModal, authModalRequestedBy });
   };
 
-  closeModalAndLogIn = () => {
+  closeModalAndGoBack = event => {
+    if (event && this.state.authModalRequestedBy !== 'MainNavigation') {
+      event.preventDefault();
+    }
+    this.setOpenAuthModal(false, '');
+  };
+
+  closeModalAndLogIn = event => {
+    event && event.preventDefault();
     this.setOpenAuthModal(false);
     this.logInDefaultUser();
   };
 
-  closeModalAndLogOut = () => {
+  closeModalAndLogOut = event => {
+    event && event.preventDefault();
     this.setOpenAuthModal(false);
     this.logOut();
   };
 
-  logInDefaultUser = () => {
+  logInDefaultUser = event => {
     this.setState({
       loggedIn: true,
       displayNotification: 'Success - logged in as jessjelly',
@@ -80,6 +90,7 @@ export class UserSettingsProvider extends Component {
         value={{
           loggedIn: this.state.loggedIn,
           openAuthModal: this.state.openAuthModal,
+          authModalRequestedBy: this.state.authModalRequestedBy,
           displayNotification: this.state.displayNotification,
           loggedInUser: this.state.loggedInUser,
           displayMode: this.state.displayMode,
@@ -87,6 +98,7 @@ export class UserSettingsProvider extends Component {
             loadState: this.loadState,
             saveState: this.saveState,
             setOpenAuthModal: this.setOpenAuthModal,
+            closeModalAndGoBack: this.closeModalAndGoBack,
             closeModalAndLogIn: this.closeModalAndLogIn,
             closeModalAndLogOut: this.closeModalAndLogOut,
             logInDefaultUser: this.logInDefaultUser,
