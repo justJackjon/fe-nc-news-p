@@ -25,7 +25,12 @@ const ArticleCard = ({ article, mainArticle }) => {
           mainArticle ? 'article-left-column' : 'article-card-left-column'
         }
       >
-        <VoteControl voteCount={article.votes} className="inc-votes" />
+        <VoteControl
+          voteType="articles"
+          voteCount={article.votes}
+          id={article.article_id}
+          className="inc-votes"
+        />
       </div>
       <div className="article-right-column">
         <p className="article-subhead">
