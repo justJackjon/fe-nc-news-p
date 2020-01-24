@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useCallback } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
 import { Link } from '@reach/router';
 import * as api from '../../../../api';
@@ -10,6 +10,7 @@ import UserListCard from '../../Cards/UserCards/UserListCard/UserListCard';
 import './Feed.css';
 
 const Feed = ({
+  sort_by,
   dataType,
   articles,
   topics,
@@ -17,39 +18,24 @@ const Feed = ({
   loadAddtlData,
   dataAvailable,
   parent,
-  updateArticles
+  updateMainState
 }) => {
-  const previousSortBy = useRef(parent?.sort_by);
-
   const refreshFeed = useCallback(() => {
     api
       .getData('/articles', 'articles', {
         params: { sort_by: parent.sort_by }
       })
       .then(articles => {
-        updateArticles(articles);
+        updateMainState({ articles, sort_by: parent.sort_by });
       });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [parent?.sort_by]);
+  }, [parent.sort_by, updateMainState]);
 
   useEffect(() => {
-    console.log(previousSortBy.current, '<-------------------------');
-    console.log(parent?.sort_by, '<-------------------------');
-    console.log(
-      previousSortBy.current !== parent?.sort_by,
-      '<-------------------------'
-    );
-    if (previousSortBy.current !== parent?.sort_by) {
+    if (sort_by !== parent.sort_by) {
       refreshFeed();
-      previousSortBy.current = parent.sort_by;
     }
-    return () => {
-      console.log(
-        'unnnmmmmmmmooooooooooounnnnnnnnnnnnnntiiiiiiiiiiiinnnnnnnnnnggggggg'
-      );
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [parent?.sort_by, refreshFeed]);
+    return () => refreshFeed;
+  }, [parent.sort_by, refreshFeed, sort_by]);
 
   const feedList = () => {
     const articleList = articles?.map(article => (

@@ -18,8 +18,7 @@ button:focus {
 }
 
 .btn-md {
-  height: 24px;
-  padding: 3px 16px;
+  padding: 5px 10px;
   font-size: 0.75rem;
 }
 

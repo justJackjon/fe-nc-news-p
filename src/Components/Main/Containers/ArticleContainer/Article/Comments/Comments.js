@@ -1,50 +1,46 @@
-import React, { useState, useEffect, createRef } from 'react';
-import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
+import React, { useEffect, createRef, useCallback } from 'react';
+
 import * as api from '../../../../../../api';
-import VoteControl from '../../../../../Controls/VoteControls/VoteControl';
 import PostCommentCard from '../../../../Cards/PostCommentCard/PostCommentCard';
+import CommentCard from '../../../../Cards/CommentCard/CommentCard';
+
 import './Comments.css';
 
-export const articleComments = createRef();
+export const commentsMarker = createRef();
 
-const Comments = ({ articleId }) => {
-  const [comments, setComments] = useState([]);
+const Comments = ({ articleComments, articleId, updateMainState }) => {
+  const fetchComments = useCallback(() => {
+    api
+      .getData(`articles/${articleId}/comments`, 'comments')
+      .then(articleComments => {
+        updateMainState({ articleComments });
+      });
+  }, [articleId, updateMainState]);
 
   useEffect(() => {
-    api.getData(`articles/${articleId}/comments`, 'comments').then(comments => {
-      setComments(comments);
-    });
-  }, []);
+    if (!articleComments.length) fetchComments();
+    else if (articleComments[0].article_id !== +articleId) {
+      fetchComments();
+    }
+  }, [articleComments, articleId, fetchComments]);
 
   return (
     <>
-      <PostCommentCard />
-      <form className="add-comment-form"></form>
-      <form className="sort-comments-form"></form>
-      <ul className="comments" ref={articleComments}>
-        {comments.map(comment => {
+      <PostCommentCard
+        articleComments={articleComments}
+        articleId={articleId}
+        updateMainState={updateMainState}
+      />
+      <div ref={commentsMarker} className="comments-marker" />
+      <hr className="comments-list-top-divider" />
+      <ul className="comments">
+        {articleComments.map(comment => {
           return (
-            <li key={comment.comment_id} className="comment">
-              <div className="comment-left-column">
-                <VoteControl />
-                <div className="comment-line-vertical" />
-              </div>
-              <div className="comment-right-column">
-                <p className="comment-subhead">
-                  <span className="comment-subhead-author">
-                    {comment.author}
-                  </span>
-                  <span className="comment-subhead-votes">{` ${comment.votes} votes • `}</span>
-                </p>
-                <p className="comment-body">{comment.body}</p>
-                <p className="comment-subfoot">
-                  <span className="comment-subfoot-comcount">
-                    <Icon icon="comment"></Icon>
-                    Reply
-                  </span>
-                </p>
-              </div>
-            </li>
+            <CommentCard
+              key={comment.comment_id}
+              comment={comment}
+              updateMainState={updateMainState}
+            />
           );
         })}
       </ul>

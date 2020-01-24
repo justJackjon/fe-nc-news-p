@@ -9,6 +9,10 @@
   overflow: hidden;
 }
 
+.strong-500 {
+  font-weight: 500;
+}
+
 body {
   overflow-x: hidden;
 }

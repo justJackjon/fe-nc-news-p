@@ -1,4 +1,4 @@
-import React, { createRef, useEffect } from 'react';
+import React, { createRef } from 'react';
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
 import { Link } from '@reach/router';
 import './SelectDropdown.css';
@@ -6,12 +6,6 @@ import './SelectDropdown.css';
 export const selectDropdown = createRef();
 
 const SelectDropdown = () => {
-  // useEffect(() => {
-  //   if (selectDropdown.current) {
-  //     selectDropdown.current.classList.remove('show-dropdown');
-  //   }
-  // }, []);
-
   const toggleDrawer = () => {
     if (selectDropdown.current) {
       selectDropdown.current.classList.toggle('show-dropdown');
@@ -49,34 +43,38 @@ const SelectDropdown = () => {
   const current = match ? match[1] : 'created_at';
 
   return (
-    <label className="select-label">
-      <span className="label-name">SORT:</span>
-      <div className="select-container">
-        <div className="selected-option">
-          <button className="selected-button" onClick={toggleDrawer}>
-            {buttonRef[current]}
-            <Icon className="dropdown-sort-icon" icon="sort-down" />
-          </button>
+    <>
+      <hr className="sub-navigation-hr" />
+      <label className="select-label">
+        <span className="label-name">SORT:</span>
+        <div className="select-container">
+          <div className="selected-option">
+            <button className="selected-button" onClick={toggleDrawer}>
+              {buttonRef[current]}
+              <Icon className="dropdown-sort-icon" icon="sort-down" />
+            </button>
+          </div>
+          <ul ref={selectDropdown} className="select-dropdown">
+            <li>
+              <Link to="/articles/sort_by/created_at">
+                <button>{DateButton}</button>
+              </Link>
+            </li>
+            <li>
+              <Link to="/articles/sort_by/comment_count">
+                <button>{CommentsButton}</button>
+              </Link>
+            </li>
+            <li>
+              <Link to="/articles/sort_by/votes">
+                <button>{VotesButton}</button>
+              </Link>
+            </li>
+          </ul>
         </div>
-        <ul ref={selectDropdown} className="select-dropdown">
-          <li>
-            <Link to="/articles/sort_by/created_at">
-              <button>{DateButton}</button>
-            </Link>
-          </li>
-          <li>
-            <Link to="/articles/sort_by/comment_count">
-              <button>{CommentsButton}</button>
-            </Link>
-          </li>
-          <li>
-            <Link to="/articles/sort_by/votes">
-              <button>{VotesButton}</button>
-            </Link>
-          </li>
-        </ul>
-      </div>
-    </label>
+      </label>
+      <hr className="sub-navigation-hr" />
+    </>
   );
 };
 

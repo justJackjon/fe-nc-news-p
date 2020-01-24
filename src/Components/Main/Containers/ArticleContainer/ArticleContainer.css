@@ -55,6 +55,7 @@ button.article-close * {
 }
 
 button.article-close svg {
+  color: #818384;
   margin-top: 1px;
 }
 

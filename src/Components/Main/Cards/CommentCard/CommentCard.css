@@ -1,0 +1,50 @@
+.comment {
+  display: flex;
+  padding: 1rem 1rem 1rem 0;
+}
+
+.comment-left-column {
+  padding: 0 1.1rem;
+  overflow: hidden;
+}
+
+.comment-line-vertical {
+  margin-top: 0.25rem;
+  height: 100%;
+  width: 50%;
+  border-right: 1px dotted #878a8c;
+}
+
+.comment-right-column {
+  text-align: left;
+}
+
+.comment-subhead-author {
+  color: #bd1732;
+}
+
+.comment-body {
+  font-size: 0.875rem;
+  padding: 0.5rem 0;
+}
+
+.comment-subfoot {
+  color: #878a8c;
+  font-weight: 700;
+}
+
+.comment-subfoot span {
+  cursor: pointer;
+}
+
+.comment-subfoot span:hover {
+  color: #bd1732;
+}
+
+.comment-subfoot svg {
+  margin-right: 0.25rem;
+}
+
+.comment-subfoot-delcom {
+  margin-left: 0.6rem;
+}

@@ -25,7 +25,8 @@ import {
   faPoll,
   faComments,
   faSortDown,
-  faCheck
+  faCheck,
+  faTrashAlt
 } from '@fortawesome/free-solid-svg-icons';
 import { faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons';
 
@@ -63,7 +64,8 @@ library.add(
   faPoll,
   faComments,
   faSortDown,
-  faCheck
+  faCheck,
+  faTrashAlt
 );
 
 export class App extends Component {

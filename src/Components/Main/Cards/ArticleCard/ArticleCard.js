@@ -2,41 +2,18 @@ import React from 'react';
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
 import { Link } from '@reach/router';
 
+import { timeSinceCreation } from '../../../../utils';
 import VoteControl from '../../../Controls/VoteControls/VoteControl';
-import { articleComments } from '../../Containers/ArticleContainer/Article/Comments/Comments';
+import { commentsMarker } from '../../Containers/ArticleContainer/Article/Comments/Comments';
 import './ArticleCard.css';
 
 const ArticleCard = ({ article, mainArticle }) => {
-  const timeSinceCreation = created => {
-    let diffInSeconds = Math.abs(Date.now() - Date.parse(created)) / 1000;
-
-    const years = Math.floor(diffInSeconds / 31540000);
-    if (years) return `around ${years} year${years > 1 ? 's' : ''} ago`;
-    diffInSeconds -= years * 31540000;
-
-    const days = Math.floor(diffInSeconds / 86400);
-    if (days) return `${days} day${days > 1 ? 's' : ''} ago`;
-    diffInSeconds -= days * 86400;
-
-    const hours = Math.floor(diffInSeconds / 3600) % 24;
-    if (hours) return `${hours} hour${hours > 1 ? 's' : ''} ago`;
-    diffInSeconds -= hours * 3600;
-
-    const minutes = Math.floor(diffInSeconds / 60) % 60;
-    if (minutes) return `${minutes} minute${minutes > 1 ? 's' : ''} ago`;
-    // diffInSeconds -= minutes * 60;
-
-    // const seconds = diffInSeconds % 60;
-    return `just now`;
-  };
-
   const handleClick = () => {
-    console.log('special click....');
     if (/\/articles\/\d+/.test(window.location.pathname)) {
-      articleComments.current.scrollIntoView({
-        behavior: 'smooth',
-        block: 'nearest'
-        // inline: 'nearest'
+      window.scrollBy({
+        left: 0,
+        top: commentsMarker.current.getBoundingClientRect().top,
+        behavior: 'smooth'
       });
     }
   };
@@ -60,7 +37,10 @@ const ArticleCard = ({ article, mainArticle }) => {
             article.created_at
           )}`}</span>
         </p>
-        <Link to={`/articles/${article.article_id}`}>
+        <Link
+          to={`/articles/${article.article_id}`}
+          state={{ from: window.location.pathname }}
+        >
           {!mainArticle && (
             <h2 className="article-card-title">{article?.title}</h2>
           )}

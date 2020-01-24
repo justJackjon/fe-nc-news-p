@@ -7,20 +7,18 @@ import Button from '../../Controls/Buttons/Button';
 const UserAuthModal = ({ toggleDrawer }) => {
   const {
     loggedIn,
-    actions: {
-      setOpenAuthModal,
-      closeModalAndGoBack,
-      closeModalAndLogIn,
-      closeModalAndLogOut
-    }
+    actions: { closeModalAndGoBack, closeModalAndLogIn, closeModalAndLogOut }
   } = useContext(UserSettingsContext);
 
   const logInModalContent = (
     <>
       <h1>Welcome to NCNews</h1>
       <p>
-        As this application is for portfolio purposes only, it is recommended
-        that you login as the default user.
+        As this application is for portfolio purposes only,{' '}
+        <span className="strong-500">
+          you cannot create an account at this time.
+        </span>{' '}
+        It is instead recommended that you login as the default user.
       </p>
       <h3>Would you like to login as the default user?</h3>
       <Button

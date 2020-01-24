@@ -1,13 +1,10 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
-import { Link } from '@reach/router';
 
 import { UserSettingsContext } from '../../Context/UserSettingsProvider';
 import Footer from '../../Footer/Footer';
 import Links from '../../Navigation/NavigationLinks';
-import Modal from '../../Modals/Modal';
 import UserAuthModal from '../../Modals/UserAuthModal/UserAuthModal';
-import Button from '../../Controls/Buttons/Button';
 
 import './MainNavigation.css';
 

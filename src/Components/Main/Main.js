@@ -1,8 +1,7 @@
-import React, { Component, useEffect, useCallback } from 'react';
+import React, { Component } from 'react';
 import { WindowContext } from '../Context/WindowProvider';
 import { Router } from '@reach/router';
 import debounce from 'lodash.debounce';
-import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
 
 import * as api from '../../api';
 import ScrollToTop from '../Utils/ScrollToTop';
@@ -12,7 +11,7 @@ import SubHeader from './SubHeader/SubHeader';
 import HomeFeedContainer from './Containers/HomeFeedContainer/HomeFeedContainer';
 import TopicContainer from './Containers/TopicContainer/TopicContainer';
 import ArticleContainer from './Containers/ArticleContainer/ArticleContainer';
-import UserContainer from './Containers/HomeFeedContainer/HomeFeedContainer';
+// import UserContainer from './Containers/HomeFeedContainer/HomeFeedContainer';
 
 import TrendingTopics from './SharedComponents/TrendingTopics/TendingTopics';
 import Feed from './SharedComponents/Feed/Feed';
@@ -35,12 +34,15 @@ export class Main extends Component {
     dataAvailable: true,
     dataPage: 1,
     articles: [],
+    sort_by: 'date',
+    article: null,
+    articleComments: [],
     topics: [],
     users: []
   };
 
-  updateArticles = articles => {
-    this.setState({ articles });
+  updateMainState = (nextState, usePrev) => {
+    return usePrev ? this.setState.bind(this) : this.setState({ ...nextState });
   };
 
   fetchNewData = (endPoint, dataType) => {
@@ -101,13 +103,28 @@ export class Main extends Component {
         initialLoad: false
       });
     });
+    console.log(
+      '**** tidy up comments into additional comment card component ****'
+    );
+    console.log('**** make sure you are fetching ALL comments ****');
+    console.log(
+      '**** add display notification on error/success of deleted comment ****'
+    );
   }
 
   componentWillUnmount() {
     //
   }
 
-  componentDidUpdate(prevProps, prevState) {}
+  componentDidUpdate(prevProps, prevState) {
+    console.log(
+      '**** tidy up comments into additional comment card component ****'
+    );
+    console.log('**** make sure you are fetching ALL comments ****');
+    console.log(
+      '**** add display notification on error/success of deleted comment ****'
+    );
+  }
 
   render() {
     const { windowWidth, windowHeight } = this.context;
@@ -117,6 +134,9 @@ export class Main extends Component {
       loadAddtlData,
       dataAvailable,
       articles,
+      sort_by,
+      article,
+      articleComments,
       topics,
       users
     } = this.state;
@@ -144,7 +164,7 @@ export class Main extends Component {
     //     topics={topics}
     //     users={users}
     //     initialLoad={initialLoad}
-    //     updateArticles={this.updateArticles}
+    //     updateMainState={this.updateMainState}
     //     dataType="articles"
     //     parent={props}
     //     {...infiniteFeedProps}
@@ -156,16 +176,18 @@ export class Main extends Component {
 
       return (
         <>
-          <SubHeader />
+          <SubHeader parent={props} />
           <HomeFeedContainer parent={props} getAddtlData={getAddtlData}>
             <TrendingTopics topics={topics} />
             {windowWidth > 1024 && <ComposedSidebar />}
             <Feed
+              sort_by={sort_by}
+              parent={props}
               articles={articles}
               topics={topics}
               users={users}
               initialLoad={initialLoad}
-              updateArticles={this.updateArticles}
+              updateMainState={this.updateMainState}
               dataType="articles"
               {...infiniteFeedProps}
             />
@@ -184,13 +206,14 @@ export class Main extends Component {
             {/* <TrendingTopics topics={topics} /> */}
             {windowWidth > 1024 && <ComposedSidebar />}
             <Feed
+              sort_by={sort_by}
+              parent={props}
               articles={articles}
               topics={topics}
               users={users}
               initialLoad={initialLoad}
-              updateArticles={this.updateArticles}
+              updateMainState={this.updateMainState}
               dataType="articles"
-              parent={props}
               {...infiniteFeedProps}
             />
           </HomeFeedContainer>
@@ -199,8 +222,14 @@ export class Main extends Component {
     };
 
     const ArticlePage = props => {
+      const { updateMainState } = this;
       return (
-        <ArticleContainer parent={props}>
+        <ArticleContainer
+          parent={props}
+          article={article}
+          updateMainState={updateMainState}
+          articleComments={articleComments}
+        >
           {windowWidth > 1024 && <ComposedSidebar parent={props} />}
         </ArticleContainer>
       );
@@ -212,13 +241,14 @@ export class Main extends Component {
         <HomeFeedContainer parent={props}>
           {windowWidth > 1024 && <ComposedSidebar />}
           <Feed
+            sort_by={sort_by}
+            parent={props}
             articles={articles}
             topics={topics}
             users={users}
             initialLoad={initialLoad}
-            updateArticles={this.updateArticles}
+            updateMainState={this.updateMainState}
             dataType="topics"
-            parent={props}
             {...infiniteFeedProps}
           />
         </HomeFeedContainer>
@@ -240,13 +270,14 @@ export class Main extends Component {
         <HomeFeedContainer parent={props}>
           {windowWidth > 1024 && <ComposedSidebar />}
           <Feed
+            sort_by={sort_by}
+            parent={props}
             articles={articles}
             topics={topics}
             users={users}
             initialLoad={initialLoad}
-            updateArticles={this.updateArticles}
+            updateMainState={this.updateMainState}
             dataType="users"
-            parent={props}
             {...infiniteFeedProps}
           />
         </HomeFeedContainer>

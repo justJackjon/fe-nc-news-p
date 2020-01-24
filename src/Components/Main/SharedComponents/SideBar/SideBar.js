@@ -10,7 +10,7 @@ const SideBar = ({ parent, children }) => {
   const {
     stickySidebar,
     stuckSidebar,
-    actions: { setStickySidebar, setStuckSidebar }
+    actions: { setStickySidebar }
   } = useContext(SidebarContext);
 
   const onArticlePage = parent?.path === '/articles/:articleId' ? '-a-pg' : '';

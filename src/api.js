@@ -10,3 +10,15 @@ export const getData = async (endPoint, dataType, params) => {
   });
   return data[dataType || endPoint];
 };
+
+export const postData = async (endPoint, dataType, body) => {
+  const { data } = await api.post(`${endPoint}`, {
+    ...body
+  });
+  return data[dataType || endPoint];
+};
+
+export const deleteData = async endPoint => {
+  const { data } = await api.delete(`${endPoint}`);
+  return data;
+};
