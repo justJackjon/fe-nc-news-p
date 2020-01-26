@@ -60,7 +60,7 @@ const Feed = ({
     const userList = (
       <>
         <li className="list-subhead">
-          <h2>Click on a user to access their NCN profile</h2>
+          <h2>Click on a user to see their articles:</h2>
         </li>
         {users?.map(user => (
           <li key={user.username} className="list-item">
@@ -109,7 +109,7 @@ const Feed = ({
           <h3>
             No more {dataType}.<br />
             Would you like to
-            <Link to={`/${dataType}`}>
+            <Link to={`/post`}>
               <span className="end-feed-submit"> add one?</span>
             </Link>
           </h3>
@@ -117,7 +117,7 @@ const Feed = ({
         {dataType !== 'articles' && (
           <h3>
             Would you like to
-            <Link to={`/${dataType}`}>
+            <Link to={`/post`}>
               <span className="end-feed-submit">
                 {' '}
                 add a {dataType.slice(0, -1)}?

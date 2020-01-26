@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { WindowContext } from '../Context/WindowProvider';
 import { Router } from '@reach/router';
 import debounce from 'lodash.debounce';
+import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
 
 import * as api from '../../api';
 import ScrollToTop from '../Utils/ScrollToTop';
@@ -327,6 +328,34 @@ export class Main extends Component {
       );
     };
 
+    const SubmitArticlePage = props => {
+      return (
+        <>
+          <SubHeader parent={props} />
+          <HomeFeedContainer
+            updateMainState={updateMainState}
+            // userArticles={userArticles}
+            parent={props}
+          >
+            {windowWidth > 1024 && <ComposedSidebar />}
+            {/* RELEASE IN NEXT VERSION... */}
+            <div className="feed" style={{ padding: '1rem' }}>
+              <Icon
+                icon="info-circle"
+                size="3x"
+                style={{ margin: '4rem 1rem 0.75rem' }}
+              />
+              <h1 style={{ margin: '0.25rem' }}>
+                We're still building this feature!
+              </h1>
+              <h2>Check back soon.</h2>
+            </div>
+            {/* RELEASE IN NEXT VERSION... */}
+          </HomeFeedContainer>
+        </>
+      );
+    };
+
     return (
       <main className="main">
         {initialLoad ? (
@@ -346,6 +375,7 @@ export class Main extends Component {
               <ArticlePage path="/articles/:articleId" />
               <UsersPage path="/users" />
               <UserPage path="/users/:author" />
+              <SubmitArticlePage path="/post" />
             </ScrollToTop>
           </Router>
         )}

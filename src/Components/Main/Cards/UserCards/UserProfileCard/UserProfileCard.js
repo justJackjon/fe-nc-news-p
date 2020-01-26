@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { Link } from '@reach/router';
 
 import { UserSettingsContext } from '../../../../Context/UserSettingsProvider';
 import UserListCard from '../UserListCard/UserListCard';
@@ -26,12 +27,21 @@ const UserProfileCard = () => {
         >
           {loggedIn ? 'LOG OUT' : 'LOG IN'}
         </button>
-        <button
-          className="btn-lg btn-solid"
-          onClick={event => setOpenAuthModal(true, 'signUpButton', event)}
-        >
-          {loggedIn ? 'NEW POST' : 'SIGN UP'}
-        </button>
+        {loggedIn ? (
+          <button
+            className="btn-lg btn-solid"
+            onClick={() => (window.location.pathname = '/post')}
+          >
+            NEW POST
+          </button>
+        ) : (
+          <button
+            className="btn-lg btn-solid"
+            onClick={event => setOpenAuthModal(true, 'signUpButton', event)}
+          >
+            SIGN UP
+          </button>
+        )}
       </UserListCard>
     </div>
   );
