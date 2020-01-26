@@ -30,25 +30,29 @@ const TopicContainer = ({
         if (topicArticles.length) {
           updateMainState({ topicArticles });
         } else {
-          throw new Error();
+          throw new Error('no data');
         }
         setDisplayLoader(false);
       })
       .catch(error => {
-        updateMainState({
-          topicArticles: [
-            {
-              article_id: `../topics/${topic}`,
-              title: `No articles for '${topic}'`,
-              body: error.msg,
-              votes: null,
-              topic: topic,
-              author: 'the server',
-              created_at: new Date().toISOString(),
-              comment_count: 'No'
-            }
-          ]
-        });
+        if (error.message === 'no data') {
+          updateMainState({
+            topicArticles: [
+              {
+                article_id: `../topics/${topic}`,
+                title: `No articles for '${topic}'`,
+                body: error.msg,
+                votes: null,
+                topic: topic,
+                author: 'the server',
+                created_at: new Date().toISOString(),
+                comment_count: 'No'
+              }
+            ]
+          });
+        } else {
+          updateMainState({ error: error.response });
+        }
       });
   }, [topic, updateMainState]);
 

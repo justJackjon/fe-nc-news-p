@@ -328,11 +328,7 @@ export class Main extends Component {
       return (
         <>
           <SubHeader parent={props} />
-          <HomeFeedContainer
-            updateMainState={updateMainState}
-            // userArticles={userArticles}
-            parent={props}
-          >
+          <HomeFeedContainer updateMainState={updateMainState} parent={props}>
             {windowWidth > 1024 && <ComposedSidebar />}
             {/* RELEASE IN NEXT VERSION... */}
             <MessageCard

@@ -18,7 +18,12 @@ const TopAuthorsCard = ({ users }) => {
           </li>
         ))}
       </ul>
-      <button className="btn-lg btn-solid view-all-users">VIEW ALL</button>
+      <button
+        className="btn-lg btn-solid view-all-users"
+        onClick={() => (window.location.pathname = '/users')}
+      >
+        VIEW ALL USERS
+      </button>
     </section>
   );
 };
