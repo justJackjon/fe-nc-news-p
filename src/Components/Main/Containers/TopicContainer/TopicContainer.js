@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import * as api from '../../../../api';
-import Feed from '../../SharedComponents/Feed/Feed';
 import Loader from '../../../Utils/Loader/Loader';
 import '../Containers.css';
 
@@ -31,22 +30,25 @@ const TopicContainer = ({
         if (topicArticles.length) {
           updateMainState({ topicArticles });
         } else {
-          updateMainState({
-            topicArticles: [
-              {
-                article_id: `../topics/${topic}`,
-                title: `No articles for '${topic}'`,
-                body: null,
-                votes: null,
-                topic: topic,
-                author: 'the server',
-                created_at: new Date().toISOString(),
-                comment_count: 'No'
-              }
-            ]
-          });
+          throw new Error();
         }
         setDisplayLoader(false);
+      })
+      .catch(error => {
+        updateMainState({
+          topicArticles: [
+            {
+              article_id: `../topics/${topic}`,
+              title: `No articles for '${topic}'`,
+              body: error.msg,
+              votes: null,
+              topic: topic,
+              author: 'the server',
+              created_at: new Date().toISOString(),
+              comment_count: 'No'
+            }
+          ]
+        });
       });
   }, [topic, updateMainState]);
 

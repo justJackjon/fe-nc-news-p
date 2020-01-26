@@ -95,6 +95,6 @@ p.topic-uri {
   }
 
   .sub-navigation-hr {
-    border: none;
+    display: none;
   }
 }

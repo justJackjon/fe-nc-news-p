@@ -11,7 +11,7 @@ import SubHeader from './SubHeader/SubHeader';
 import HomeFeedContainer from './Containers/HomeFeedContainer/HomeFeedContainer';
 import TopicContainer from './Containers/TopicContainer/TopicContainer';
 import ArticleContainer from './Containers/ArticleContainer/ArticleContainer';
-// import UserContainer from './Containers/HomeFeedContainer/HomeFeedContainer';
+import UserContainer from './Containers/UserContainer/UserContainer';
 
 import TrendingTopics from './SharedComponents/TrendingTopics/TendingTopics';
 import Feed from './SharedComponents/Feed/Feed';
@@ -35,6 +35,7 @@ export class Main extends Component {
     dataPage: 1,
     articles: [],
     topicArticles: [],
+    userArticles: [],
     sort_by: 'date',
     article: null,
     articleComments: [],
@@ -91,7 +92,7 @@ export class Main extends Component {
     }
   }, 100);
 
-  componentDidMount() {
+  getInitData = () => {
     Promise.all([
       api.getData('articles'),
       api.getData('topics'),
@@ -104,6 +105,10 @@ export class Main extends Component {
         initialLoad: false
       });
     });
+  };
+
+  componentDidMount() {
+    this.getInitData();
     console.log(
       '**** tidy up comments into additional comment card component ****'
     );
@@ -136,12 +141,14 @@ export class Main extends Component {
       dataAvailable,
       articles,
       topicArticles,
+      userArticles,
       sort_by,
       article,
       articleComments,
       topics,
       users
     } = this.state;
+    const { getAddtlData, updateMainState } = this;
     const infiniteFeedProps = { loadAddtlData, dataAvailable };
 
     // At a later stage different sidebar compositions (with different card combinations) can be added.
@@ -173,58 +180,49 @@ export class Main extends Component {
     //   />
     // );
 
-    const HomePage = props => {
-      const { getAddtlData } = this;
+    const HomePage = props => (
+      <>
+        <SubHeader parent={props} />
+        <HomeFeedContainer parent={props} getAddtlData={getAddtlData}>
+          <TrendingTopics topics={topics} />
+          {windowWidth > 1024 && <ComposedSidebar />}
+          <Feed
+            sort_by={sort_by}
+            parent={props}
+            articles={articles}
+            topics={topics}
+            users={users}
+            initialLoad={initialLoad}
+            updateMainState={updateMainState}
+            dataType="articles"
+            {...infiniteFeedProps}
+          />
+        </HomeFeedContainer>
+      </>
+    );
 
-      return (
-        <>
-          <SubHeader parent={props} />
-          <HomeFeedContainer parent={props} getAddtlData={getAddtlData}>
-            <TrendingTopics topics={topics} />
-            {windowWidth > 1024 && <ComposedSidebar />}
-            <Feed
-              sort_by={sort_by}
-              parent={props}
-              articles={articles}
-              topics={topics}
-              users={users}
-              initialLoad={initialLoad}
-              updateMainState={this.updateMainState}
-              dataType="articles"
-              {...infiniteFeedProps}
-            />
-          </HomeFeedContainer>
-        </>
-      );
-    };
-
-    const ArticlesPage = props => {
-      const { getAddtlData } = this;
-
-      return (
-        <>
-          <SubHeader parent={props} />
-          <HomeFeedContainer parent={props} getAddtlData={getAddtlData}>
-            {/* <TrendingTopics topics={topics} /> */}
-            {windowWidth > 1024 && <ComposedSidebar />}
-            <Feed
-              sort_by={sort_by}
-              parent={props}
-              articles={articles}
-              topics={topics}
-              users={users}
-              initialLoad={initialLoad}
-              updateMainState={this.updateMainState}
-              dataType="articles"
-              {...infiniteFeedProps}
-            />
-          </HomeFeedContainer>
-        </>
-      );
-    };
+    const ArticlesPage = props => (
+      <>
+        <SubHeader parent={props} />
+        <HomeFeedContainer parent={props} getAddtlData={getAddtlData}>
+          {/* <TrendingTopics topics={topics} /> */}
+          {windowWidth > 1024 && <ComposedSidebar />}
+          <Feed
+            sort_by={sort_by}
+            parent={props}
+            articles={articles}
+            topics={topics}
+            users={users}
+            initialLoad={initialLoad}
+            updateMainState={updateMainState}
+            dataType="articles"
+            {...infiniteFeedProps}
+          />
+        </HomeFeedContainer>
+      </>
+    );
 
     const ArticlePage = props => {
-      const { updateMainState } = this;
       return (
         <ArticleContainer
           parent={props}
@@ -249,7 +247,7 @@ export class Main extends Component {
             topics={topics}
             users={users}
             initialLoad={initialLoad}
-            updateMainState={this.updateMainState}
+            updateMainState={updateMainState}
             dataType="topics"
             {...infiniteFeedProps}
           />
@@ -258,7 +256,6 @@ export class Main extends Component {
     );
 
     const TopicPage = props => {
-      const { updateMainState } = this;
       return (
         <>
           <SubHeader parent={props} />
@@ -274,7 +271,7 @@ export class Main extends Component {
               topics={topics}
               users={users}
               initialLoad={initialLoad}
-              updateMainState={this.updateMainState}
+              updateMainState={updateMainState}
               dataType="articles"
               articles={topicArticles}
               {...infiniteFeedProps}
@@ -296,13 +293,39 @@ export class Main extends Component {
             topics={topics}
             users={users}
             initialLoad={initialLoad}
-            updateMainState={this.updateMainState}
+            updateMainState={updateMainState}
             dataType="users"
             {...infiniteFeedProps}
           />
         </HomeFeedContainer>
       </>
     );
+
+    const UserPage = props => {
+      return (
+        <>
+          <SubHeader parent={props} />
+          <UserContainer
+            updateMainState={updateMainState}
+            userArticles={userArticles}
+            parent={props}
+          >
+            {windowWidth > 1024 && <ComposedSidebar />}
+            <Feed
+              sort_by={sort_by}
+              parent={props}
+              topics={topics}
+              users={users}
+              initialLoad={initialLoad}
+              updateMainState={updateMainState}
+              dataType="articles"
+              articles={userArticles}
+              {...infiniteFeedProps}
+            />
+          </UserContainer>
+        </>
+      );
+    };
 
     return (
       <main className="main">
@@ -322,6 +345,7 @@ export class Main extends Component {
               <ArticlesPage path="/articles/sort_by/:sort_by" />
               <ArticlePage path="/articles/:articleId" />
               <UsersPage path="/users" />
+              <UserPage path="/users/:author" />
             </ScrollToTop>
           </Router>
         )}

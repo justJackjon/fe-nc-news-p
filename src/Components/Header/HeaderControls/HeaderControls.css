@@ -81,6 +81,12 @@ label.toggle-switch:before {
 }
 
 @media only screen and (max-width: 480px) {
+  .toggle-switch {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 768px) {
   label.toggle-switch:before {
     content: '☀️/☾';
     display: inline-block;
@@ -96,5 +102,6 @@ label.toggle-switch:before {
 
   .main-header-controls {
     padding-right: 0.3rem;
+    padding-left: 0;
   }
 }

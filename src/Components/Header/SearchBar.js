@@ -1,26 +1,54 @@
-import React, { createRef } from 'react';
+import React, { createRef, useState } from 'react';
+import * as api from '../../api';
 import SearchIcon from '../Icons/SearchIcon';
 
 export const searchInput = createRef();
 
 const SearchBar = () => {
+  const [topics, setTopics] = useState([]);
+  const [term, setTerm] = useState('');
+
+  const getTopics = () => {
+    api.getData('topics').then(topics => {
+      setTopics(topics);
+    });
+  };
+
+  const handleSubmit = event => {
+    event.preventDefault();
+    window.location.pathname = `topics/${term}`;
+  };
+
   return (
-    // include in form: onSubmit={handleSubmit}
-    <form className="search-bar">
-      <label htmlFor="searchInput" id="searchInputLabel">
+    <form className="search-bar" onSubmit={handleSubmit}>
+      <label
+        htmlFor="searchInput"
+        id="searchInputLabel"
+        aria-label="Submit search"
+        onClick={handleSubmit}
+      >
         <SearchIcon />
       </label>
       <input
-        type="search"
+        type="text"
         id="searchInput"
+        className="search-input"
+        list="topicsDatalist"
+        autoComplete="off"
         ref={searchInput}
         aria-label="Search NCNews"
         aria-labelledby="searchInputLabel"
-        placeholder="Search NCN"
-        // value={term}
-        // onChange={handleTermChange}
+        placeholder="Search by Topic"
+        value={term}
+        onChange={event => setTerm(event.target.value)}
+        onMouseEnter={getTopics}
         required
       />
+      <datalist id="topicsDatalist">
+        {topics?.map(topic => {
+          return <option key={topic.slug} value={topic.slug} />;
+        })}
+      </datalist>
     </form>
   );
 };
