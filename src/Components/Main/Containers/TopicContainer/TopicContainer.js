@@ -1,40 +1,73 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import * as api from '../../../../api';
 import Feed from '../../SharedComponents/Feed/Feed';
 import Loader from '../../../Utils/Loader/Loader';
 import '../Containers.css';
 
-const TopicContainer = ({ parent: { topic }, children }) => {
-  const [topicArticles, setTopicArticles] = useState(null);
+const TopicContainer = ({
+  getAddtlData,
+  topicArticles,
+  updateMainState,
+  parent: { topic },
+  children
+}) => {
+  // const getAddtl = useCallback(() => {
+  //   getAddtlData();
+  // }, [getAddtlData]);
 
-  const fetchTopicArticles = () => {
+  // useEffect(() => {
+  //     window.addEventListener('scroll', getAddtl);
+  //     return () => {
+  //       window.removeEventListener('scroll', getAddtl);
+  //     };
+  // }, [getAddtl, parent.path]);
+  const [displayLoader, setDisplayLoader] = useState(false);
+
+  const fetchTopicArticles = useCallback(() => {
+    setDisplayLoader(true);
     api
       .getData('/articles', 'articles', { params: { topic } })
-      .then(articles => {
-        setTopicArticles(articles);
+      .then(topicArticles => {
+        if (topicArticles.length) {
+          updateMainState({ topicArticles });
+        } else {
+          updateMainState({
+            topicArticles: [
+              {
+                article_id: `../topics/${topic}`,
+                title: `No articles for '${topic}'`,
+                body: null,
+                votes: null,
+                topic: topic,
+                author: 'the server',
+                created_at: new Date().toISOString(),
+                comment_count: 'No'
+              }
+            ]
+          });
+        }
+        setDisplayLoader(false);
       });
-  };
+  }, [topic, updateMainState]);
 
   useEffect(() => {
-    if (!topicArticles) fetchTopicArticles();
-    if (topicArticles) {
-      if (topicArticles.every(articleTopic => articleTopic !== topic))
+    if (topicArticles[0]?.title === `No articles for '${topic}'`) return;
+    if (!topicArticles.length) fetchTopicArticles();
+    if (topicArticles.length) {
+      if (topicArticles.every(article => article.topic !== topic))
         fetchTopicArticles();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [fetchTopicArticles, topic, topicArticles]);
 
   return (
     <>
-      {!topicArticles ? (
-        <Loader />
+      {displayLoader ? (
+        <Loader className="loading">
+          <h1>LOADING JUICY ARTICLES...</h1>
+        </Loader>
       ) : (
         <div className="main-content">
-          <div className="main-content-container">
-            <Feed dataType="articles" articles={topicArticles} />
-            {children}
-          </div>
-          ;
+          <div className="main-content-container">{children}</div>
         </div>
       )}
     </>

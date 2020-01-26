@@ -34,6 +34,7 @@ export class Main extends Component {
     dataAvailable: true,
     dataPage: 1,
     articles: [],
+    topicArticles: [],
     sort_by: 'date',
     article: null,
     articleComments: [],
@@ -134,6 +135,7 @@ export class Main extends Component {
       loadAddtlData,
       dataAvailable,
       articles,
+      topicArticles,
       sort_by,
       article,
       articleComments,
@@ -255,14 +257,32 @@ export class Main extends Component {
       </>
     );
 
-    const TopicPage = props => (
-      <>
-        <SubHeader parent={props} />
-        <TopicContainer parent={props}>
-          {windowWidth > 1024 && <ComposedSidebar />}
-        </TopicContainer>
-      </>
-    );
+    const TopicPage = props => {
+      const { updateMainState } = this;
+      return (
+        <>
+          <SubHeader parent={props} />
+          <TopicContainer
+            updateMainState={updateMainState}
+            topicArticles={topicArticles}
+            parent={props}
+          >
+            {windowWidth > 1024 && <ComposedSidebar />}
+            <Feed
+              sort_by={sort_by}
+              parent={props}
+              topics={topics}
+              users={users}
+              initialLoad={initialLoad}
+              updateMainState={this.updateMainState}
+              dataType="articles"
+              articles={topicArticles}
+              {...infiniteFeedProps}
+            />
+          </TopicContainer>
+        </>
+      );
+    };
 
     const UsersPage = props => (
       <>

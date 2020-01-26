@@ -1,28 +1,35 @@
 import React, { memo, createRef, useEffect } from 'react';
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
+
 import TopicCard from '../../Cards/TopicCards/TopicCard/TopicCard';
-import './TrendingTopics.css';
 import Button from '../../../Controls/Buttons/Button';
+
+import './TrendingTopics.css';
 
 const TendingTopics = memo(({ topics }) => {
   const topicList = createRef();
   // So far as I can tell, React does not support passive event listeners.
   // See https://github.com/facebook/react/issues/6436 for further info.
   useEffect(
-    () =>
-      topicList.current.addEventListener(
-        'wheel',
-        event => {
-          event.preventDefault();
-          if (topicList) {
-            topicList.current.scrollBy({
-              left: event.deltaY > 0 ? +250 : -250,
-              behavior: 'smooth'
-            });
-          }
-        },
-        { passive: false }
-      ),
+    () => {
+      const horizontalScroll = () => {
+        topicList.current.addEventListener(
+          'wheel',
+          event => {
+            event.preventDefault();
+            if (topicList) {
+              topicList.current.scrollBy({
+                left: event.deltaY > 0 ? +250 : -250,
+                behavior: 'smooth'
+              });
+            }
+          },
+          { passive: false }
+        );
+      };
+      horizontalScroll();
+      return () => horizontalScroll();
+    },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     []
   );
