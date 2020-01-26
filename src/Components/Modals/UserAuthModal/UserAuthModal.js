@@ -4,15 +4,36 @@ import { UserSettingsContext } from '../../Context/UserSettingsProvider';
 import Modal from '../Modal';
 import Button from '../../Controls/Buttons/Button';
 
-const UserAuthModal = ({ toggleDrawer }) => {
+const UserAuthModal = () => {
   const {
     loggedIn,
+    authModalRequestedBy,
     actions: { closeModalAndGoBack, closeModalAndLogIn, closeModalAndLogOut }
   } = useContext(UserSettingsContext);
 
-  const logInModalContent = (
+  const logInModalHeader = {
+    standard: (
+      <>
+        <Icon icon="info-circle" size="3x" />
+        <h1>Welcome to NCNews</h1>
+      </>
+    ),
+    voteControl: (
+      <>
+        <Icon icon="exclamation-circle" size="3x" />
+        <h1>You must be logged in to do that.</h1>
+      </>
+    ),
+    signUpButton: (
+      <>
+        <Icon icon="exclamation-circle" size="3x" />
+        <h1>We're not accepting new registrations.</h1>
+      </>
+    )
+  };
+
+  const logInModalBody = (
     <>
-      <h1>Welcome to NCNews</h1>
       <p>
         As this application is for portfolio purposes only,{' '}
         <span className="strong-500">
@@ -31,10 +52,28 @@ const UserAuthModal = ({ toggleDrawer }) => {
     </>
   );
 
-  const logOutModalContent = (
+  const logOutModalHeader = (
     <>
+      <Icon icon="info-circle" size="3x" />
       <h1>Thank you for using NCNews!</h1>
-      <p>Questions or comments? Email support@redrobincreative.com</p>
+    </>
+  );
+
+  const logOutModalBody = (
+    <>
+      <p>
+        Questions or comments?
+        <br />
+        Email{' '}
+        <a
+          className="log-out-contact strong-500"
+          href="mailto:jackjon@redrobincreative.com?Subject=I%20found%20you%20on%20NCNews"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          jackjon@redrobincreative.com
+        </a>
+      </p>
       <h3>Would you like to log out?</h3>
       <Button
         className="btn-accept btn-lg"
@@ -47,8 +86,10 @@ const UserAuthModal = ({ toggleDrawer }) => {
 
   return (
     <Modal className="modal-sm modal-vw welcome-login-modal">
-      <Icon icon="info-circle" size="3x" />
-      {loggedIn ? logOutModalContent : logInModalContent}
+      {loggedIn
+        ? logOutModalHeader
+        : logInModalHeader[authModalRequestedBy] || logInModalHeader.standard}
+      {loggedIn ? logOutModalBody : logInModalBody}
       <Button
         className="btn-solid btn-lg"
         onClick={event => closeModalAndGoBack(event)}

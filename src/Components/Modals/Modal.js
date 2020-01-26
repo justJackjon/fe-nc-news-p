@@ -2,7 +2,7 @@ import React, { forwardRef } from 'react';
 
 const Modal = forwardRef((props, ref) => (
   <div className="modal-container">
-    <div {...props} ref={ref}>
+    <div className="modal-main" {...props} ref={ref}>
       {props.children}
     </div>
   </div>

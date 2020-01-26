@@ -37,7 +37,7 @@ export class UserSettingsProvider extends Component {
   };
 
   closeModalAndGoBack = event => {
-    if (event && this.state.authModalRequestedBy !== 'MainNavigation') {
+    if (event && this.state.authModalRequestedBy !== 'mainNavigation') {
       event.preventDefault();
     }
     this.setOpenAuthModal(false, '');

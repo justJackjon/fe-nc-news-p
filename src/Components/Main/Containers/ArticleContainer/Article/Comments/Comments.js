@@ -8,7 +8,12 @@ import './Comments.css';
 
 export const commentsMarker = createRef();
 
-const Comments = ({ articleComments, articleId, updateMainState }) => {
+const Comments = ({
+  articleComments,
+  articleId,
+  updateMainState,
+  updateArticleState
+}) => {
   const fetchComments = useCallback(() => {
     api
       .getData(`articles/${articleId}/comments`, 'comments')
@@ -27,9 +32,9 @@ const Comments = ({ articleComments, articleId, updateMainState }) => {
   return (
     <>
       <PostCommentCard
-        articleComments={articleComments}
         articleId={articleId}
         updateMainState={updateMainState}
+        updateArticleState={updateArticleState}
       />
       <div ref={commentsMarker} className="comments-marker" />
       <hr className="comments-list-top-divider" />

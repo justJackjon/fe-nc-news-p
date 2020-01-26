@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { createRef, useContext, useState } from 'react';
 import { Link } from '@reach/router';
 
 import { UserSettingsContext } from '../../../Context/UserSettingsProvider';
@@ -7,7 +7,13 @@ import Button from '../../../Controls/Buttons/Button';
 
 import './PostCommentCard.css';
 
-const PostCommentCard = ({ articleComments, articleId, updateMainState }) => {
+export const postCommentMarker = createRef();
+
+const PostCommentCard = ({
+  articleId,
+  updateMainState,
+  updateArticleState
+}) => {
   const {
     loggedInUser: user,
     loggedIn,
@@ -19,24 +25,51 @@ const PostCommentCard = ({ articleComments, articleId, updateMainState }) => {
 
   const handleSubmit = event => {
     event.preventDefault();
-    api.postData(`articles/${articleId}/comments`, 'comment', {
-      username: user.username,
-      body: comment
-    });
-    // (Optimistically rendered)
+    // (Optimistically rendered - only updates ArticleState and re-renders Article.js and children)
     addNewComment(prevState => {
       let { comment_count, ...restOfArticle } = prevState.article;
-      return {
-        articleComments: [comment, ...prevState.articleComments],
+
+      const placeholderComment = {
+        comment_id: Math.random(), // temporary unique id/React key - also disables voting buttons as comment_id < 1
+        author: user.username,
+        article_id: articleId,
+        votes: 0,
+        created_at: new Date().toISOString(),
+        body: comment
+      };
+
+      updateArticleState({
+        articleComments: [placeholderComment, ...prevState.articleComments],
         article: {
           comment_count: +comment_count + 1,
           ...restOfArticle
         }
-      };
+      });
+      return;
     });
+
+    // (Updates MainState when POST request is successful - allows proper voting on comment on receipt of actual comment_id.
+    // Re-renders Main.js and children)
+    api
+      .postData(`articles/${articleId}/comments`, 'comment', {
+        username: user.username,
+        body: comment
+      })
+      .then(comment => {
+        addNewComment(prevState => {
+          let { comment_count, ...restOfArticle } = prevState.article;
+          return {
+            articleComments: [comment, ...prevState.articleComments],
+            article: {
+              comment_count: +comment_count + 1,
+              ...restOfArticle
+            }
+          };
+        });
+      });
   };
 
-  const LogInToComment = () => (
+  const LogInToComment = (
     <div className="login-to-comment-container">
       <h3 className="login-to-comment-message">
         Log in or sign up to leave a comment
@@ -44,13 +77,13 @@ const PostCommentCard = ({ articleComments, articleId, updateMainState }) => {
       <div className="login-to-comment-buttons">
         <Button
           className="btn-regular btn-lg comment-form-login"
-          onClick={event => setOpenAuthModal(true, 'PostCommentCard', event)}
+          onClick={event => setOpenAuthModal(true, 'postCommentCard', event)}
         >
           LOG IN
         </Button>
         <Button
           className="btn-solid btn-lg comment-form-signup"
-          onClick={event => setOpenAuthModal(true, 'PostCommentCard', event)}
+          onClick={event => setOpenAuthModal(true, 'signUpButton', event)}
         >
           SIGN UP
         </Button>
@@ -58,7 +91,7 @@ const PostCommentCard = ({ articleComments, articleId, updateMainState }) => {
     </div>
   );
 
-  const PostComment = () => (
+  const PostComment = (
     <div className="comment-form-container">
       <label
         id="postCommentLabel"
@@ -90,9 +123,12 @@ const PostCommentCard = ({ articleComments, articleId, updateMainState }) => {
   );
 
   return (
-    <div className="post-comment-card-container">
-      {loggedIn ? <PostComment /> : <LogInToComment />}
-    </div>
+    <>
+      <div ref={postCommentMarker} className="post-comment-card-marker" />
+      <div className="post-comment-card-container">
+        {loggedIn ? PostComment : LogInToComment}
+      </div>
+    </>
   );
 };
 

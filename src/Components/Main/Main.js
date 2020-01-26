@@ -287,7 +287,9 @@ export class Main extends Component {
     return (
       <main className="main">
         {initialLoad ? (
-          <Loader />
+          <Loader className="loading">
+            <h1>LOADING JUICY ARTICLES...</h1>
+          </Loader>
         ) : error ? (
           <div>{error}</div>
         ) : (

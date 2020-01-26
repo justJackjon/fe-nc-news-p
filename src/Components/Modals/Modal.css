@@ -35,6 +35,33 @@
   margin: 0.75rem;
 }
 
+.modal-xs {
+  align-self: center;
+  margin: 0.5rem;
+  padding: 1.25rem 1.75rem;
+  background-color: white;
+  border-radius: 4px;
+  border: 1px solid #edeff1;
+  box-shadow: -0.5rem 0.5rem 0.5rem rgba(0, 0, 0, 0.5);
+  animation: gradual-load 0.5s;
+}
+
+.modal-xs * {
+  margin: 0.25rem 0;
+}
+
+.modal-xs button {
+  margin: 0.5rem 0.35rem 0.35rem;
+}
+
+.log-out-contact {
+  color: #bd1732;
+}
+
+.log-out-contact:hover {
+  text-decoration: underline;
+}
+
 @keyframes gradual-load {
   from {
     opacity: 0;

@@ -22,13 +22,13 @@ const UserProfileCard = () => {
       >
         <button
           className="btn-lg btn-regular"
-          onClick={event => setOpenAuthModal(true, 'UserProfileCard', event)}
+          onClick={event => setOpenAuthModal(true, 'userProfileCard', event)}
         >
           {loggedIn ? 'LOG OUT' : 'LOG IN'}
         </button>
         <button
           className="btn-lg btn-solid"
-          onClick={event => setOpenAuthModal(true, 'UserProfileCard', event)}
+          onClick={event => setOpenAuthModal(true, 'signUpButton', event)}
         >
           {loggedIn ? 'NEW POST' : 'SIGN UP'}
         </button>

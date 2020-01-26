@@ -1,17 +1,19 @@
 .comment {
   display: flex;
-  padding: 1rem 1rem 1rem 0;
+  padding: 1rem 1.5rem 1rem 0;
 }
 
 .comment-left-column {
-  padding: 0 1.1rem;
-  overflow: hidden;
+  padding: 0 0.75rem;
+  display: flex;
+  flex-direction: column;
 }
 
 .comment-line-vertical {
-  margin-top: 0.25rem;
+  align-self: center;
+  margin: 0.25rem 0;
   height: 100%;
-  width: 50%;
+  border: none;
   border-right: 1px dotted #878a8c;
 }
 
@@ -20,7 +22,12 @@
 }
 
 .comment-subhead-author {
+  cursor: pointer;
   color: #bd1732;
+}
+
+.comment-subhead-author:hover {
+  text-decoration: underline;
 }
 
 .comment-body {

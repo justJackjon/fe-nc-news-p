@@ -2,10 +2,13 @@ import React, { useContext, useState } from 'react';
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
 import { Link } from '@reach/router';
 
+import { postCommentMarker } from '../../Cards/PostCommentCard/PostCommentCard';
 import { UserSettingsContext } from '../../../Context/UserSettingsProvider';
 import * as api from '../../../../api';
 import { timeSinceCreation } from '../../../../utils';
 import VoteControl from '../../../Controls/VoteControls/VoteControl';
+import Modal from '../../../Modals/Modal';
+import Button from '../../../Controls/Buttons/Button';
 
 import './CommentCard.css';
 
@@ -15,8 +18,24 @@ const CommentCard = ({ comment, updateMainState }) => {
   } = useContext(UserSettingsContext);
 
   const [votes, setVotes] = useState(comment.votes);
+  const [openModal, setOpenModal] = useState(false);
 
   const removeComment = updateMainState(null, true);
+
+  const scrollToPostComment = () => {
+    window.scrollBy({
+      left: 0,
+      top: postCommentMarker.current.getBoundingClientRect().top,
+      behavior: 'smooth'
+    });
+  };
+
+  const closeModal = decision => {
+    if (decision === 'delete') {
+      handleDelete();
+    }
+    setOpenModal(false);
+  };
 
   const handleDelete = () => {
     api.deleteData(`comments/${comment.comment_id}`);
@@ -38,39 +57,66 @@ const CommentCard = ({ comment, updateMainState }) => {
   };
 
   return (
-    <li className="comment">
-      <div className="comment-left-column">
-        <VoteControl
-          voteType="comments"
-          voteCount={votes}
-          id={comment.comment_id}
-          setCommentVotes={setVotes}
-        />
-        <div className="comment-line-vertical" />
-      </div>
-      <div className="comment-right-column">
-        <p className="comment-subhead">
-          <span className="comment-subhead-author">{comment.author}</span>
-          <span className="comment-subhead-votes">{` ${votes} votes • `}</span>
-          <span className="comment-subhead-created">{` posted ${timeSinceCreation(
-            comment.created_at
-          )}`}</span>
-        </p>
-        <p className="comment-body">{comment.body}</p>
-        <p className="comment-subfoot">
-          <span className="comment-subfoot-comcount">
-            <Icon icon="comment"></Icon>
-            Add a Comment
-          </span>
-          {currentUser === comment.author && (
-            <span className="comment-subfoot-delcom" onClick={handleDelete}>
-              <Icon icon="trash-alt"></Icon>
-              Delete Comment
+    <>
+      {openModal && (
+        <Modal className="modal-xs">
+          <Icon icon="exclamation-circle" size="2x" />
+          <h1>ARE YOU SURE?</h1>
+          <p>Would you like to delete this comment?</p>
+          <p>This action is irreversible.</p>
+          <Button
+            className="btn-solid btn-lg"
+            onClick={() => closeModal('delete')}
+          >
+            DELETE
+          </Button>
+          <Button className="btn-accept btn-lg" onClick={() => closeModal()}>
+            KEEP
+          </Button>
+        </Modal>
+      )}
+      <li className="comment">
+        <div className="comment-left-column">
+          <VoteControl
+            voteType="comments"
+            voteCount={votes}
+            id={comment.comment_id}
+            setCommentVotes={setVotes}
+          />
+          <hr className="comment-line-vertical" />
+        </div>
+        <div className="comment-right-column">
+          <p className="comment-subhead">
+            <span className="comment-subhead-author">
+              <Link to={`/users/${comment.author}`}>{comment.author}</Link>
             </span>
-          )}
-        </p>
-      </div>
-    </li>
+            <span className="comment-subhead-votes">{` ${votes} votes • `}</span>
+            <span className="comment-subhead-created">{` posted ${timeSinceCreation(
+              comment.created_at
+            )}`}</span>
+          </p>
+          <p className="comment-body">{comment.body}</p>
+          <p className="comment-subfoot">
+            <span
+              className="comment-subfoot-comcount"
+              onClick={scrollToPostComment}
+            >
+              <Icon icon="comment"></Icon>
+              Add Comment
+            </span>
+            {currentUser === comment.author && (
+              <span
+                className="comment-subfoot-delcom"
+                onClick={() => setOpenModal(true)}
+              >
+                <Icon icon="trash-alt"></Icon>
+                Delete Comment
+              </span>
+            )}
+          </p>
+        </div>
+      </li>
+    </>
   );
 };
 

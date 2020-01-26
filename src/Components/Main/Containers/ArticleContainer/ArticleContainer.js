@@ -36,7 +36,9 @@ const ArticleContainer = ({
   return (
     <>
       {!article ? (
-        <Loader />
+        <Loader className="loading">
+          <h1>LOADING JUICY ARTICLES...</h1>
+        </Loader>
       ) : (
         <>
           <div ref={articleHeader} className="article-header">
@@ -51,6 +53,7 @@ const ArticleContainer = ({
           <div className="article-container">
             <div className="article-sub-container">
               <Article
+                pathArticleId={articleId}
                 article={article}
                 updateMainState={updateMainState}
                 articleComments={articleComments}

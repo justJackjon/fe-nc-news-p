@@ -10,27 +10,34 @@
 
 .vote-control svg {
   color: #878a8c;
-  padding: 2px;
 }
 
-.vote-control.inc-votes svg {
-  padding: 4px;
+.vote-control.inc-votes .vote-control-button {
+  margin: 4px 0;
 }
 
-.upvote-control:hover {
+.vote-control-button {
+  background-color: transparent;
+  margin: 0;
+}
+
+.vote-control-button:hover {
+  background-color: #e8e8e8;
+}
+
+.upvote-icon:hover svg {
   color: seagreen;
 }
 
-.downvote-control:hover {
+.downvote-icon:hover svg {
   color: crimson;
 }
 
 @media only screen and (max-width: 1024px) {
-  .vote-control svg {
-    padding: 7px;
+  .vote-control button.upvote-icon {
+    margin-bottom: 0.2rem;
   }
-
-  .vote-control.inc-votes svg {
-    padding: 8px;
+  .vote-control button.downvote-icon {
+    margin-top: 0.2rem;
   }
 }
