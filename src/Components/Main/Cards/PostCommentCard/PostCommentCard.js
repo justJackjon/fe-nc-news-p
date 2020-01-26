@@ -66,6 +66,9 @@ const PostCommentCard = ({
             }
           };
         });
+      })
+      .catch(({ response: error }) => {
+        updateMainState({ error });
       });
   };
 

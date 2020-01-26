@@ -9,12 +9,22 @@ import ncnLogo from '../../../ncnlogo-rb.svg';
 
 const SubHeader = ({ parent, children }) => {
   const topicTitleContent = () => {
+    if (!parent) return;
     if (parent.path === '/') return;
     return parent.path
       .match(/\/(\w+)/)[1]
       .replace(/^\w/, first => first.toUpperCase());
   };
-  const showSortBy = parent.path.includes('/articles') || parent.path === '/';
+
+  const showSortBy = () => {
+    const sortByRef = {
+      '/': true,
+      '/articles': true,
+      '/topics/:topic': true,
+      '/users/:author': true
+    };
+    return sortByRef[parent?.path];
+  };
 
   return (
     <div className="subheader">
@@ -45,7 +55,7 @@ const SubHeader = ({ parent, children }) => {
             }}
           </WindowConsumer>
         }
-        {showSortBy && <SelectDropdown />}
+        {showSortBy() && <SelectDropdown />}
       </div>
     </div>
   );

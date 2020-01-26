@@ -9,9 +9,16 @@ const SearchBar = () => {
   const [term, setTerm] = useState('');
 
   const getTopics = () => {
-    api.getData('topics').then(topics => {
-      setTopics(topics);
-    });
+    if (topics.length) return;
+    api
+      .getData('topics')
+      .then(topics => {
+        setTopics(topics);
+      })
+      .catch(({ response: error }) => {
+        // Add more robust error handling below in next version.
+        console.log(`${error.status} Error: ${error.data.msg}`);
+      });
   };
 
   const handleSubmit = event => {

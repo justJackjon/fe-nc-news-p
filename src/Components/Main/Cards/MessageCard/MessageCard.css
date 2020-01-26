@@ -1,0 +1,32 @@
+.message-container {
+  grid-area: main-section-content;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  color: #878a8c;
+  border-radius: 4px;
+  padding: 4rem 3rem;
+  min-height: 800px;
+}
+
+.message-text-content {
+  margin: 3rem 0 2.5rem;
+}
+
+.message-text-content * {
+  line-height: 3rem;
+}
+
+.message-container h1 {
+  font-size: 2.5rem;
+}
+
+.message-container p {
+  font-size: 1.5rem;
+}
+
+@media only screen and (max-width: 1024px) {
+  .message-container {
+    margin: 1rem;
+    min-height: 78vh;
+  }
+}

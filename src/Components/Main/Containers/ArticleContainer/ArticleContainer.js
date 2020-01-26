@@ -21,9 +21,14 @@ const ArticleContainer = ({
   const [prevLocation] = useState(window.history.state?.from);
 
   const fetchArticle = useCallback(() => {
-    api.getData(`/articles/${articleId}`, 'article').then(article => {
-      updateMainState({ article });
-    });
+    api
+      .getData(`/articles/${articleId}`, 'article')
+      .then(article => {
+        updateMainState({ article });
+      })
+      .catch(({ response: error }) => {
+        updateMainState({ error });
+      });
   }, [articleId, updateMainState]);
 
   useEffect(() => {

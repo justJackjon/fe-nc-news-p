@@ -46,6 +46,9 @@ const UserContainer = ({
           });
         }
         setDisplayLoader(false);
+      })
+      .catch(({ response: error }) => {
+        updateMainState({ error });
       });
   }, [updateMainState, author]);
 

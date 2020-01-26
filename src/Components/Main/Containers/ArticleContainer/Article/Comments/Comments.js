@@ -19,6 +19,9 @@ const Comments = ({
       .getData(`articles/${articleId}/comments`, 'comments')
       .then(articleComments => {
         updateMainState({ articleComments });
+      })
+      .catch(({ response: error }) => {
+        updateMainState({ error });
       });
   }, [articleId, updateMainState]);
 

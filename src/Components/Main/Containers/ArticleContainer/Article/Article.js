@@ -26,7 +26,11 @@ const Article = ({
         </Loader>
       ) : (
         <>
-          <ArticleCard article={articleState.article} mainArticle={true} />
+          <ArticleCard
+            article={articleState.article}
+            mainArticle={true}
+            updateMainState={updateMainState}
+          />
           <Comments
             articleComments={articleState.articleComments}
             articleId={articleState.article.article_id}

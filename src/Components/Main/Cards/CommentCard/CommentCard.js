@@ -38,7 +38,11 @@ const CommentCard = ({ comment, updateMainState }) => {
   };
 
   const handleDelete = () => {
-    api.deleteData(`comments/${comment.comment_id}`);
+    api
+      .deleteData(`comments/${comment.comment_id}`)
+      .catch(({ response: error }) => {
+        updateMainState({ error });
+      });
     // (Optimistically rendered)
     removeComment(prevState => {
       const { article, articleComments } = prevState;
@@ -82,6 +86,7 @@ const CommentCard = ({ comment, updateMainState }) => {
             voteCount={votes}
             id={comment.comment_id}
             setCommentVotes={setVotes}
+            updateMainState={updateMainState}
           />
           <hr className="comment-line-vertical" />
         </div>

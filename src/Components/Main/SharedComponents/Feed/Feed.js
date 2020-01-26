@@ -27,6 +27,9 @@ const Feed = ({
       })
       .then(articles => {
         updateMainState({ articles, sort_by: parent.sort_by });
+      })
+      .catch(({ response: error }) => {
+        updateMainState({ error });
       });
   }, [parent.sort_by, updateMainState]);
 
@@ -40,7 +43,7 @@ const Feed = ({
   const feedList = () => {
     const articleList = articles?.map(article => (
       <li key={article.article_id} className="article-list-item">
-        <ArticleCard article={article} />
+        <ArticleCard article={article} updateMainState={updateMainState} />
       </li>
     ));
 

@@ -13,7 +13,8 @@ const VoteControl = ({
   voteCount,
   id,
   className,
-  setCommentVotes
+  setCommentVotes,
+  updateMainState
 }) => {
   const {
     loggedIn,
@@ -25,9 +26,13 @@ const VoteControl = ({
 
   const closeModal = decision => {
     if (decision === 'remove') {
-      api.patchData(`${voteType}/${id}`, voteType.slice(-1), {
-        inc_votes: prevVotes.current - votes
-      });
+      api
+        .patchData(`${voteType}/${id}`, voteType.slice(-1), {
+          inc_votes: prevVotes.current - votes
+        })
+        .catch(({ response: error }) => {
+          updateMainState({ error });
+        });
       // (Optimistic rendering)
       if (setCommentVotes) setCommentVotes(prevVotes.current);
       setVotes(prevVotes.current);
@@ -41,9 +46,13 @@ const VoteControl = ({
       setOpenModal(true);
       return;
     }
-    api.patchData(`${voteType}/${id}`, voteType.slice(-1), {
-      inc_votes: vote
-    });
+    api
+      .patchData(`${voteType}/${id}`, voteType.slice(-1), {
+        inc_votes: vote
+      })
+      .catch(({ response: error }) => {
+        updateMainState({ error });
+      });
     // (Optimistic rendering)
     if (setCommentVotes) setCommentVotes(votes + vote);
     setVotes(votes + vote);

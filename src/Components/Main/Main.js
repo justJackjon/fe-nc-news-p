@@ -17,6 +17,7 @@ import UserContainer from './Containers/UserContainer/UserContainer';
 import TrendingTopics from './SharedComponents/TrendingTopics/TendingTopics';
 import Feed from './SharedComponents/Feed/Feed';
 import SideBar from './SharedComponents/SideBar/SideBar';
+import MessageCard from '../Main/Cards/MessageCard/MessageCard';
 
 // Sidebar components:
 import UserProfileCard from '../../Components/Main/Cards/UserCards/UserProfileCard/UserProfileCard';
@@ -65,12 +66,9 @@ export class Main extends Component {
             };
           });
         })
-        .catch(err => {
+        .catch(({ response: error }) => {
           // this.setStuckSidebar(false);
-          this.setState({
-            error: err.message,
-            loadAddtlData: false
-          });
+          this.setState({ error, loadAddtlData: false });
         });
     });
   };
@@ -98,21 +96,22 @@ export class Main extends Component {
       api.getData('articles'),
       api.getData('topics'),
       api.getData('users')
-    ]).then(data => {
-      this.setState({
-        articles: data[0],
-        topics: data[1],
-        users: data[2],
-        initialLoad: false
+    ])
+      .then(data => {
+        this.setState({
+          articles: data[0],
+          topics: data[1],
+          users: data[2],
+          initialLoad: false
+        });
+      })
+      .catch(({ response: error }) => {
+        this.setState({ initialLoad: false, error });
       });
-    });
   };
 
   componentDidMount() {
     this.getInitData();
-    console.log(
-      '**** tidy up comments into additional comment card component ****'
-    );
     console.log('**** make sure you are fetching ALL comments ****');
     console.log(
       '**** add display notification on error/success of deleted comment ****'
@@ -124,9 +123,6 @@ export class Main extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    console.log(
-      '**** tidy up comments into additional comment card component ****'
-    );
     console.log('**** make sure you are fetching ALL comments ****');
     console.log(
       '**** add display notification on error/success of deleted comment ****'
@@ -339,18 +335,27 @@ export class Main extends Component {
           >
             {windowWidth > 1024 && <ComposedSidebar />}
             {/* RELEASE IN NEXT VERSION... */}
-            <div className="feed" style={{ padding: '1rem' }}>
-              <Icon
-                icon="info-circle"
-                size="3x"
-                style={{ margin: '4rem 1rem 0.75rem' }}
-              />
-              <h1 style={{ margin: '0.25rem' }}>
-                We're still building this feature!
-              </h1>
-              <h2>Check back soon.</h2>
-            </div>
+            <MessageCard
+              icon="info-circle"
+              title="We're still building this feature!"
+              message="Check back soon."
+            />
             {/* RELEASE IN NEXT VERSION... */}
+          </HomeFeedContainer>
+        </>
+      );
+    };
+
+    const ErrorPage = props => {
+      return (
+        <>
+          <HomeFeedContainer parent={props}>
+            {windowWidth > 1024 && <ComposedSidebar />}
+            <MessageCard
+              icon="thumbs-down"
+              title="404"
+              message="Page not found."
+            />
           </HomeFeedContainer>
         </>
       );
@@ -363,7 +368,11 @@ export class Main extends Component {
             <h1>LOADING JUICY ARTICLES...</h1>
           </Loader>
         ) : error ? (
-          <div>{error}</div>
+          <MessageCard
+            icon="exclamation-circle"
+            title={`${error.status} Error`}
+            message={error.data.msg}
+          />
         ) : (
           <Router className="route-container" primary={false}>
             <ScrollToTop path="/">
@@ -376,6 +385,7 @@ export class Main extends Component {
               <UsersPage path="/users" />
               <UserPage path="/users/:author" />
               <SubmitArticlePage path="/post" />
+              <ErrorPage default />
             </ScrollToTop>
           </Router>
         )}

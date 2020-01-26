@@ -27,7 +27,8 @@ import {
   faSortDown,
   faCheck,
   faTrashAlt,
-  faExclamationCircle
+  faExclamationCircle,
+  faThumbsDown
 } from '@fortawesome/free-solid-svg-icons';
 import { faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons';
 
@@ -67,7 +68,8 @@ library.add(
   faSortDown,
   faCheck,
   faTrashAlt,
-  faExclamationCircle
+  faExclamationCircle,
+  faThumbsDown
 );
 
 export class App extends Component {
