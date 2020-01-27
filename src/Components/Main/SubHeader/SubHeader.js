@@ -20,6 +20,7 @@ const SubHeader = ({ parent, children }) => {
     const sortByRef = {
       '/': true,
       '/articles': true,
+      '/articles/sort_by/:sort_by': true,
       '/topics/:topic': true,
       '/users/:author': true
     };
