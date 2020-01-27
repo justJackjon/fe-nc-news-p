@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { navigate } from '@reach/router';
 
 import { UserSettingsContext } from '../../../../Context/UserSettingsProvider';
 import UserListCard from '../UserListCard/UserListCard';
@@ -29,7 +30,7 @@ const UserProfileCard = () => {
         {loggedIn ? (
           <button
             className="btn-lg btn-solid"
-            onClick={() => (window.location.pathname = '/post')}
+            onClick={() => navigate('/post')}
           >
             NEW POST
           </button>

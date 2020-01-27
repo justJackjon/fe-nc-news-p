@@ -55,7 +55,7 @@ export class UserSettingsProvider extends Component {
     this.logOut();
   };
 
-  logInDefaultUser = event => {
+  logInDefaultUser = () => {
     this.setState({
       loggedIn: true,
       displayNotification: 'Success - logged in as jessjelly',

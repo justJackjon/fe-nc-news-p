@@ -1,4 +1,5 @@
 import React, { createRef, useState } from 'react';
+import { navigate } from '@reach/router';
 import * as api from '../../api';
 import SearchIcon from '../Icons/SearchIcon';
 
@@ -23,7 +24,7 @@ const SearchBar = () => {
 
   const handleSubmit = event => {
     event.preventDefault();
-    window.location.pathname = `topics/${term}`;
+    navigate(`/topics/${term}`);
   };
 
   return (

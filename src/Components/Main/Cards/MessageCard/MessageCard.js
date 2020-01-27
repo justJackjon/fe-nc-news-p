@@ -1,4 +1,5 @@
 import React from 'react';
+import { navigate } from '@reach/router';
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
 import Button from '../../../Controls/Buttons/Button';
 import './MessageCard.css';
@@ -11,10 +12,7 @@ const MessageCard = ({ icon, title, message }) => {
         <h1 style={{ margin: '0.25rem' }}>{title}</h1>
         <p>{message}</p>
       </div>
-      <Button
-        className="btn-solid btn-lg"
-        onClick={() => (window.location.pathname = '/')}
-      >
+      <Button className="btn-solid btn-lg" onClick={() => navigate(`/`)}>
         GO HOME
       </Button>
     </section>

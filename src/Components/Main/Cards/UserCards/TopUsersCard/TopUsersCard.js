@@ -1,4 +1,5 @@
 import React from 'react';
+import { navigate } from '@reach/router';
 import UserListCard from '../UserListCard/UserListCard';
 import './TopUsersCard.css';
 
@@ -20,7 +21,7 @@ const TopAuthorsCard = ({ users }) => {
       </ul>
       <button
         className="btn-lg btn-solid view-all-users"
-        onClick={() => (window.location.pathname = '/users')}
+        onClick={() => navigate('/users')}
       >
         VIEW ALL USERS
       </button>

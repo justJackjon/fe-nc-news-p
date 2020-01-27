@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { WindowContext } from '../Context/WindowProvider';
-import { Router } from '@reach/router';
+import { Router, createMemorySource, createHistory } from '@reach/router';
 import debounce from 'lodash.debounce';
 
 import * as api from '../../api';
@@ -29,6 +29,7 @@ export class Main extends Component {
   static contextType = WindowContext;
   setStuckSidebar = this.context.actions.setStuckSidebar;
   state = {
+    history: null,
     error: false,
     initialLoad: true,
     loadAddtlData: false,
@@ -92,6 +93,8 @@ export class Main extends Component {
   }, 100);
 
   getInitData = () => {
+    const source = createMemorySource(window.location.pathname);
+    const history = createHistory(source);
     Promise.all([
       api.getData('articles'),
       api.getData('topics'),
@@ -99,6 +102,7 @@ export class Main extends Component {
     ])
       .then(data => {
         this.setState({
+          history,
           articles: data[0],
           topics: data[1],
           users: data[2],
