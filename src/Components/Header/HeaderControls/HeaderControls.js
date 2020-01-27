@@ -7,7 +7,6 @@ import './HeaderControls.css';
 
 const HeaderControls = () => {
   const [open, setOpen] = useState(false);
-  // const [darkMode, setDarkMode] = useState(false);
   const [openModal, setOpenModal] = useState(false);
 
   const toggleDrawer = (event, value) => {
@@ -44,19 +43,6 @@ const HeaderControls = () => {
             OK
           </Button>
         </Modal>
-        // <Modal className="modal-sm">
-        //   <h1>ARE YOU SURE?</h1>
-        //   <p>
-        //     Your comment will be olbiterated into smithereens. Are you really
-        //     super duper sure you want to do this?!
-        //   </p>
-        //   <Button className="btn-accept btn-lg" onClick={handleClose}>
-        //     ERM, yeah?
-        //   </Button>
-        //   <Button className="btn-solid btn-lg" onClick={handleClose}>
-        //     HELL NO!
-        //   </Button>
-        // </Modal>
       )}
       <label className="hamburger-menu">
         <Icon

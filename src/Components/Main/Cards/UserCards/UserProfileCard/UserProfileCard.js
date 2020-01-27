@@ -1,5 +1,4 @@
 import React, { useContext } from 'react';
-import { Link } from '@reach/router';
 
 import { UserSettingsContext } from '../../../../Context/UserSettingsProvider';
 import UserListCard from '../UserListCard/UserListCard';

@@ -57,7 +57,7 @@ const TopicContainer = ({
           updateMainState({ error: error.response });
         }
       });
-  }, [topic, updateMainState]);
+  }, [sort_by, topic, updateMainState]);
 
   useEffect(() => {
     if (topicArticles[0]?.title === `No articles for '${topic}'`) return;
@@ -67,7 +67,7 @@ const TopicContainer = ({
         fetchTopicArticles();
     }
     if (sort_by !== currentSort) fetchTopicArticles();
-  }, [fetchTopicArticles, topic, topicArticles]);
+  }, [currentSort, fetchTopicArticles, sort_by, topic, topicArticles]);
 
   return (
     <>

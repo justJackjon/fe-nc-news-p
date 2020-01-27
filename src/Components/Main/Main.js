@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { WindowContext } from '../Context/WindowProvider';
 import { Router } from '@reach/router';
 import debounce from 'lodash.debounce';
-import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
 
 import * as api from '../../api';
 import ScrollToTop from '../Utils/ScrollToTop';
@@ -113,14 +112,6 @@ export class Main extends Component {
 
   componentDidMount() {
     this.getInitData();
-    console.log('**** make sure you are fetching ALL comments ****');
-    console.log(
-      '**** add display notification on error/success of deleted comment ****'
-    );
-  }
-
-  componentWillUnmount() {
-    //
   }
 
   refreshArticles() {
@@ -139,10 +130,6 @@ export class Main extends Component {
 
   componentDidUpdate(prevProps, prevState) {
     if (prevState.sort_by !== this.state.sort_by) this.refreshArticles();
-    console.log('**** make sure you are fetching ALL comments ****');
-    console.log(
-      '**** add display notification on error/success of deleted comment ****'
-    );
   }
 
   render() {
