@@ -8,6 +8,8 @@ const UserContainer = ({
   userArticles,
   updateMainState,
   parent: { author },
+  sort_by,
+  currentSort,
   children
 }) => {
   // const getAddtl = useCallback(() => {
@@ -20,15 +22,16 @@ const UserContainer = ({
   //       window.removeEventListener('scroll', getAddtl);
   //     };
   // }, [getAddtl, parent.path]);
+
   const [displayLoader, setDisplayLoader] = useState(false);
 
   const fetchUserArticles = useCallback(() => {
     setDisplayLoader(true);
     api
-      .getData('/articles', 'articles', { params: { author } })
+      .getData('/articles', 'articles', { params: { author, sort_by } })
       .then(userArticles => {
         if (userArticles.length) {
-          updateMainState({ userArticles });
+          updateMainState({ userArticles, currentSort: sort_by });
         } else {
           updateMainState({
             userArticles: [
@@ -42,7 +45,8 @@ const UserContainer = ({
                 created_at: new Date().toISOString(),
                 comment_count: 'No'
               }
-            ]
+            ],
+            currentSort: sort_by
           });
         }
         setDisplayLoader(false);
@@ -50,7 +54,7 @@ const UserContainer = ({
       .catch(({ response: error }) => {
         updateMainState({ error });
       });
-  }, [updateMainState, author]);
+  }, [author, sort_by, updateMainState]);
 
   useEffect(() => {
     if (userArticles[0]?.title === `No articles for '${author}'`) return;
@@ -59,7 +63,8 @@ const UserContainer = ({
       if (userArticles.every(article => article.author !== author))
         fetchUserArticles();
     }
-  }, [fetchUserArticles, userArticles, author]);
+    if (sort_by !== currentSort) fetchUserArticles();
+  }, [fetchUserArticles, userArticles, author, sort_by, currentSort]);
 
   return (
     <>

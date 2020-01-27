@@ -1,7 +1,6 @@
-import React, { useEffect, useCallback } from 'react';
+import React from 'react';
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
 import { Link } from '@reach/router';
-import * as api from '../../../../api';
 
 import ArticleCard from '../../Cards/ArticleCard/ArticleCard';
 import TopicListCard from '../../Cards/TopicCards/TopicListCard/TopicListCard';
@@ -20,26 +19,6 @@ const Feed = ({
   parent,
   updateMainState
 }) => {
-  const refreshFeed = useCallback(() => {
-    api
-      .getData('/articles', 'articles', {
-        params: { sort_by: parent.sort_by }
-      })
-      .then(articles => {
-        updateMainState({ articles, sort_by: parent.sort_by });
-      })
-      .catch(({ response: error }) => {
-        updateMainState({ error });
-      });
-  }, [parent.sort_by, updateMainState]);
-
-  useEffect(() => {
-    if (sort_by !== parent.sort_by) {
-      refreshFeed();
-    }
-    return () => refreshFeed;
-  }, [parent.sort_by, refreshFeed, sort_by]);
-
   const feedList = () => {
     const articleList = articles?.map(article => (
       <li key={article.article_id} className="article-list-item">
@@ -88,14 +67,17 @@ const Feed = ({
     votes: 'VOTES'
   };
 
+  const showSortedBy = () => {
+    if (parent.path !== '/' && dataType === 'articles') return true;
+  };
+
   return (
     <section className="feed">
       <ul className="feed-list">
-        {parent?.sort_by && (
+        {showSortedBy() && (
           <li className="article-list-item sort-by-notification">
             <h3>
-              ARTICLES SORTED BY {sortByRef[parent?.sort_by]}{' '}
-              <Icon icon="check" />
+              ARTICLES SORTED BY {sortByRef[sort_by]} <Icon icon="check" />
             </h3>
           </li>
         )}

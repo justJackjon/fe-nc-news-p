@@ -38,7 +38,8 @@ export class Main extends Component {
     articles: [],
     topicArticles: [],
     userArticles: [],
-    sort_by: 'date',
+    sort_by: 'created_at',
+    currentSort: 'created_at',
     article: null,
     articleComments: [],
     topics: [],
@@ -122,7 +123,22 @@ export class Main extends Component {
     //
   }
 
+  refreshArticles() {
+    const { sort_by } = this.state;
+    api
+      .getData('/articles', 'articles', {
+        params: { sort_by }
+      })
+      .then(articles => {
+        this.setState({ articles });
+      })
+      .catch(({ response: error }) => {
+        this.setState({ error });
+      });
+  }
+
   componentDidUpdate(prevProps, prevState) {
+    if (prevState.sort_by !== this.state.sort_by) this.refreshArticles();
     console.log('**** make sure you are fetching ALL comments ****');
     console.log(
       '**** add display notification on error/success of deleted comment ****'
@@ -140,6 +156,7 @@ export class Main extends Component {
       topicArticles,
       userArticles,
       sort_by,
+      currentSort,
       article,
       articleComments,
       topics,
@@ -179,7 +196,11 @@ export class Main extends Component {
 
     const HomePage = props => (
       <>
-        <SubHeader parent={props} />
+        <SubHeader
+          parent={props}
+          sort_by={sort_by}
+          updateMainState={updateMainState}
+        />
         <HomeFeedContainer parent={props} getAddtlData={getAddtlData}>
           <TrendingTopics topics={topics} />
           {windowWidth > 1024 && <ComposedSidebar />}
@@ -200,7 +221,11 @@ export class Main extends Component {
 
     const ArticlesPage = props => (
       <>
-        <SubHeader parent={props} />
+        <SubHeader
+          parent={props}
+          sort_by={sort_by}
+          updateMainState={updateMainState}
+        />
         <HomeFeedContainer parent={props} getAddtlData={getAddtlData}>
           {/* <TrendingTopics topics={topics} /> */}
           {windowWidth > 1024 && <ComposedSidebar />}
@@ -234,7 +259,11 @@ export class Main extends Component {
 
     const TopicsPage = props => (
       <>
-        <SubHeader parent={props} />
+        <SubHeader
+          parent={props}
+          sort_by={sort_by}
+          updateMainState={updateMainState}
+        />
         <HomeFeedContainer parent={props}>
           {windowWidth > 1024 && <ComposedSidebar />}
           <Feed
@@ -255,11 +284,17 @@ export class Main extends Component {
     const TopicPage = props => {
       return (
         <>
-          <SubHeader parent={props} />
+          <SubHeader
+            parent={props}
+            sort_by={sort_by}
+            updateMainState={updateMainState}
+          />
           <TopicContainer
             updateMainState={updateMainState}
             topicArticles={topicArticles}
             parent={props}
+            sort_by={sort_by}
+            currentSort={currentSort}
           >
             {windowWidth > 1024 && <ComposedSidebar />}
             <Feed
@@ -280,7 +315,11 @@ export class Main extends Component {
 
     const UsersPage = props => (
       <>
-        <SubHeader parent={props} />
+        <SubHeader
+          parent={props}
+          sort_by={sort_by}
+          updateMainState={updateMainState}
+        />
         <HomeFeedContainer parent={props}>
           {windowWidth > 1024 && <ComposedSidebar />}
           <Feed
@@ -301,11 +340,17 @@ export class Main extends Component {
     const UserPage = props => {
       return (
         <>
-          <SubHeader parent={props} />
+          <SubHeader
+            parent={props}
+            sort_by={sort_by}
+            updateMainState={updateMainState}
+          />
           <UserContainer
             updateMainState={updateMainState}
             userArticles={userArticles}
             parent={props}
+            sort_by={sort_by}
+            currentSort={currentSort}
           >
             {windowWidth > 1024 && <ComposedSidebar />}
             <Feed
@@ -327,7 +372,11 @@ export class Main extends Component {
     const SubmitArticlePage = props => {
       return (
         <>
-          <SubHeader parent={props} />
+          <SubHeader
+            parent={props}
+            sort_by={sort_by}
+            updateMainState={updateMainState}
+          />
           <HomeFeedContainer updateMainState={updateMainState} parent={props}>
             {windowWidth > 1024 && <ComposedSidebar />}
             {/* RELEASE IN NEXT VERSION... */}

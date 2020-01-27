@@ -8,6 +8,8 @@ const TopicContainer = ({
   topicArticles,
   updateMainState,
   parent: { topic },
+  sort_by,
+  currentSort,
   children
 }) => {
   // const getAddtl = useCallback(() => {
@@ -25,10 +27,10 @@ const TopicContainer = ({
   const fetchTopicArticles = useCallback(() => {
     setDisplayLoader(true);
     api
-      .getData('/articles', 'articles', { params: { topic } })
+      .getData('/articles', 'articles', { params: { topic, sort_by } })
       .then(topicArticles => {
         if (topicArticles.length) {
-          updateMainState({ topicArticles });
+          updateMainState({ topicArticles, currentSort: sort_by });
         } else {
           throw new Error('no data');
         }
@@ -48,7 +50,8 @@ const TopicContainer = ({
                 created_at: new Date().toISOString(),
                 comment_count: 'No'
               }
-            ]
+            ],
+            currentSort: sort_by
           });
         } else {
           updateMainState({ error: error.response });
@@ -63,6 +66,7 @@ const TopicContainer = ({
       if (topicArticles.every(article => article.topic !== topic))
         fetchTopicArticles();
     }
+    if (sort_by !== currentSort) fetchTopicArticles();
   }, [fetchTopicArticles, topic, topicArticles]);
 
   return (

@@ -7,7 +7,7 @@ import Links from '../../Navigation/NavigationLinks';
 import './SubHeader.css';
 import ncnLogo from '../../../ncnlogo-rb.svg';
 
-const SubHeader = ({ parent, children }) => {
+const SubHeader = ({ parent, children, sort_by, updateMainState }) => {
   const topicTitleContent = () => {
     if (!parent) return;
     if (parent.path === '/') return;
@@ -56,7 +56,9 @@ const SubHeader = ({ parent, children }) => {
             }}
           </WindowConsumer>
         }
-        {showSortBy() && <SelectDropdown />}
+        {showSortBy() && (
+          <SelectDropdown sort_by={sort_by} updateMainState={updateMainState} />
+        )}
       </div>
     </div>
   );

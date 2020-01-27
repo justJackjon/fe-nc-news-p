@@ -1,11 +1,10 @@
 import React, { createRef } from 'react';
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
-import { Link } from '@reach/router';
 import './SelectDropdown.css';
 
 export const selectDropdown = createRef();
 
-const SelectDropdown = () => {
+const SelectDropdown = ({ sort_by, updateMainState }) => {
   const toggleDrawer = () => {
     if (selectDropdown.current) {
       selectDropdown.current.classList.toggle('show-dropdown');
@@ -39,9 +38,6 @@ const SelectDropdown = () => {
     votes: VotesButton
   };
 
-  const match = window.location.pathname.match(/\/articles\/sort_by\/(\w+)/);
-  const current = match ? match[1] : 'created_at';
-
   return (
     <>
       <hr className="sub-navigation-hr" />
@@ -50,25 +46,19 @@ const SelectDropdown = () => {
         <div className="select-container">
           <div className="selected-option">
             <button className="selected-button" onClick={toggleDrawer}>
-              {buttonRef[current]}
+              {buttonRef[sort_by]}
               <Icon className="dropdown-sort-icon" icon="sort-down" />
             </button>
           </div>
           <ul ref={selectDropdown} className="select-dropdown">
-            <li>
-              <Link to="/articles/sort_by/created_at">
-                <button>{DateButton}</button>
-              </Link>
+            <li onClick={() => updateMainState({ sort_by: 'created_at' })}>
+              <button>{DateButton}</button>
             </li>
-            <li>
-              <Link to="/articles/sort_by/comment_count">
-                <button>{CommentsButton}</button>
-              </Link>
+            <li onClick={() => updateMainState({ sort_by: 'comment_count' })}>
+              <button>{CommentsButton}</button>
             </li>
-            <li>
-              <Link to="/articles/sort_by/votes">
-                <button>{VotesButton}</button>
-              </Link>
+            <li onClick={() => updateMainState({ sort_by: 'votes' })}>
+              <button>{VotesButton}</button>
             </li>
           </ul>
         </div>
