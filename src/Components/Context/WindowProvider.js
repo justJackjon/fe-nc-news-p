@@ -1,14 +1,19 @@
 import React, { Component, createContext } from 'react';
-import { UserSettingsContext } from './UserSettingsProvider';
+// import { UserSettingsContext } from './UserSettingsProvider';
 
 export const WindowContext = createContext();
 
 export class WindowProvider extends Component {
-  static contextType = UserSettingsContext;
-  actions = this.context.actions;
-  loadWindowState = this.actions.loadState.call(this, 'WindowContext');
-  saveWindowState = this.actions.saveState.bind(this, 'WindowContext');
-  state = this.loadWindowState || {
+  // static contextType = UserSettingsContext;
+  // actions = this.context.actions;
+  // loadWindowState = this.actions.loadState.call(this, 'WindowContext');
+  // saveWindowState = this.actions.saveState.bind(this, 'WindowContext');
+  // state = this.loadWindowState || {
+  //   windowWidth: 0,
+  //   windowHeight: 0
+  // };
+
+  state = {
     windowWidth: 0,
     windowHeight: 0
   };
@@ -21,7 +26,7 @@ export class WindowProvider extends Component {
   };
 
   componentDidUpdate() {
-    this.saveWindowState();
+    // this.saveWindowState();
   }
 
   render() {

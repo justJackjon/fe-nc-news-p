@@ -156,22 +156,6 @@ export class Main extends Component {
     const { getAddtlData, updateMainState } = this;
     const infiniteFeedProps = { loadAddtlData, dataAvailable };
 
-    // At a later stage different sidebar compositions (with different card combinations) can be added.
-    const ComposedSidebar = ({ parent: { ...props } }) => {
-      const numOfTopUsers = props?.path === '/articles/:articleId' ? 3 : 5;
-      return (
-        <SideBar parent={{ ...props }}>
-          <UserProfileCard />
-          {windowHeight > 945 && (
-            <TopUsersCard users={users?.slice(0, numOfTopUsers)} />
-          )}
-          {windowHeight <= 945 && windowHeight >= 840 && (
-            <TopUsersCard users={users?.slice(0, 3)} />
-          )}
-          {/* <PopularTopicsCard /> */}
-        </SideBar>
-      );
-    };
     // const LoadedFeed = () => (
     //   <Feed
     //     articles={articles}
@@ -194,7 +178,7 @@ export class Main extends Component {
         />
         <HomeFeedContainer parent={props} getAddtlData={getAddtlData}>
           <TrendingTopics topics={topics} />
-          {windowWidth > 1024 && <ComposedSidebar />}
+          {windowWidth > 1024 && <SideBar users={users} />}
           <Feed
             sort_by={sort_by}
             parent={props}
@@ -219,7 +203,7 @@ export class Main extends Component {
         />
         <HomeFeedContainer parent={props} getAddtlData={getAddtlData}>
           {/* <TrendingTopics topics={topics} /> */}
-          {windowWidth > 1024 && <ComposedSidebar />}
+          {windowWidth > 1024 && <SideBar users={users} />}
           <Feed
             sort_by={sort_by}
             parent={props}
@@ -243,7 +227,7 @@ export class Main extends Component {
           updateMainState={updateMainState}
           articleComments={articleComments}
         >
-          {windowWidth > 1024 && <ComposedSidebar parent={props} />}
+          {windowWidth > 1024 && <SideBar parent={props} users={users} />}
         </ArticleContainer>
       );
     };
@@ -256,7 +240,7 @@ export class Main extends Component {
           updateMainState={updateMainState}
         />
         <HomeFeedContainer parent={props}>
-          {windowWidth > 1024 && <ComposedSidebar />}
+          {windowWidth > 1024 && <SideBar users={users} />}
           <Feed
             sort_by={sort_by}
             parent={props}
@@ -287,7 +271,7 @@ export class Main extends Component {
             sort_by={sort_by}
             currentSort={currentSort}
           >
-            {windowWidth > 1024 && <ComposedSidebar />}
+            {windowWidth > 1024 && <SideBar users={users} />}
             <Feed
               sort_by={sort_by}
               parent={props}
@@ -312,7 +296,7 @@ export class Main extends Component {
           updateMainState={updateMainState}
         />
         <HomeFeedContainer parent={props}>
-          {windowWidth > 1024 && <ComposedSidebar />}
+          {windowWidth > 1024 && <SideBar users={users} />}
           <Feed
             sort_by={sort_by}
             parent={props}
@@ -343,7 +327,7 @@ export class Main extends Component {
             sort_by={sort_by}
             currentSort={currentSort}
           >
-            {windowWidth > 1024 && <ComposedSidebar />}
+            {windowWidth > 1024 && <SideBar users={users} />}
             <Feed
               sort_by={sort_by}
               parent={props}
@@ -369,7 +353,7 @@ export class Main extends Component {
             updateMainState={updateMainState}
           />
           <HomeFeedContainer updateMainState={updateMainState} parent={props}>
-            {windowWidth > 1024 && <ComposedSidebar />}
+            {windowWidth > 1024 && <SideBar users={users} />}
             {/* RELEASE IN NEXT VERSION... */}
             <MessageCard
               icon="info-circle"
@@ -386,7 +370,7 @@ export class Main extends Component {
       return (
         <>
           <HomeFeedContainer parent={props}>
-            {windowWidth > 1024 && <ComposedSidebar />}
+            {windowWidth > 1024 && <SideBar users={users} />}
             <MessageCard
               icon="thumbs-down"
               title="404"

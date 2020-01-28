@@ -1,12 +1,17 @@
 import React, { useContext, createRef, useEffect } from 'react';
+
 import { SidebarContext } from '../../../Context/SidebarProvider';
-import './SideBar.css';
+import { WindowConsumer } from '../../../Context/WindowProvider';
+import UserProfileCard from '../../Cards/UserCards/UserProfileCard/UserProfileCard';
+import TopUsersCard from '../../Cards/UserCards/TopUsersCard/TopUsersCard';
 import Footer from '../../../Footer/Footer';
+
+import './SideBar.css';
 
 const sidebarContent = createRef();
 const sidebarContainer = createRef();
 
-const SideBar = ({ parent, children }) => {
+const SideBar = ({ parent, children, path, users }) => {
   const {
     stickySidebar,
     stuckSidebar,
@@ -42,12 +47,34 @@ const SideBar = ({ parent, children }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const numOfTopUsers = parent?.path === '/articles/:articleId' ? 3 : 5;
+
   return (
     <aside ref={sidebarContainer} className="sidebar">
       <ul ref={sidebarContent} className={initClassNames()}>
-        {children.map(child =>
+        <WindowConsumer>
+          {({ windowHeight }) => (
+            <>
+              <li>
+                <UserProfileCard />
+              </li>
+              <li>
+                {windowHeight > 945 && (
+                  <TopUsersCard users={users?.slice(0, numOfTopUsers)} />
+                )}
+                {windowHeight <= 945 && windowHeight >= 840 && (
+                  <TopUsersCard users={users?.slice(0, 3)} />
+                )}
+              </li>
+            </>
+          )}
+        </WindowConsumer>
+        {/* <li>
+          <PopularTopicsCard />
+        </li> */}
+        {/* {children.map(child =>
           child?.type?.name ? <li key={child.type.name}>{child}</li> : undefined
-        )}
+        )} */}
         <li>
           <Footer displayLocation="sidebar" />
         </li>
