@@ -12,7 +12,10 @@ const MessageCard = ({ icon, title, message }) => {
         <h1 style={{ margin: '0.25rem' }}>{title}</h1>
         <p>{message}</p>
       </div>
-      <Button className="btn-solid btn-lg" onClick={() => navigate(`/`)}>
+      <Button
+        className="btn-solid btn-lg"
+        onClick={() => (window.location.pathname = '/')}
+      >
         GO HOME
       </Button>
     </section>

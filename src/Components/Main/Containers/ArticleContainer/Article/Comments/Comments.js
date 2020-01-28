@@ -1,4 +1,4 @@
-import React, { useEffect, createRef, useCallback } from 'react';
+import React, { useState, useEffect, createRef, useCallback } from 'react';
 
 import * as api from '../../../../../../api';
 import PostCommentCard from '../../../../Cards/PostCommentCard/PostCommentCard';
@@ -8,17 +8,13 @@ import './Comments.css';
 
 export const commentsMarker = createRef();
 
-const Comments = ({
-  articleComments,
-  articleId,
-  updateMainState,
-  updateArticleState
-}) => {
+const Comments = ({ articleId, updateMainState, setArticle }) => {
+  const [comments, setComments] = useState([]);
   const fetchComments = useCallback(() => {
     api
       .getData(`articles/${articleId}/comments`, 'comments')
       .then(articleComments => {
-        updateMainState({ articleComments });
+        setComments(articleComments);
       })
       .catch(({ response: error }) => {
         updateMainState({ error });
@@ -26,23 +22,23 @@ const Comments = ({
   }, [articleId, updateMainState]);
 
   useEffect(() => {
-    if (!articleComments.length) fetchComments();
-    else if (articleComments[0].article_id !== +articleId) {
+    if (!comments.length) fetchComments();
+    else if (comments[0].article_id !== +articleId) {
       fetchComments();
     }
-  }, [articleComments, articleId, fetchComments]);
+  }, [comments, articleId, fetchComments]);
 
   return (
     <>
       <PostCommentCard
         articleId={articleId}
         updateMainState={updateMainState}
-        updateArticleState={updateArticleState}
+        setArticle={setArticle}
       />
       <div ref={commentsMarker} className="comments-marker" />
       <hr className="comments-list-top-divider" />
       <ul className="comments">
-        {articleComments.map(comment => {
+        {comments.map(comment => {
           return (
             <CommentCard
               key={comment.comment_id}

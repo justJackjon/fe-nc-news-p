@@ -9,11 +9,7 @@ import './PostCommentCard.css';
 
 export const postCommentMarker = createRef();
 
-const PostCommentCard = ({
-  articleId,
-  updateMainState,
-  updateArticleState
-}) => {
+const PostCommentCard = ({ articleId, updateMainState, setArticle }) => {
   const {
     loggedInUser: user,
     loggedIn,
@@ -38,7 +34,7 @@ const PostCommentCard = ({
         body: comment
       };
 
-      updateArticleState({
+      setArticle({
         articleComments: [placeholderComment, ...prevState.articleComments],
         article: {
           comment_count: +comment_count + 1,

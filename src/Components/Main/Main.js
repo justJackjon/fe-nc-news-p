@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useEffect } from 'react';
 import { WindowContext } from '../Context/WindowProvider';
 import { Router, createMemorySource, createHistory } from '@reach/router';
 import debounce from 'lodash.debounce';
@@ -7,21 +7,21 @@ import * as api from '../../api';
 import ScrollToTop from '../Utils/ScrollToTop';
 import Loader from '../Utils/Loader/Loader';
 
-import SubHeader from './SubHeader/SubHeader';
-import HomeFeedContainer from './Containers/HomeFeedContainer/HomeFeedContainer';
-import TopicContainer from './Containers/TopicContainer/TopicContainer';
 import ArticleContainer from './Containers/ArticleContainer/ArticleContainer';
-import UserContainer from './Containers/UserContainer/UserContainer';
 
-import TrendingTopics from './SharedComponents/TrendingTopics/TendingTopics';
-import Feed from './SharedComponents/Feed/Feed';
 import SideBar from './SharedComponents/SideBar/SideBar';
 import MessageCard from '../Main/Cards/MessageCard/MessageCard';
 
-// Sidebar components:
-import UserProfileCard from '../../Components/Main/Cards/UserCards/UserProfileCard/UserProfileCard';
-import TopUsersCard from '../../Components/Main/Cards/UserCards/TopUsersCard/TopUsersCard';
-// import PopularTopicsCard from '../../Components/Main/Cards/TopicCards/PopularTopicsCard/PopularTopicsCard';
+// Pages
+import HomePage from './Pages/HomePage';
+import TopicsPage from './Pages/TopicsPage';
+import TopicPage from './Pages/TopicPage';
+import ArticlesPage from './Pages/ArticlesPage';
+import ArticlePage from './Pages/ArticlePage';
+import UsersPage from './Pages/UsersPage';
+import UserPage from './Pages/UserPage';
+import SubmitArticlePage from './Pages/SubmitArticlePage';
+import ErrorPage from './Pages/ErrorPage';
 
 import './Main.css';
 
@@ -40,8 +40,6 @@ export class Main extends Component {
     userArticles: [],
     sort_by: 'created_at',
     currentSort: 'created_at',
-    article: null,
-    articleComments: [],
     topics: [],
     users: []
   };
@@ -137,7 +135,7 @@ export class Main extends Component {
   }
 
   render() {
-    const { windowWidth, windowHeight } = this.context;
+    const { windowWidth } = this.context;
     const {
       error,
       initialLoad,
@@ -148,237 +146,25 @@ export class Main extends Component {
       userArticles,
       sort_by,
       currentSort,
-      article,
-      articleComments,
       topics,
       users
     } = this.state;
     const { getAddtlData, updateMainState } = this;
-    const infiniteFeedProps = { loadAddtlData, dataAvailable };
 
-    // const LoadedFeed = () => (
-    //   <Feed
-    //     articles={articles}
-    //     topics={topics}
-    //     users={users}
-    //     initialLoad={initialLoad}
-    //     updateMainState={this.updateMainState}
-    //     dataType="articles"
-    //     parent={props}
-    //     {...infiniteFeedProps}
-    //   />
-    // );
-
-    const HomePage = props => (
-      <>
-        <SubHeader
-          parent={props}
-          sort_by={sort_by}
-          updateMainState={updateMainState}
-        />
-        <HomeFeedContainer parent={props} getAddtlData={getAddtlData}>
-          <TrendingTopics topics={topics} />
-          {windowWidth > 1024 && <SideBar users={users} />}
-          <Feed
-            sort_by={sort_by}
-            parent={props}
-            articles={articles}
-            topics={topics}
-            users={users}
-            initialLoad={initialLoad}
-            updateMainState={updateMainState}
-            dataType="articles"
-            {...infiniteFeedProps}
-          />
-        </HomeFeedContainer>
-      </>
-    );
-
-    const ArticlesPage = props => (
-      <>
-        <SubHeader
-          parent={props}
-          sort_by={sort_by}
-          updateMainState={updateMainState}
-        />
-        <HomeFeedContainer parent={props} getAddtlData={getAddtlData}>
-          {/* <TrendingTopics topics={topics} /> */}
-          {windowWidth > 1024 && <SideBar users={users} />}
-          <Feed
-            sort_by={sort_by}
-            parent={props}
-            articles={articles}
-            topics={topics}
-            users={users}
-            initialLoad={initialLoad}
-            updateMainState={updateMainState}
-            dataType="articles"
-            {...infiniteFeedProps}
-          />
-        </HomeFeedContainer>
-      </>
-    );
-
-    const ArticlePage = props => {
-      return (
-        <ArticleContainer
-          parent={props}
-          article={article}
-          updateMainState={updateMainState}
-          articleComments={articleComments}
-        >
-          {windowWidth > 1024 && <SideBar parent={props} users={users} />}
-        </ArticleContainer>
-      );
-    };
-
-    const TopicsPage = props => (
-      <>
-        <SubHeader
-          parent={props}
-          sort_by={sort_by}
-          updateMainState={updateMainState}
-        />
-        <HomeFeedContainer parent={props}>
-          {windowWidth > 1024 && <SideBar users={users} />}
-          <Feed
-            sort_by={sort_by}
-            parent={props}
-            articles={articles}
-            topics={topics}
-            users={users}
-            initialLoad={initialLoad}
-            updateMainState={updateMainState}
-            dataType="topics"
-            {...infiniteFeedProps}
-          />
-        </HomeFeedContainer>
-      </>
-    );
-
-    const TopicPage = props => {
-      return (
-        <>
-          <SubHeader
-            parent={props}
-            sort_by={sort_by}
-            updateMainState={updateMainState}
-          />
-          <TopicContainer
-            updateMainState={updateMainState}
-            topicArticles={topicArticles}
-            parent={props}
-            sort_by={sort_by}
-            currentSort={currentSort}
-          >
-            {windowWidth > 1024 && <SideBar users={users} />}
-            <Feed
-              sort_by={sort_by}
-              parent={props}
-              topics={topics}
-              users={users}
-              initialLoad={initialLoad}
-              updateMainState={updateMainState}
-              dataType="articles"
-              articles={topicArticles}
-              {...infiniteFeedProps}
-            />
-          </TopicContainer>
-        </>
-      );
-    };
-
-    const UsersPage = props => (
-      <>
-        <SubHeader
-          parent={props}
-          sort_by={sort_by}
-          updateMainState={updateMainState}
-        />
-        <HomeFeedContainer parent={props}>
-          {windowWidth > 1024 && <SideBar users={users} />}
-          <Feed
-            sort_by={sort_by}
-            parent={props}
-            articles={articles}
-            topics={topics}
-            users={users}
-            initialLoad={initialLoad}
-            updateMainState={updateMainState}
-            dataType="users"
-            {...infiniteFeedProps}
-          />
-        </HomeFeedContainer>
-      </>
-    );
-
-    const UserPage = props => {
-      return (
-        <>
-          <SubHeader
-            parent={props}
-            sort_by={sort_by}
-            updateMainState={updateMainState}
-          />
-          <UserContainer
-            updateMainState={updateMainState}
-            userArticles={userArticles}
-            parent={props}
-            sort_by={sort_by}
-            currentSort={currentSort}
-          >
-            {windowWidth > 1024 && <SideBar users={users} />}
-            <Feed
-              sort_by={sort_by}
-              parent={props}
-              topics={topics}
-              users={users}
-              initialLoad={initialLoad}
-              updateMainState={updateMainState}
-              dataType="articles"
-              articles={userArticles}
-              {...infiniteFeedProps}
-            />
-          </UserContainer>
-        </>
-      );
-    };
-
-    const SubmitArticlePage = props => {
-      return (
-        <>
-          <SubHeader
-            parent={props}
-            sort_by={sort_by}
-            updateMainState={updateMainState}
-          />
-          <HomeFeedContainer updateMainState={updateMainState} parent={props}>
-            {windowWidth > 1024 && <SideBar users={users} />}
-            {/* RELEASE IN NEXT VERSION... */}
-            <MessageCard
-              icon="info-circle"
-              title="We're still building this feature!"
-              message="Check back soon."
-            />
-            {/* RELEASE IN NEXT VERSION... */}
-          </HomeFeedContainer>
-        </>
-      );
-    };
-
-    const ErrorPage = props => {
-      return (
-        <>
-          <HomeFeedContainer parent={props}>
-            {windowWidth > 1024 && <SideBar users={users} />}
-            <MessageCard
-              icon="thumbs-down"
-              title="404"
-              message="Page not found."
-            />
-          </HomeFeedContainer>
-        </>
-      );
+    const mainProps = {
+      error,
+      initialLoad,
+      loadAddtlData,
+      dataAvailable,
+      articles,
+      topicArticles,
+      userArticles,
+      sort_by,
+      currentSort,
+      topics,
+      users,
+      getAddtlData,
+      updateMainState
     };
 
     return (
@@ -396,16 +182,17 @@ export class Main extends Component {
         ) : (
           <Router className="route-container" primary={false}>
             <ScrollToTop path="/">
-              <HomePage path="/" />
-              <TopicsPage path="/topics" />
-              <TopicPage path="/topics/:topic" />
-              <ArticlesPage path="/articles" />
-              <ArticlesPage path="/articles/sort_by/:sort_by" />
-              <ArticlePage path="/articles/:articleId" />
-              <UsersPage path="/users" />
-              <UserPage path="/users/:author" />
-              <SubmitArticlePage path="/post" />
-              <ErrorPage default />
+              {/* <HomePage path="/" sort_by={sort_by} updateMainState={updateMainState} getAddtlData={getAddtlData} topics={topics} users={users} articles={articles} loadAddtlData={loadAddtlData} dataAvailable={dataAvailable} /> */}
+              <HomePage path="/" {...mainProps} />
+              <TopicsPage path="/topics" {...mainProps} />
+              <TopicPage path="/topics/:topic" {...mainProps} />
+              <ArticlesPage path="/articles" {...mainProps} />
+              <ArticlesPage path="/articles/sort_by/:sort_by" {...mainProps} />
+              <ArticlePage path="/articles/:articleId" {...mainProps} />
+              <UsersPage path="/users" {...mainProps} />
+              <UserPage path="/users/:author" {...mainProps} />
+              <SubmitArticlePage path="/post" {...mainProps} />
+              <ErrorPage default users={users} />
             </ScrollToTop>
           </Router>
         )}

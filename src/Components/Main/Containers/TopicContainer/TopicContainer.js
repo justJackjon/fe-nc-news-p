@@ -8,6 +8,7 @@ const TopicContainer = ({
   topicArticles,
   updateMainState,
   parent: { topic },
+  path,
   sort_by,
   currentSort,
   children
@@ -21,7 +22,7 @@ const TopicContainer = ({
   //     return () => {
   //       window.removeEventListener('scroll', getAddtl);
   //     };
-  // }, [getAddtl, parent.path]);
+  // }, [getAddtl, path]);
   const [displayLoader, setDisplayLoader] = useState(false);
 
   const fetchTopicArticles = useCallback(() => {

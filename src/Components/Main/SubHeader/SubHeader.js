@@ -7,11 +7,11 @@ import Links from '../../Navigation/NavigationLinks';
 import './SubHeader.css';
 import ncnLogo from '../../../ncnlogo-rb.svg';
 
-const SubHeader = ({ parent, children, sort_by, updateMainState }) => {
+const SubHeader = ({ path, uri, sort_by, updateMainState }) => {
   const topicTitleContent = () => {
-    if (!parent) return;
-    if (parent.path === '/') return;
-    return parent.path
+    if (!path) return;
+    if (path === '/') return;
+    return path
       .match(/\/(\w+)/)[1]
       .replace(/^\w/, first => first.toUpperCase());
   };
@@ -24,7 +24,7 @@ const SubHeader = ({ parent, children, sort_by, updateMainState }) => {
       '/topics/:topic': true,
       '/users/:author': true
     };
-    return sortByRef[parent?.path];
+    return sortByRef[path];
   };
 
   return (
@@ -36,7 +36,7 @@ const SubHeader = ({ parent, children, sort_by, updateMainState }) => {
           </div>
           <div className="topic-subhead-text">
             <h1 className="topic-title">{topicTitleContent()}</h1>
-            <p className="topic-uri">{parent.uri}</p>
+            <p className="topic-uri">{uri}</p>
           </div>
         </div>
       )}

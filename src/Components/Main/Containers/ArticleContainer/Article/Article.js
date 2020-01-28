@@ -9,33 +9,28 @@ import './Article.css';
 const Article = ({
   pathArticleId,
   article,
+  setArticle,
   articleComments,
   updateMainState
 }) => {
-  // prevents re-rednering ALL children of 'Main.js'
-  const [articleState, setArticleState] = useState({
-    article,
-    articleComments
-  });
-
   return (
     <div className="article-and-comments">
-      {+pathArticleId !== articleState.article.article_id ? (
+      {+pathArticleId !== article.article_id ? (
         <Loader className="loading article-loader">
           <h1>COMING RIGHT UP!</h1>
         </Loader>
       ) : (
         <>
           <ArticleCard
-            article={articleState.article}
+            article={article}
             mainArticle={true}
             updateMainState={updateMainState}
           />
           <Comments
-            articleComments={articleState.articleComments}
-            articleId={articleState.article.article_id}
+            articleComments={articleComments}
+            articleId={article.article_id}
             updateMainState={updateMainState}
-            updateArticleState={setArticleState}
+            setArticle={setArticle}
           />
         </>
       )}

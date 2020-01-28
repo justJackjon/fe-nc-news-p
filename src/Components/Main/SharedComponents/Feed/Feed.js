@@ -10,13 +10,13 @@ import './Feed.css';
 
 const Feed = ({
   sort_by,
-  dataType,
+  path,
   articles,
   topics,
   users,
+  dataType,
   loadAddtlData,
   dataAvailable,
-  parent,
   updateMainState
 }) => {
   const feedList = () => {
@@ -68,7 +68,7 @@ const Feed = ({
   };
 
   const showSortedBy = () => {
-    if (parent.path !== '/' && dataType === 'articles') return true;
+    if (path !== '/' && dataType === 'articles') return true;
   };
 
   return (
