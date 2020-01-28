@@ -9,7 +9,12 @@ import './PostCommentCard.css';
 
 export const postCommentMarker = createRef();
 
-const PostCommentCard = ({ articleId, updateMainState, setArticle }) => {
+const PostCommentCard = ({
+  articleId,
+  updateMainState,
+  setArticle,
+  setComments
+}) => {
   const {
     loggedInUser: user,
     loggedIn,
@@ -17,50 +22,43 @@ const PostCommentCard = ({ articleId, updateMainState, setArticle }) => {
   } = useContext(UserSettingsContext);
 
   const [comment, setComment] = useState('');
-  const addNewComment = updateMainState(null, true);
 
   const handleSubmit = event => {
     event.preventDefault();
-    // (Optimistically rendered - only updates ArticleState and re-renders Article.js and children)
-    addNewComment(prevState => {
-      let { comment_count, ...restOfArticle } = prevState.article;
-
+    const tempId = Math.random(); // temporary unique id/React key - also should disable voting buttons as comment_id < 1
+    // (Optimistically rendered)
+    setComments(prevState => {
       const placeholderComment = {
-        comment_id: Math.random(), // temporary unique id/React key - also disables voting buttons as comment_id < 1
+        comment_id: tempId,
         author: user.username,
         article_id: articleId,
         votes: 0,
         created_at: new Date().toISOString(),
         body: comment
       };
-
-      setArticle({
-        articleComments: [placeholderComment, ...prevState.articleComments],
-        article: {
-          comment_count: +comment_count + 1,
-          ...restOfArticle
-        }
-      });
-      return;
+      return [placeholderComment, ...prevState];
     });
 
-    // (Updates MainState when POST request is successful - allows proper voting on comment on receipt of actual comment_id.
-    // Re-renders Main.js and children)
+    setArticle(prevState => {
+      let { comment_count, ...restOfArticle } = prevState;
+      return {
+        comment_count: comment_count + 1,
+        ...restOfArticle
+      };
+    });
+
+    // (Updates when POST request is successful - allows proper voting on comment on receipt of actual comment_id.
     api
       .postData(`articles/${articleId}/comments`, 'comment', {
         username: user.username,
         body: comment
       })
       .then(comment => {
-        addNewComment(prevState => {
-          let { comment_count, ...restOfArticle } = prevState.article;
-          return {
-            articleComments: [comment, ...prevState.articleComments],
-            article: {
-              comment_count: +comment_count + 1,
-              ...restOfArticle
-            }
-          };
+        setComments(prevState => {
+          const prevComments = prevState.filter(
+            comment => comment.comment_id !== tempId
+          );
+          return [comment, ...prevComments];
         });
       })
       .catch(({ response: error }) => {

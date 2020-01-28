@@ -11,13 +11,8 @@ import './ArticleContainer.css';
 
 export const articleHeader = createRef();
 
-const ArticleContainer = ({
-  parent: { articleId },
-  children,
-  updateMainState
-}) => {
+const ArticleContainer = ({ articleId, children, updateMainState }) => {
   const [article, setArticle] = useState(null);
-
   const [prevLocation] = useState(window.history.state?.from);
 
   const fetchArticle = useCallback(() => {

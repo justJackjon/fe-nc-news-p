@@ -50,7 +50,11 @@ const SelectDropdown = ({ sort_by, updateMainState }) => {
               <Icon className="dropdown-sort-icon" icon="sort-down" />
             </button>
           </div>
-          <ul ref={selectDropdown} className="select-dropdown">
+          <ul
+            ref={selectDropdown}
+            className="select-dropdown"
+            onClick={toggleDrawer}
+          >
             <li onClick={() => updateMainState({ sort_by: 'created_at' })}>
               <button>{DateButton}</button>
             </li>

@@ -1,4 +1,4 @@
-import React, { Component, useEffect } from 'react';
+import React, { Component } from 'react';
 import { WindowContext } from '../Context/WindowProvider';
 import { Router, createMemorySource, createHistory } from '@reach/router';
 import debounce from 'lodash.debounce';
@@ -6,11 +6,6 @@ import debounce from 'lodash.debounce';
 import * as api from '../../api';
 import ScrollToTop from '../Utils/ScrollToTop';
 import Loader from '../Utils/Loader/Loader';
-
-import ArticleContainer from './Containers/ArticleContainer/ArticleContainer';
-
-import SideBar from './SharedComponents/SideBar/SideBar';
-import MessageCard from '../Main/Cards/MessageCard/MessageCard';
 
 // Pages
 import HomePage from './Pages/HomePage';
@@ -22,6 +17,8 @@ import UsersPage from './Pages/UsersPage';
 import UserPage from './Pages/UserPage';
 import SubmitArticlePage from './Pages/SubmitArticlePage';
 import ErrorPage from './Pages/ErrorPage';
+
+import MessageCard from '../Main/Cards/MessageCard/MessageCard';
 
 import './Main.css';
 
@@ -135,7 +132,6 @@ export class Main extends Component {
   }
 
   render() {
-    const { windowWidth } = this.context;
     const {
       error,
       initialLoad,

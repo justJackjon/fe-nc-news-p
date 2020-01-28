@@ -10,6 +10,7 @@ export const commentsMarker = createRef();
 
 const Comments = ({ articleId, updateMainState, setArticle }) => {
   const [comments, setComments] = useState([]);
+
   const fetchComments = useCallback(() => {
     api
       .getData(`articles/${articleId}/comments`, 'comments')
@@ -34,6 +35,7 @@ const Comments = ({ articleId, updateMainState, setArticle }) => {
         articleId={articleId}
         updateMainState={updateMainState}
         setArticle={setArticle}
+        setComments={setComments}
       />
       <div ref={commentsMarker} className="comments-marker" />
       <hr className="comments-list-top-divider" />
@@ -43,6 +45,8 @@ const Comments = ({ articleId, updateMainState, setArticle }) => {
             <CommentCard
               key={comment.comment_id}
               comment={comment}
+              setArticle={setArticle}
+              setComments={setComments}
               updateMainState={updateMainState}
             />
           );

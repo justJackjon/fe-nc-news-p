@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import Loader from '../../../../Utils/Loader/Loader';
 import ArticleCard from '../../../Cards/ArticleCard/ArticleCard';
@@ -6,13 +6,7 @@ import Comments from './Comments/Comments';
 
 import './Article.css';
 
-const Article = ({
-  pathArticleId,
-  article,
-  setArticle,
-  articleComments,
-  updateMainState
-}) => {
+const Article = ({ pathArticleId, article, setArticle, updateMainState }) => {
   return (
     <div className="article-and-comments">
       {+pathArticleId !== article.article_id ? (
@@ -27,7 +21,6 @@ const Article = ({
             updateMainState={updateMainState}
           />
           <Comments
-            articleComments={articleComments}
             articleId={article.article_id}
             updateMainState={updateMainState}
             setArticle={setArticle}

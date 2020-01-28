@@ -53,3 +53,9 @@
 ul.sidebar-content li:last-child {
   margin-bottom: 5em;
 }
+
+@media only screen and (max-height: 840px) {
+  .sidebar-content .top-users-card-li {
+    display: none;
+  }
+}

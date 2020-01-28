@@ -12,15 +12,13 @@ import Button from '../../../Controls/Buttons/Button';
 
 import './CommentCard.css';
 
-const CommentCard = ({ comment, updateMainState }) => {
+const CommentCard = ({ comment, setArticle, setComments, updateMainState }) => {
   const {
     loggedInUser: { username: currentUser }
   } = useContext(UserSettingsContext);
 
   const [votes, setVotes] = useState(comment.votes);
   const [openModal, setOpenModal] = useState(false);
-
-  const removeComment = updateMainState(null, true);
 
   const scrollToPostComment = () => {
     window.scrollBy({
@@ -44,19 +42,15 @@ const CommentCard = ({ comment, updateMainState }) => {
         updateMainState({ error });
       });
     // (Optimistically rendered)
-    removeComment(prevState => {
-      const { article, articleComments } = prevState;
-      let { comment_count, ...restOfArticle } = article;
-      const nextArticleComments = articleComments.filter(
-        comnt => comnt.comment_id !== comment.comment_id
-      );
+    setArticle(prevState => {
+      let { comment_count, ...restOfArticle } = prevState;
       return {
-        articleComments: nextArticleComments,
-        article: {
-          comment_count: +comment_count - 1,
-          ...restOfArticle
-        }
+        comment_count: +comment_count - 1,
+        ...restOfArticle
       };
+    });
+    setComments(prevState => {
+      return prevState.filter(comnt => comnt.comment_id !== comment.comment_id);
     });
   };
 
