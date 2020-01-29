@@ -12,6 +12,7 @@ const Loader = ({ className, children }) => {
       clearTimeout(timeoutTwo);
     };
   }, []);
+
   return (
     <div className={className}>
       <div className="loader-container">

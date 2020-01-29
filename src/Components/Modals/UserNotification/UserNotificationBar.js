@@ -24,7 +24,6 @@ const UserNotificationBar = props => {
     };
     if (notificationBar.current) fadeOutAndRemove();
     prevNotification.current = displayNotification;
-    return () => fadeOutAndRemove;
   });
 
   return (
