@@ -1,19 +1,11 @@
 import React from 'react';
 
-import { WindowConsumer } from '../../Context/WindowProvider';
 import SubHeader from '../SubHeader/SubHeader';
-import SideBar from '../SharedComponents/SideBar/SideBar';
 import MainContainer from '../Containers/MainContainer/MainContainer';
 import MessageCard from '../Cards/MessageCard/MessageCard';
 
-const SubmitArticlePage = ({
-  path,
-  uri,
-  sort_by,
-  setSort_by,
-  getAddtlData,
-  users
-}) => {
+const SubmitArticlePage = props => {
+  const { path, uri, sort_by, setSort_by } = props;
   return (
     <>
       <SubHeader
@@ -22,13 +14,7 @@ const SubmitArticlePage = ({
         sort_by={sort_by}
         setSort_by={setSort_by}
       />
-      <MainContainer getAddtlData={getAddtlData} path={path}>
-        <WindowConsumer>
-          {({ windowWidth }) => {
-            const showSideBar = windowWidth > 1024;
-            return showSideBar && <SideBar users={users} />;
-          }}
-        </WindowConsumer>
+      <MainContainer {...props}>
         {/* RELEASE IN NEXT VERSION... */}
         <MessageCard
           icon="info-circle"
