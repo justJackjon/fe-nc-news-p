@@ -65,10 +65,6 @@ const TopicPage = props => {
   useEffect(() => {
     if (topicArticles[0]?.title === `No articles for '${topic}'`) return;
     if (!topicArticles.length) fetchTopicArticles();
-    if (topicArticles.length) {
-      if (topicArticles.every(article => article.topic !== topic))
-        fetchTopicArticles();
-    }
     if (sort_by !== currentSort) fetchTopicArticles();
   }, [currentSort, fetchTopicArticles, sort_by, topic, topicArticles]);
 

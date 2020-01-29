@@ -175,7 +175,6 @@ export class Main extends Component {
         ) : (
           <Router className="route-container" primary={false}>
             <ScrollToTop path="/">
-              {/* <HomePage path="/" sort_by={sort_by} updateMainState={updateMainState} getAddtlData={getAddtlData} topics={topics} users={users} articles={articles} loadAddtlData={loadAddtlData} dataAvailable={dataAvailable} /> */}
               <HomePage path="/" {...mainProps} />
               <TopicsPage path="/topics" {...mainProps} />
               <TopicPage path="/topics/:topic" {...mainProps} />
