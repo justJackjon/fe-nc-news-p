@@ -6,7 +6,7 @@ import { WindowConsumer } from '../../Context/WindowProvider';
 import Loader from '../../Utils/Loader/Loader';
 import SubHeader from '../SubHeader/SubHeader';
 import SideBar from '../SharedComponents/SideBar/SideBar';
-import TopicContainer from '../Containers/TopicContainer/TopicContainer';
+import MainContainer from '../Containers/MainContainer/MainContainer';
 import Feed from '../SharedComponents/Feed/Feed';
 
 const TopicPage = ({
@@ -72,7 +72,7 @@ const TopicPage = ({
             sort_by={sort_by}
             setSort_by={setSort_by}
           />
-          <TopicContainer>
+          <MainContainer>
             <WindowConsumer>
               {({ windowWidth }) => {
                 const showSideBar = windowWidth > 1024;
@@ -90,7 +90,7 @@ const TopicPage = ({
               loadAddtlData={loadAddtlData}
               dataAvailable={dataAvailable}
             />
-          </TopicContainer>
+          </MainContainer>
         </>
       )}
     </>

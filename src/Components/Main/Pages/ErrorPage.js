@@ -2,13 +2,13 @@ import React from 'react';
 
 import { WindowConsumer } from '../../Context/WindowProvider';
 import SideBar from '../SharedComponents/SideBar/SideBar';
-import HomeFeedContainer from '../Containers/HomeFeedContainer/HomeFeedContainer';
+import MainContainer from '../Containers/MainContainer/MainContainer';
 import MessageCard from '../Cards/MessageCard/MessageCard';
 
 const ErrorPage = ({ users }) => {
   return (
     <>
-      <HomeFeedContainer>
+      <MainContainer>
         <WindowConsumer>
           {({ windowWidth }) => {
             const showSideBar = windowWidth > 1024;
@@ -16,7 +16,7 @@ const ErrorPage = ({ users }) => {
           }}
         </WindowConsumer>
         <MessageCard icon="thumbs-down" title="404" message="Page not found." />
-      </HomeFeedContainer>
+      </MainContainer>
     </>
   );
 };

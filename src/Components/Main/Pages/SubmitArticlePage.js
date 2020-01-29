@@ -3,7 +3,7 @@ import React from 'react';
 import { WindowConsumer } from '../../Context/WindowProvider';
 import SubHeader from '../SubHeader/SubHeader';
 import SideBar from '../SharedComponents/SideBar/SideBar';
-import HomeFeedContainer from '../Containers/HomeFeedContainer/HomeFeedContainer';
+import MainContainer from '../Containers/MainContainer/MainContainer';
 import MessageCard from '../Cards/MessageCard/MessageCard';
 
 const SubmitArticlePage = ({
@@ -22,7 +22,7 @@ const SubmitArticlePage = ({
         sort_by={sort_by}
         setSort_by={setSort_by}
       />
-      <HomeFeedContainer getAddtlData={getAddtlData} path={path}>
+      <MainContainer getAddtlData={getAddtlData} path={path}>
         <WindowConsumer>
           {({ windowWidth }) => {
             const showSideBar = windowWidth > 1024;
@@ -36,7 +36,7 @@ const SubmitArticlePage = ({
           message="Check back soon."
         />
         {/* RELEASE IN NEXT VERSION... */}
-      </HomeFeedContainer>
+      </MainContainer>
     </>
   );
 };
