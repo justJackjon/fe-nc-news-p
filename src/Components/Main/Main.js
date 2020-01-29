@@ -26,14 +26,12 @@ export class Main extends Component {
   static contextType = WindowContext;
   setStuckSidebar = this.context.actions.setStuckSidebar;
   state = {
-    history: null,
     error: false,
     initialLoad: true,
     loadAddtlData: false,
     dataAvailable: true,
     dataPage: 1,
     articles: [],
-    userArticles: [],
     sort_by: 'created_at',
     currentSort: 'created_at',
     topics: [],
@@ -87,8 +85,6 @@ export class Main extends Component {
   }, 100);
 
   getInitData = () => {
-    const source = createMemorySource(window.location.pathname);
-    const history = createHistory(source);
     Promise.all([
       api.getData('articles'),
       api.getData('topics'),
@@ -96,7 +92,6 @@ export class Main extends Component {
     ])
       .then(data => {
         this.setState({
-          history,
           articles: data[0],
           topics: data[1],
           users: data[2],
@@ -137,7 +132,6 @@ export class Main extends Component {
       loadAddtlData,
       dataAvailable,
       articles,
-      userArticles,
       sort_by,
       currentSort,
       topics,
@@ -151,7 +145,6 @@ export class Main extends Component {
       loadAddtlData,
       dataAvailable,
       articles,
-      userArticles,
       sort_by,
       currentSort,
       topics,

@@ -9,21 +9,19 @@ import SideBar from '../SharedComponents/SideBar/SideBar';
 import TopicContainer from '../Containers/TopicContainer/TopicContainer';
 import Feed from '../SharedComponents/Feed/Feed';
 
-const TopicPage = props => {
-  const {
-    path,
-    uri,
-    topic,
-    sort_by,
-    currentSort,
-    updateMainState,
-    topics,
-    users,
-    // getAddtlData,
-    loadAddtlData,
-    dataAvailable
-  } = props;
-
+const TopicPage = ({
+  path,
+  uri,
+  topic,
+  sort_by,
+  currentSort,
+  updateMainState,
+  topics,
+  users,
+  // getAddtlData,
+  loadAddtlData,
+  dataAvailable
+}) => {
   const [displayLoader, setDisplayLoader] = useState(false);
   const [topicArticles, setTopicArticles] = useState([]);
 
@@ -32,21 +30,13 @@ const TopicPage = props => {
     api
       .getData('/articles', 'articles', { params: { topic, sort_by } })
       .then(topicArticles => {
-        if (topicArticles.length) {
-          setTopicArticles(topicArticles);
-          updateMainState({ currentSort: sort_by });
-        } else {
-          throw new Error('no data');
-        }
-        setDisplayLoader(false);
-      })
-      .catch(error => {
-        if (error.message === 'no data') {
+        if (topicArticles.length) setTopicArticles(topicArticles);
+        else {
           setTopicArticles([
             {
               article_id: `../topics/${topic}`,
               title: `No articles for '${topic}'`,
-              body: error.msg,
+              body: null,
               votes: null,
               topic: topic,
               author: 'the server',
@@ -54,12 +44,11 @@ const TopicPage = props => {
               comment_count: 'No'
             }
           ]);
-          setDisplayLoader(false);
-          updateMainState({ currentSort: sort_by });
-        } else {
-          updateMainState({ error: error.response });
         }
-      });
+        setDisplayLoader(false);
+        updateMainState({ currentSort: sort_by });
+      })
+      .catch(({ response: error }) => updateMainState({ error }));
   }, [sort_by, topic, updateMainState]);
 
   useEffect(() => {
@@ -82,13 +71,7 @@ const TopicPage = props => {
             sort_by={sort_by}
             updateMainState={updateMainState}
           />
-          <TopicContainer
-            parent={props}
-            updateMainState={updateMainState}
-            path={path}
-            sort_by={sort_by}
-            currentSort={currentSort}
-          >
+          <TopicContainer>
             <WindowConsumer>
               {({ windowWidth }) => {
                 const showSideBar = windowWidth > 1024;
