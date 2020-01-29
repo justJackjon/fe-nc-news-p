@@ -5,7 +5,7 @@ import SideBar from '../SharedComponents/SideBar/SideBar';
 import HomeFeedContainer from '../Containers/HomeFeedContainer/HomeFeedContainer';
 import MessageCard from '../Cards/MessageCard/MessageCard';
 
-const ErrorPage = ({ path, users }) => {
+const ErrorPage = ({ users }) => {
   return (
     <>
       <HomeFeedContainer>

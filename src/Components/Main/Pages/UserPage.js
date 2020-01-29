@@ -13,11 +13,13 @@ const UserPage = ({
   path,
   uri,
   author,
-  sort_by,
-  currentSort,
-  updateMainState,
   topics,
   users,
+  sort_by,
+  setSort_by,
+  currentSort,
+  setCurrentSort,
+  setError,
   // getAddtlData,
   loadAddtlData,
   dataAvailable
@@ -45,11 +47,11 @@ const UserPage = ({
             }
           ]);
         }
+        setCurrentSort(sort_by);
         setDisplayLoader(false);
-        updateMainState({ currentSort: sort_by });
       })
-      .catch(({ response: error }) => updateMainState({ error }));
-  }, [author, sort_by, updateMainState]);
+      .catch(({ response: error }) => setError(error));
+  }, [author, sort_by, setCurrentSort, setError]);
 
   useEffect(() => {
     if (userArticles[0]?.title === `No articles for '${author}'`) return;
@@ -69,7 +71,7 @@ const UserPage = ({
             path={path}
             uri={uri}
             sort_by={sort_by}
-            updateMainState={updateMainState}
+            setSort_by={setSort_by}
           />
           <UserContainer>
             <WindowConsumer>
@@ -83,7 +85,7 @@ const UserPage = ({
               path={path}
               topics={topics}
               users={users}
-              updateMainState={updateMainState}
+              setError={setError}
               articles={userArticles}
               dataType="articles"
               loadAddtlData={loadAddtlData}
