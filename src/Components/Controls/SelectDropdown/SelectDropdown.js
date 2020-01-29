@@ -4,7 +4,7 @@ import './SelectDropdown.css';
 
 export const selectDropdown = createRef();
 
-const SelectDropdown = ({ sort_by, updateMainState }) => {
+const SelectDropdown = ({ sort_by, setSort_by }) => {
   const toggleDrawer = () => {
     if (selectDropdown.current) {
       selectDropdown.current.classList.toggle('show-dropdown');
@@ -55,13 +55,13 @@ const SelectDropdown = ({ sort_by, updateMainState }) => {
             className="select-dropdown"
             onClick={toggleDrawer}
           >
-            <li onClick={() => updateMainState({ sort_by: 'created_at' })}>
+            <li onClick={() => setSort_by('created_at')}>
               <button>{DateButton}</button>
             </li>
-            <li onClick={() => updateMainState({ sort_by: 'comment_count' })}>
+            <li onClick={() => setSort_by('comment_count')}>
               <button>{CommentsButton}</button>
             </li>
-            <li onClick={() => updateMainState({ sort_by: 'votes' })}>
+            <li onClick={() => setSort_by('votes')}>
               <button>{VotesButton}</button>
             </li>
           </ul>

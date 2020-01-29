@@ -9,12 +9,13 @@ import Feed from '../SharedComponents/Feed/Feed';
 const ArticlesPage = ({
   path,
   uri,
-  sort_by,
-  updateMainState,
-  getAddtlData,
+  articles,
   topics,
   users,
-  articles,
+  sort_by,
+  setSort_by,
+  setError,
+  getAddtlData,
   loadAddtlData,
   dataAvailable
 }) => (
@@ -23,7 +24,7 @@ const ArticlesPage = ({
       path={path}
       uri={uri}
       sort_by={sort_by}
-      updateMainState={updateMainState}
+      setSort_by={setSort_by}
     />
     <HomeFeedContainer path={path} getAddtlData={getAddtlData}>
       <WindowConsumer>
@@ -38,7 +39,7 @@ const ArticlesPage = ({
         articles={articles}
         topics={topics}
         users={users}
-        updateMainState={updateMainState}
+        setError={setError}
         dataType="articles"
         loadAddtlData={loadAddtlData}
         dataAvailable={dataAvailable}

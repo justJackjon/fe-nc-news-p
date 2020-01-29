@@ -188,7 +188,7 @@
 
 // export default Main;
 
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Router } from '@reach/router';
 import debounce from 'lodash.debounce';
 
@@ -282,32 +282,25 @@ const Main = () => {
   };
 
   const refreshArticles = useCallback(() => {
-    const { sort_by } = this.state;
     api
       .getData('/articles', 'articles', {
         params: { sort_by }
       })
-      .then(articles => {
-        this.setState({ articles });
-      })
-      .catch(({ response: error }) => {
-        this.setState({ error });
-      });
-  }, []);
+      .then(articles => setArticles(articles))
+      .catch(({ response: error }) => setError(error));
+  }, [sort_by]);
 
   useEffect(() => {
     getInitData();
     return () => getInitData;
   }, []);
 
-  const previousSort_by = useRef(sort_by);
-
   useEffect(() => {
-    if (previousSort_by.current !== sort_by) {
+    if (currentSort !== sort_by) {
       refreshArticles();
-      previousSort_by.current = sort_by;
+      setCurrentSort(sort_by);
     }
-  }, [sort_by, refreshArticles]);
+  }, [sort_by, refreshArticles, currentSort]);
 
   const mainProps = {
     initLoad,
@@ -352,7 +345,7 @@ const Main = () => {
             <TopicsPage path="/topics" {...mainProps} />
             <TopicPage path="/topics/:topic" {...mainProps} />
             <ArticlesPage path="/articles" {...mainProps} />
-            <ArticlesPage path="/articles/sort_by/:sort_by" {...mainProps} />
+            {/* <ArticlesPage path="/articles/sort_by/:sort_by" {...mainProps} /> */}
             <ArticlePage path="/articles/:articleId" {...mainProps} />
             <UsersPage path="/users" {...mainProps} />
             <UserPage path="/users/:author" {...mainProps} />

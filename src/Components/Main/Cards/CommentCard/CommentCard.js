@@ -12,7 +12,7 @@ import Button from '../../../Controls/Buttons/Button';
 
 import './CommentCard.css';
 
-const CommentCard = ({ comment, setArticle, setComments, updateMainState }) => {
+const CommentCard = ({ comment, setArticle, setComments, setError }) => {
   const {
     loggedInUser: { username: currentUser }
   } = useContext(UserSettingsContext);
@@ -38,9 +38,7 @@ const CommentCard = ({ comment, setArticle, setComments, updateMainState }) => {
   const handleDelete = () => {
     api
       .deleteData(`comments/${comment.comment_id}`)
-      .catch(({ response: error }) => {
-        updateMainState({ error });
-      });
+      .catch(({ response: error }) => setError(error));
     // (Optimistically rendered)
     setArticle(prevState => {
       let { comment_count, ...restOfArticle } = prevState;
@@ -80,7 +78,7 @@ const CommentCard = ({ comment, setArticle, setComments, updateMainState }) => {
             voteCount={votes}
             id={comment.comment_id}
             setCommentVotes={setVotes}
-            updateMainState={updateMainState}
+            setError={setError}
           />
           <hr className="comment-line-vertical" />
         </div>

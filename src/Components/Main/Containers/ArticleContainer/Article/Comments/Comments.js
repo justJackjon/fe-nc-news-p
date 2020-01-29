@@ -8,19 +8,15 @@ import './Comments.css';
 
 export const commentsMarker = createRef();
 
-const Comments = ({ articleId, updateMainState, setArticle }) => {
+const Comments = ({ articleId, setError, setArticle }) => {
   const [comments, setComments] = useState([]);
 
   const fetchComments = useCallback(() => {
     api
       .getData(`articles/${articleId}/comments`, 'comments')
-      .then(articleComments => {
-        setComments(articleComments);
-      })
-      .catch(({ response: error }) => {
-        updateMainState({ error });
-      });
-  }, [articleId, updateMainState]);
+      .then(articleComments => setComments(articleComments))
+      .catch(({ response: error }) => setError(error));
+  }, [articleId, setError]);
 
   useEffect(() => {
     if (!comments.length) fetchComments();
@@ -33,7 +29,7 @@ const Comments = ({ articleId, updateMainState, setArticle }) => {
     <>
       <PostCommentCard
         articleId={articleId}
-        updateMainState={updateMainState}
+        setError={setError}
         setArticle={setArticle}
         setComments={setComments}
       />
@@ -47,7 +43,7 @@ const Comments = ({ articleId, updateMainState, setArticle }) => {
               comment={comment}
               setArticle={setArticle}
               setComments={setComments}
-              updateMainState={updateMainState}
+              setError={setError}
             />
           );
         })}

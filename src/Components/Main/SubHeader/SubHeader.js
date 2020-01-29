@@ -7,7 +7,7 @@ import Links from '../../Navigation/NavigationLinks';
 import './SubHeader.css';
 import ncnLogo from '../../../ncnlogo-rb.svg';
 
-const SubHeader = ({ path, uri, sort_by, updateMainState }) => {
+const SubHeader = ({ path, uri, sort_by, setSort_by }) => {
   const topicTitleContent = () => {
     if (!path) return;
     if (path === '/') return;
@@ -20,7 +20,6 @@ const SubHeader = ({ path, uri, sort_by, updateMainState }) => {
     const sortByRef = {
       '/': true,
       '/articles': true,
-      '/articles/sort_by/:sort_by': true,
       '/topics/:topic': true,
       '/users/:author': true
     };
@@ -57,7 +56,7 @@ const SubHeader = ({ path, uri, sort_by, updateMainState }) => {
           </WindowConsumer>
         }
         {showSortBy() && (
-          <SelectDropdown sort_by={sort_by} updateMainState={updateMainState} />
+          <SelectDropdown sort_by={sort_by} setSort_by={setSort_by} />
         )}
       </div>
     </div>

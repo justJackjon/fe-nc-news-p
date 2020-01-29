@@ -11,20 +11,16 @@ import './ArticleContainer.css';
 
 export const articleHeader = createRef();
 
-const ArticleContainer = ({ articleId, children, updateMainState }) => {
+const ArticleContainer = ({ articleId, children, setError }) => {
   const [article, setArticle] = useState(null);
   const [prevLocation] = useState(window.history.state?.from);
 
   const fetchArticle = useCallback(() => {
     api
       .getData(`/articles/${articleId}`, 'article')
-      .then(article => {
-        setArticle(article);
-      })
-      .catch(({ response: error }) => {
-        updateMainState({ error });
-      });
-  }, [articleId, updateMainState]);
+      .then(article => setArticle(article))
+      .catch(({ response: error }) => setError(error));
+  }, [articleId, setError]);
 
   useEffect(() => {
     if (!article) fetchArticle();
@@ -56,7 +52,7 @@ const ArticleContainer = ({ articleId, children, updateMainState }) => {
                 pathArticleId={articleId}
                 article={article}
                 setArticle={setArticle}
-                updateMainState={updateMainState}
+                setError={setError}
               />
               {children}
             </div>

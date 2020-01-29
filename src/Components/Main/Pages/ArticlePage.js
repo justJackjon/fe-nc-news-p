@@ -6,15 +6,15 @@ import ArticleContainer from '../Containers/ArticleContainer/ArticleContainer';
 
 const ArticlePage = ({
   path,
-  updateMainState,
   articleId,
+  setError,
   users
   // getAddtlData,
   // loadAddtlData,
   // dataAvailable
 }) => {
   return (
-    <ArticleContainer articleId={articleId} updateMainState={updateMainState}>
+    <ArticleContainer articleId={articleId} setError={setError}>
       <WindowConsumer>
         {({ windowWidth }) => {
           const showSideBar = windowWidth > 1024;

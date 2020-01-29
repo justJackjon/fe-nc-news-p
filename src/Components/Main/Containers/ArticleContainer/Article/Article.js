@@ -6,7 +6,7 @@ import Comments from './Comments/Comments';
 
 import './Article.css';
 
-const Article = ({ pathArticleId, article, setArticle, updateMainState }) => {
+const Article = ({ pathArticleId, article, setArticle, setError }) => {
   return (
     <div className="article-and-comments">
       {+pathArticleId !== article.article_id ? (
@@ -18,11 +18,11 @@ const Article = ({ pathArticleId, article, setArticle, updateMainState }) => {
           <ArticleCard
             article={article}
             mainArticle={true}
-            updateMainState={updateMainState}
+            setError={setError}
           />
           <Comments
             articleId={article.article_id}
-            updateMainState={updateMainState}
+            setError={setError}
             setArticle={setArticle}
           />
         </>

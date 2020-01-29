@@ -9,12 +9,7 @@ import './PostCommentCard.css';
 
 export const postCommentMarker = createRef();
 
-const PostCommentCard = ({
-  articleId,
-  updateMainState,
-  setArticle,
-  setComments
-}) => {
+const PostCommentCard = ({ articleId, setError, setArticle, setComments }) => {
   const {
     loggedInUser: user,
     loggedIn,
@@ -61,9 +56,7 @@ const PostCommentCard = ({
           return [comment, ...prevComments];
         });
       })
-      .catch(({ response: error }) => {
-        updateMainState({ error });
-      });
+      .catch(({ response: error }) => setError(error));
   };
 
   const LogInToComment = (

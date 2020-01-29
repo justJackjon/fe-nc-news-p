@@ -7,7 +7,7 @@ import VoteControl from '../../../Controls/VoteControls/VoteControl';
 import { commentsMarker } from '../../Containers/ArticleContainer/Article/Comments/Comments';
 import './ArticleCard.css';
 
-const ArticleCard = ({ article, mainArticle, updateMainState }) => {
+const ArticleCard = ({ article, mainArticle, setError }) => {
   const handleClick = () => {
     if (/\/articles\/\d+/.test(window.location.pathname)) {
       window.scrollBy({
@@ -30,7 +30,7 @@ const ArticleCard = ({ article, mainArticle, updateMainState }) => {
           voteCount={article.votes}
           id={article.article_id}
           className="inc-votes"
-          updateMainState={updateMainState}
+          setError={setError}
         />
       </div>
       <div className="article-right-column">

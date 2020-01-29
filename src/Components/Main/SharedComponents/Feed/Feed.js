@@ -9,20 +9,20 @@ import UserListCard from '../../Cards/UserCards/UserListCard/UserListCard';
 import './Feed.css';
 
 const Feed = ({
-  sort_by,
   path,
   articles,
   topics,
   users,
+  sort_by,
   dataType,
   loadAddtlData,
   dataAvailable,
-  updateMainState
+  setError
 }) => {
   const feedList = () => {
     const articleList = articles?.map(article => (
       <li key={article.article_id} className="article-list-item">
-        <ArticleCard article={article} updateMainState={updateMainState} />
+        <ArticleCard article={article} setError={setError} />
       </li>
     ));
 

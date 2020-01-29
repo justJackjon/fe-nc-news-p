@@ -14,7 +14,7 @@ const VoteControl = ({
   id,
   className,
   setCommentVotes,
-  updateMainState
+  setError
 }) => {
   const {
     loggedIn,
@@ -31,7 +31,7 @@ const VoteControl = ({
           inc_votes: prevVotes.current - votes
         })
         .catch(({ response: error }) => {
-          updateMainState({ error });
+          setError(error);
         });
       // (Optimistic rendering)
       if (setCommentVotes) setCommentVotes(prevVotes.current);
@@ -51,7 +51,7 @@ const VoteControl = ({
         inc_votes: vote
       })
       .catch(({ response: error }) => {
-        updateMainState({ error });
+        setError(error);
       });
     // (Optimistic rendering)
     if (setCommentVotes) setCommentVotes(votes + vote);

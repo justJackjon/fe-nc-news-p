@@ -13,11 +13,12 @@ const TopicPage = ({
   path,
   uri,
   topic,
-  sort_by,
-  currentSort,
-  updateMainState,
   topics,
   users,
+  sort_by,
+  setSort_by,
+  currentSort,
+  setError,
   // getAddtlData,
   loadAddtlData,
   dataAvailable
@@ -46,10 +47,10 @@ const TopicPage = ({
           ]);
         }
         setDisplayLoader(false);
-        updateMainState({ currentSort: sort_by });
+        setSort_by(sort_by);
       })
-      .catch(({ response: error }) => updateMainState({ error }));
-  }, [sort_by, topic, updateMainState]);
+      .catch(({ response: error }) => setError(error));
+  }, [topic, sort_by, setSort_by, setError]);
 
   useEffect(() => {
     if (topicArticles[0]?.title === `No articles for '${topic}'`) return;
@@ -69,7 +70,7 @@ const TopicPage = ({
             path={path}
             uri={uri}
             sort_by={sort_by}
-            updateMainState={updateMainState}
+            setSort_by={setSort_by}
           />
           <TopicContainer>
             <WindowConsumer>
@@ -83,7 +84,7 @@ const TopicPage = ({
               path={path}
               topics={topics}
               users={users}
-              updateMainState={updateMainState}
+              setError={setError}
               dataType="articles"
               articles={topicArticles}
               loadAddtlData={loadAddtlData}

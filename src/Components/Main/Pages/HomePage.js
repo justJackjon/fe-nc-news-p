@@ -9,21 +9,18 @@ import Feed from '../SharedComponents/Feed/Feed';
 
 const HomePage = ({
   path,
-  sort_by,
-  updateMainState,
-  getAddtlData,
+  articles,
   topics,
   users,
-  articles,
+  sort_by,
+  setSort_by,
+  setError,
+  getAddtlData,
   loadAddtlData,
   dataAvailable
 }) => (
   <>
-    <SubHeader
-      path={path}
-      sort_by={sort_by}
-      updateMainState={updateMainState}
-    />
+    <SubHeader path={path} sort_by={sort_by} setSort_by={setSort_by} />
     <HomeFeedContainer path={path} getAddtlData={getAddtlData}>
       <TrendingTopics topics={topics} />
       <WindowConsumer>
@@ -38,7 +35,7 @@ const HomePage = ({
         articles={articles}
         topics={topics}
         users={users}
-        updateMainState={updateMainState}
+        setError={setError}
         dataType="articles"
         loadAddtlData={loadAddtlData}
         dataAvailable={dataAvailable}
