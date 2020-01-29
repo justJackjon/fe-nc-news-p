@@ -102,7 +102,6 @@ const Main = () => {
 
   useEffect(() => {
     getInitData();
-    return () => getInitData;
   }, []);
 
   useEffect(() => {
@@ -155,7 +154,6 @@ const Main = () => {
             <TopicsPage path="/topics" {...mainProps} />
             <TopicPage path="/topics/:topic" {...mainProps} />
             <ArticlesPage path="/articles" {...mainProps} />
-            {/* <ArticlesPage path="/articles/sort_by/:sort_by" {...mainProps} /> */}
             <ArticlePage path="/articles/:articleId" {...mainProps} />
             <UsersPage path="/users" {...mainProps} />
             <UserPage path="/users/:author" {...mainProps} />

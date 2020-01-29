@@ -11,7 +11,7 @@ import './SideBar.css';
 const sidebarContent = createRef();
 const sidebarContainer = createRef();
 
-const SideBar = ({ children, path, users }) => {
+const SideBar = ({ path, users }) => {
   const {
     stickySidebar,
     stuckSidebar,
