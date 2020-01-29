@@ -3,7 +3,7 @@ import React from 'react';
 import { WindowConsumer } from '../../Context/WindowProvider';
 import SubHeader from '../SubHeader/SubHeader';
 import SideBar from '../SharedComponents/SideBar/SideBar';
-import HomeFeedContainer from '../Containers/HomeFeedContainer/HomeFeedContainer';
+import MainContainer from '../Containers/MainContainer/MainContainer';
 import Feed from '../SharedComponents/Feed/Feed';
 
 const TopicsPage = ({
@@ -26,7 +26,7 @@ const TopicsPage = ({
       sort_by={sort_by}
       setSort_by={setSort_by}
     />
-    <HomeFeedContainer path={path}>
+    <MainContainer path={path}>
       <WindowConsumer>
         {({ windowWidth }) => {
           const showSideBar = windowWidth > 1024;
@@ -44,7 +44,7 @@ const TopicsPage = ({
         loadAddtlData={loadAddtlData}
         dataAvailable={dataAvailable}
       />
-    </HomeFeedContainer>
+    </MainContainer>
   </>
 );
 
