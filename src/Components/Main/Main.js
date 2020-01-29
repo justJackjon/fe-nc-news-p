@@ -158,7 +158,7 @@ const Main = () => {
             <UsersPage path="/users" {...mainProps} />
             <UserPage path="/users/:author" {...mainProps} />
             <SubmitArticlePage path="/post" {...mainProps} />
-            <ErrorPage default users={users} />
+            <ErrorPage default />
           </ScrollToTop>
         </Router>
       )}

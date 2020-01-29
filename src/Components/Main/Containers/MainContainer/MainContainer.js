@@ -30,9 +30,7 @@ const MainContainer = props => {
     // Remove the conditional below when infinite scroll is setup for other data types too...
     if (path === '/' || path === '/articles') {
       window.addEventListener('scroll', getAddtl);
-      return () => {
-        window.removeEventListener('scroll', getAddtl);
-      };
+      return () => window.removeEventListener('scroll', getAddtl);
     }
   }, [getAddtl, path]);
 
@@ -46,25 +44,29 @@ const MainContainer = props => {
     '/users/:author': 'articles',
     '/post': null // no feed on this page
   };
+  // conditionally renders the Feed component and also determines what kind of data the Feed will display
+  const dataType = pathRef[path];
 
   return (
     <div className="main-content">
       <div className="main-content-container">
-        <Feed
-          sort_by={sort_by}
-          path={path}
-          articles={articles}
-          topics={topics}
-          users={users}
-          setError={setError}
-          dataType={pathRef[path]}
-          loadAddtlData={loadAddtlData}
-          dataAvailable={dataAvailable}
-        />
+        {children}
+        {dataType && (
+          <Feed
+            sort_by={sort_by}
+            path={path}
+            articles={articles}
+            topics={topics}
+            users={users}
+            setError={setError}
+            dataType={dataType}
+            loadAddtlData={loadAddtlData}
+            dataAvailable={dataAvailable}
+          />
+        )}
         <WindowConsumer>
           {({ windowWidth }) => windowWidth > 1024 && <SideBar users={users} />}
         </WindowConsumer>
-        {children}
       </div>
     </div>
   );
