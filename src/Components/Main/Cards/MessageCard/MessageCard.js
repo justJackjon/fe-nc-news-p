@@ -1,5 +1,4 @@
 import React from 'react';
-import { navigate } from '@reach/router';
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
 import Button from '../../../Controls/Buttons/Button';
 import './MessageCard.css';
