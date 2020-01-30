@@ -17,6 +17,7 @@ const Feed = ({
   dataAvailable,
   setError
 }) => {
+  // Getting a non-unique key for topics? li item - needs debugging - use alternative feedList function below until resolved.
   // const feedList = () => {
   //   return dataSource?.map(data => {
   //     const listRef = {
