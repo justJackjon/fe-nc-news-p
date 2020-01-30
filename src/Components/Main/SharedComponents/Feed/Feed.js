@@ -10,55 +10,61 @@ import './Feed.css';
 
 const Feed = ({
   path,
-  articles,
-  topics,
-  users,
   sort_by,
+  dataSource,
   dataType,
   loadAddtlData,
   dataAvailable,
   setError
 }) => {
+  // const feedList = () => {
+  //   return dataSource?.map(data => {
+  //     const listRef = {
+  //       articles: (
+  //         <li key={data.article_id} className={'article-list-item'}>
+  //           <ArticleCard article={data} setError={setError} />
+  //         </li>
+  //       ),
+  //       topics: (
+  //         <li key={data.slug} className={'list-item'}>
+  //           <TopicListCard topic={data} />
+  //         </li>
+  //       ),
+  //       users: (
+  //         <li key={data.username} className={'list-item'}>
+  //           <UserListCard displayLocation="user-list" user={data} />
+  //         </li>
+  //       )
+  //     };
+  //     return <> {listRef[dataType]} </>;
+  //   });
+  // };
+
   const feedList = () => {
-    const articleList = articles?.map(article => (
-      <li key={article.article_id} className="article-list-item">
-        <ArticleCard article={article} setError={setError} />
-      </li>
-    ));
-
-    const topicList = (
-      <>
-        <li className="list-subhead">
-          <h2>Topics you might like</h2>
+    return dataSource?.map(data => {
+      const listRef = {
+        articles: {
+          card: <ArticleCard article={data} setError={setError} />,
+          key: data.article_id,
+          classType: 'article-list-item'
+        },
+        topics: {
+          card: <TopicListCard topic={data} />,
+          key: data.slug,
+          classType: 'list-item'
+        },
+        users: {
+          card: <UserListCard displayLocation="user-list" user={data} />,
+          key: data.username,
+          classType: 'list-item'
+        }
+      };
+      return (
+        <li key={listRef[dataType].key} className={listRef[dataType].classType}>
+          {listRef[dataType].card}
         </li>
-        {topics?.map(topic => (
-          <li key={topic.slug} className="list-item">
-            <TopicListCard topic={topic} />
-          </li>
-        ))}
-      </>
-    );
-
-    const userList = (
-      <>
-        <li className="list-subhead">
-          <h2>Click on a user to see their articles:</h2>
-        </li>
-        {users?.map(user => (
-          <li key={user.username} className="list-item">
-            <UserListCard displayLocation="user-list" user={user} />
-          </li>
-        ))}
-      </>
-    );
-
-    const dataList = {
-      articles: articleList,
-      topics: topicList,
-      users: userList
-    };
-
-    return dataList[dataType];
+      );
+    });
   };
 
   const sortByRef = {
@@ -79,6 +85,16 @@ const Feed = ({
             <h3>
               ARTICLES SORTED BY {sortByRef[sort_by]} <Icon icon="check" />
             </h3>
+          </li>
+        )}
+        {dataType === 'topics' && (
+          <li className="list-subhead">
+            <h2>Topics you might like</h2>
+          </li>
+        )}
+        {dataType === 'users' && (
+          <li className="list-subhead">
+            <h2>Click on a user to see their articles:</h2>
           </li>
         )}
         {feedList()}

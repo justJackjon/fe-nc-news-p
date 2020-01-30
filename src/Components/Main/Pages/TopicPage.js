@@ -1,28 +1,22 @@
 import React, { useState, useEffect, useCallback } from 'react';
 
 import * as api from '../../../api';
-import { WindowConsumer } from '../../Context/WindowProvider';
 
-import Loader from '../../Utils/Loader/Loader';
 import SubHeader from '../SubHeader/SubHeader';
-import SideBar from '../SharedComponents/SideBar/SideBar';
 import MainContainer from '../Containers/MainContainer/MainContainer';
-import Feed from '../SharedComponents/Feed/Feed';
+import Loader from '../../Utils/Loader/Loader';
 
-const TopicPage = ({
-  path,
-  uri,
-  topic,
-  topics,
-  users,
-  sort_by,
-  setSort_by,
-  currentSort,
-  setError,
-  // getAddtlData,
-  loadAddtlData,
-  dataAvailable
-}) => {
+const TopicPage = props => {
+  const {
+    path,
+    uri,
+    topic,
+    sort_by,
+    setSort_by,
+    currentSort,
+    setError
+  } = props;
+
   const [displayLoader, setDisplayLoader] = useState(false);
   const [topicArticles, setTopicArticles] = useState([]);
 
@@ -72,25 +66,7 @@ const TopicPage = ({
             sort_by={sort_by}
             setSort_by={setSort_by}
           />
-          <MainContainer>
-            <WindowConsumer>
-              {({ windowWidth }) => {
-                const showSideBar = windowWidth > 1024;
-                return showSideBar && <SideBar users={users} />;
-              }}
-            </WindowConsumer>
-            <Feed
-              sort_by={sort_by}
-              path={path}
-              topics={topics}
-              users={users}
-              setError={setError}
-              dataType="articles"
-              articles={topicArticles}
-              loadAddtlData={loadAddtlData}
-              dataAvailable={dataAvailable}
-            />
-          </MainContainer>
+          <MainContainer topicArticles={topicArticles} {...props} />
         </>
       )}
     </>
