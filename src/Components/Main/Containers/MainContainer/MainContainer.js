@@ -9,12 +9,12 @@ import '../Containers.css';
 const MainContainer = props => {
   const {
     path,
-    uri,
     articles,
+    topicArticles,
+    userArticles,
     topics,
     users,
     sort_by,
-    setSort_by,
     setError,
     getAddtlData,
     loadAddtlData,
@@ -35,17 +35,17 @@ const MainContainer = props => {
   }, [getAddtl, path]);
 
   const pathRef = {
-    '/': 'articles',
-    '/topics': 'topics',
-    '/topics/:topic': 'articles',
-    '/articles': 'articles',
-    '/articles/:articleId': null, // no feed on this page
-    '/users': 'users',
-    '/users/:author': 'articles',
-    '/post': null // no feed on this page
+    '/': [articles, 'articles'],
+    '/topics': [topics, 'topics'],
+    '/topics/:topic': [topicArticles, 'articles'],
+    '/articles': [articles, 'articles'],
+    '/articles/:articleId': [null, null], // no feed on this page
+    '/users': [users, 'users'],
+    '/users/:author': [userArticles, 'articles'],
+    '/post': [null, null] // no feed on this page
   };
   // conditionally renders the Feed component and also determines what kind of data the Feed will display
-  const dataType = pathRef[path];
+  const [dataSource, dataType] = pathRef[path];
 
   return (
     <div className="main-content">
@@ -55,11 +55,9 @@ const MainContainer = props => {
           <Feed
             sort_by={sort_by}
             path={path}
-            articles={articles}
-            topics={topics}
-            users={users}
-            setError={setError}
+            dataSource={dataSource}
             dataType={dataType}
+            setError={setError}
             loadAddtlData={loadAddtlData}
             dataAvailable={dataAvailable}
           />
