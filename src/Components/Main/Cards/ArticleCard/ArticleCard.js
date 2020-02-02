@@ -25,13 +25,15 @@ const ArticleCard = ({ article, mainArticle, setError }) => {
           mainArticle ? 'article-left-column' : 'article-card-left-column'
         }
       >
-        <VoteControl
-          voteType="articles"
-          voteCount={article.votes}
-          id={article.article_id}
-          className="inc-votes"
-          setError={setError}
-        />
+        {article.votes && (
+          <VoteControl
+            voteType="articles"
+            voteCount={article.votes}
+            id={article.article_id}
+            className="inc-votes"
+            setError={setError}
+          />
+        )}
       </div>
       <div className="article-right-column">
         <p className="article-subhead">
