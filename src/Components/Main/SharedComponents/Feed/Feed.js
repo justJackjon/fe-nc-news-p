@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useCallback, useEffect, useRef } from 'react';
 import isEqual from 'lodash/isEqual';
 import debounce from 'lodash.debounce';
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
@@ -26,9 +26,9 @@ const Feed = ({
   setError
 }) => {
   const [displayLoader, setDisplayLoader] = useState(false);
-  const [articles, setArticles] = useState(initData.articles);
-  const [topics, setTopics] = useState(initData.topics);
-  const [users, setUsers] = useState(initData.users);
+  const [articles, setArticles] = useState(refresh ? [] : initData.articles);
+  const [topics, setTopics] = useState(refresh ? [] : initData.topics);
+  const [users, setUsers] = useState(refresh ? [] : initData.users);
   const [loadingAddtlData, setLoadingAddtlData] = useState(false);
   const [infScroll, setInfScroll] = useState({
     dataAvailable: true,
@@ -99,14 +99,17 @@ const Feed = ({
 
   useEffect(() => {
     if (!refresh) setRefresh(true);
+    if (refresh) refreshData();
     // ONLY on mount:
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const init = useRef(true);
   useEffect(() => {
-    // used Lodash instead of long conditional...
-    if (!isEqual(currParams, { sort_by, topic, author }) && refresh)
+    if (init.current) init.current = false;
+    else if (!isEqual(currParams, { sort_by, topic, author }) && refresh) {
       refreshData();
+    }
   }, [author, currParams, refresh, refreshData, sort_by, topic]);
 
   ///////////////////////// INFINITE LOADING... /////////////////////////
