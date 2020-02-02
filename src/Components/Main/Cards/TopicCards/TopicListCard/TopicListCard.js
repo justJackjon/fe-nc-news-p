@@ -8,7 +8,11 @@ const TopicListCard = ({ topic }) => {
     <div className="topic-list-container">
       <Link to={`${topic.slug}`}>
         <div className="topic-list-image-container">
-          <img className="topic-list-image" src={ncnLogo} alt="Topic Profile" />
+          <img
+            className="topic-list-image"
+            src={`https://source.unsplash.com/48x48/?${topic.slug}`}
+            alt="Topic Profile"
+          />
         </div>
       </Link>
       <div className="topic-list-text">
