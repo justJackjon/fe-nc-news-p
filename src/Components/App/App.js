@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+// eslint-disable-next-line no-unused-vars
+import images from '../../assets';
 import { WindowContext } from '../Context/WindowProvider';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {

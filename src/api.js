@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'https://justjackjon-nc-news.herokuapp.com/api/'
+  baseURL: 'https://justjackjon-nc-news-be.herokuapp.com/api/'
 });
 
 export const postData = async (endPoint, dataType, body) => {
