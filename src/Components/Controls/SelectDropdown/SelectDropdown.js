@@ -12,21 +12,21 @@ const SelectDropdown = ({ sort_by, setSort_by }) => {
   };
 
   const DateButton = (
-    <div className="option-date" name="date" value="created_at">
+    <div>
       <Icon icon="calendar-check" />
       <span>DATE</span>
     </div>
   );
 
   const CommentsButton = (
-    <div className="option-comments" name="comments" value="created_at">
+    <div>
       <Icon icon="comments" />
       <span>COMMENTS</span>
     </div>
   );
 
   const VotesButton = (
-    <div className="option-votes" name="votes" value="created_at">
+    <div>
       <Icon icon="poll" />
       <span>VOTES</span>
     </div>
@@ -55,14 +55,18 @@ const SelectDropdown = ({ sort_by, setSort_by }) => {
             className="select-dropdown"
             onClick={toggleDrawer}
           >
-            <li onClick={() => setSort_by('created_at')}>
-              <button>{DateButton}</button>
+            <li>
+              <button onClick={() => setSort_by('created_at')}>
+                {DateButton}
+              </button>
             </li>
-            <li onClick={() => setSort_by('comment_count')}>
-              <button>{CommentsButton}</button>
+            <li>
+              <button onClick={() => setSort_by('comment_count')}>
+                {CommentsButton}
+              </button>
             </li>
-            <li onClick={() => setSort_by('votes')}>
-              <button>{VotesButton}</button>
+            <li>
+              <button onClick={() => setSort_by('votes')}>{VotesButton}</button>
             </li>
           </ul>
         </div>

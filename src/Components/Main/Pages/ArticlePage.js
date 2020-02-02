@@ -8,7 +8,7 @@ const ArticlePage = ({
   path,
   articleId,
   setError,
-  users
+  initData
   // getAddtlData,
   // loadAddtlData,
   // dataAvailable
@@ -18,7 +18,7 @@ const ArticlePage = ({
       <WindowConsumer>
         {({ windowWidth }) => {
           const showSideBar = windowWidth > 1024;
-          return showSideBar && <SideBar path={path} users={users} />;
+          return showSideBar && <SideBar path={path} users={initData.users} />;
         }}
       </WindowConsumer>
     </ArticleContainer>

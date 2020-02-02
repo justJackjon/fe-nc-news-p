@@ -24,6 +24,7 @@ const SearchBar = () => {
 
   const handleSubmit = event => {
     event.preventDefault();
+    setTerm('');
     navigate(`/topics/${term}`);
   };
 

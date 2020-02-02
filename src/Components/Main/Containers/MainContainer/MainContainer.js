@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react';
+import React from 'react';
 
 import { WindowConsumer } from '../../../Context/WindowProvider';
 import Feed from '../../SharedComponents/Feed/Feed';
@@ -9,61 +9,49 @@ import '../Containers.css';
 const MainContainer = props => {
   const {
     path,
-    articles,
-    topicArticles,
-    userArticles,
-    topics,
-    users,
+    initData,
+    topic,
+    author,
     sort_by,
+    setSort_by,
+    currParams,
+    setCurrParams,
+    refresh,
+    setRefresh,
     setError,
-    getAddtlData,
-    loadAddtlData,
-    dataAvailable,
     children
   } = props;
 
-  const getAddtl = useCallback(() => {
-    getAddtlData();
-  }, [getAddtlData]);
-
-  useEffect(() => {
-    // Remove the conditional below when infinite scroll is setup for other data types too...
-    if (path === '/' || path === '/articles') {
-      window.addEventListener('scroll', getAddtl);
-      return () => window.removeEventListener('scroll', getAddtl);
-    }
-  }, [getAddtl, path]);
-
   const pathRef = {
-    '/': [articles, 'articles'],
-    '/topics': [topics, 'topics'],
-    '/topics/:topic': [topicArticles, 'articles'],
-    '/articles': [articles, 'articles'],
-    '/articles/:articleId': [null, null], // no feed on this page
-    '/users': [users, 'users'],
-    '/users/:author': [userArticles, 'articles'],
-    '/post': [null, null] // no feed on this page
+    // add paths which do not require the Feed coponent below:
+    '/articles/:articleId': true,
+    '/post': true
   };
-  // conditionally renders the Feed component and also determines what kind of data the Feed will display
-  const [dataSource, dataType] = pathRef[path];
+  const feedReq = pathRef[path];
 
   return (
     <div className="main-content">
       <div className="main-content-container">
         {children}
-        {dataType && (
+        {!feedReq && (
           <Feed
-            sort_by={sort_by}
+            initData={initData}
             path={path}
-            dataSource={dataSource}
-            dataType={dataType}
+            topic={topic}
+            author={author}
+            sort_by={sort_by}
+            setSort_by={setSort_by}
+            currParams={currParams}
+            setCurrParams={setCurrParams}
+            refresh={refresh}
+            setRefresh={setRefresh}
             setError={setError}
-            loadAddtlData={loadAddtlData}
-            dataAvailable={dataAvailable}
           />
         )}
         <WindowConsumer>
-          {({ windowWidth }) => windowWidth > 1024 && <SideBar users={users} />}
+          {({ windowWidth }) =>
+            windowWidth > 1024 && <SideBar users={initData.users} />
+          }
         </WindowConsumer>
       </div>
     </div>

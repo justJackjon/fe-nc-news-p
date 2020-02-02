@@ -33,7 +33,7 @@ const ArticleContainer = ({ articleId, children, setError }) => {
     <>
       {!article ? (
         <Loader className="loading">
-          <h1>LOADING JUICY ARTICLES...</h1>
+          <h1>COMING RIGHT UP!</h1>
         </Loader>
       ) : (
         <>
