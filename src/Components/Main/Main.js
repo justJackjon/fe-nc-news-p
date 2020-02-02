@@ -1,6 +1,5 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Router } from '@reach/router';
-import debounce from 'lodash.debounce';
 
 import * as api from '../../api';
 import ScrollToTop from '../Utils/ScrollToTop';
@@ -22,56 +21,20 @@ import MessageCard from '../Main/Cards/MessageCard/MessageCard';
 import './Main.css';
 
 const Main = () => {
+  const [refresh, setRefresh] = useState(false);
   const [initLoad, setInitLoad] = useState(true);
-  // const [initData, setInitData] = useState({
-  //   articles: [],
-  //   topics: [],
-  //   users: []
-  // });
-  const [articles, setArticles] = useState([]);
-  const [topics, setTopics] = useState([]);
-  const [users, setUsers] = useState([]);
+  const [initData, setInitData] = useState({
+    articles: [],
+    topics: [],
+    users: []
+  });
   const [error, setError] = useState(false);
-  const [loadAddtlData, setLoadAddtlData] = useState(false);
-  const [dataAvailable, setDataAvailable] = useState(true);
-  const [dataPage, setDataPage] = useState(1);
   const [sort_by, setSort_by] = useState('created_at');
-  const [currentSort, setCurrentSort] = useState('created_at');
-
-  const fetchNewData = (endPoint, dataType) => {
-    // this.setStuckSidebar(true);
-    setLoadAddtlData(true);
-    api
-      .getData(endPoint, dataType, { params: { p: dataPage + 1 } })
-      .then(newData => {
-        if (dataType === 'articles')
-          setArticles(prevState => {
-            const newTotal = prevState.length + newData.length;
-            setDataAvailable(newTotal < newData[0].total_count);
-            setDataPage(dataPage + 1);
-            setLoadAddtlData(false);
-            return [...prevState, ...newData];
-          });
-      })
-      .catch(({ response: error }) => {
-        // this.setStuckSidebar(false);
-        setError(error);
-        setLoadAddtlData(true);
-      });
-  };
-
-  const getAddtlData = debounce(() => {
-    if (error || loadAddtlData || !dataAvailable) return;
-
-    const windowHeight = window.innerHeight;
-    const amountScrolled = document.documentElement.scrollTop;
-    const totalHeight = document.documentElement.offsetHeight;
-    const twoThirds = windowHeight * 0.66;
-
-    if (windowHeight + amountScrolled >= totalHeight - twoThirds) {
-      fetchNewData('articles', 'articles');
-    }
-  }, 100);
+  const [currParams, setCurrParams] = useState({
+    sort_by: 'created_at',
+    topic: undefined,
+    author: undefined
+  });
 
   const getInitData = () => {
     Promise.all([
@@ -80,9 +43,11 @@ const Main = () => {
       api.getData('users')
     ])
       .then(data => {
-        setArticles(data[0]);
-        setTopics(data[1]);
-        setUsers(data[2]);
+        setInitData({
+          articles: data[0],
+          topics: data[1],
+          users: data[2]
+        });
         setInitLoad(false);
       })
       .catch(({ response: error }) => {
@@ -91,48 +56,20 @@ const Main = () => {
       });
   };
 
-  const refreshArticles = useCallback(() => {
-    api
-      .getData('/articles', 'articles', {
-        params: { sort_by }
-      })
-      .then(articles => setArticles(articles))
-      .catch(({ response: error }) => setError(error));
-  }, [sort_by]);
-
   useEffect(() => {
     getInitData();
   }, []);
 
-  useEffect(() => {
-    if (currentSort !== sort_by) {
-      refreshArticles();
-      setCurrentSort(sort_by);
-    }
-  }, [sort_by, refreshArticles, currentSort]);
-
   const mainProps = {
-    initLoad,
-    setInitLoad,
-    articles,
-    setArticles,
-    topics,
-    setTopics,
-    users,
-    setUsers,
-    error,
+    initData,
+    refresh,
+    setRefresh,
+    error, // may not need this - infinite load MIGHT use it in Feed.js
     setError,
-    loadAddtlData,
-    setLoadAddtlData,
-    dataAvailable,
-    setDataAvailable,
-    dataPage,
-    setDataPage,
     sort_by,
     setSort_by,
-    currentSort,
-    setCurrentSort,
-    getAddtlData
+    currParams,
+    setCurrParams
   };
 
   return (

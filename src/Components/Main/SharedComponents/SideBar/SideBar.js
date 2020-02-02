@@ -14,14 +14,12 @@ const sidebarContainer = createRef();
 const SideBar = ({ path, users }) => {
   const {
     stickySidebar,
-    stuckSidebar,
     actions: { setStickySidebar }
   } = useContext(SidebarContext);
 
   const onArticlePage = path === '/articles/:articleId' ? '-a-pg' : '';
 
   const initClassNames = () => {
-    if (stuckSidebar) return 'sidebar-content sidebar-content-stuck';
     if (stickySidebar)
       return `sidebar-content sidebar-content-sticky${onArticlePage}`;
     return 'sidebar-content';
@@ -36,7 +34,6 @@ const SideBar = ({ path, users }) => {
         setStickySidebar(true);
       } else {
         setStickySidebar(false);
-        // setStuckSidebar(false);
       }
     }
   };

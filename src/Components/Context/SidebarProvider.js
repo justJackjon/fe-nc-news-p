@@ -9,8 +9,7 @@ export class SidebarProvider extends Component {
   loadSidebarState = this.actions.loadState.call(this, 'SidebarContext');
   saveSidebarState = this.actions.saveState.bind(this, 'SidebarContext');
   state = this.loadSidebarState || {
-    stickySidebar: false,
-    stuckSidebar: false
+    stickySidebar: false
   };
 
   setStickySidebar = stickySidebar => {
@@ -18,12 +17,6 @@ export class SidebarProvider extends Component {
       return stickySidebar !== prevState.stickySidebar
         ? { stickySidebar }
         : null;
-    });
-  };
-
-  setStuckSidebar = stuckSidebar => {
-    this.setState(prevState => {
-      return stuckSidebar !== prevState.stuckSidebar ? { stuckSidebar } : null;
     });
   };
 
@@ -36,10 +29,8 @@ export class SidebarProvider extends Component {
       <SidebarContext.Provider
         value={{
           stickySidebar: this.state.stickySidebar,
-          stuckSidebar: this.state.stuckSidebar,
           actions: {
-            setStickySidebar: this.setStickySidebar,
-            setStuckSidebar: this.setStuckSidebar
+            setStickySidebar: this.setStickySidebar
           }
         }}
       >

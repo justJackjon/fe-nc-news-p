@@ -6,11 +6,6 @@
   width: 312px;
 }
 
-.sidebar-content-stuck {
-  position: fixed;
-  top: calc(1rem + 48px);
-}
-
 .sidebar-content-sticky {
   position: fixed;
   animation: stick 0.75s forwards;

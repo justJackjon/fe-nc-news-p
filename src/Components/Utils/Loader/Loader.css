@@ -40,3 +40,8 @@
 .loading .long-load-message {
   margin-top: 0.5rem;
 }
+
+.loading.article-loader.feed-loader {
+  min-height: 1024px;
+  grid-area: main-section-content;
+}

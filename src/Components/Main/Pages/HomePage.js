@@ -5,13 +5,13 @@ import MainContainer from '../Containers/MainContainer/MainContainer';
 import TrendingTopics from '../SharedComponents/TrendingTopics/TendingTopics';
 
 const HomePage = props => {
-  const { path, topics, sort_by, setSort_by } = props;
+  const { path, initData, sort_by, setSort_by } = props;
 
   return (
     <>
       <SubHeader path={path} sort_by={sort_by} setSort_by={setSort_by} />
       <MainContainer {...props}>
-        <TrendingTopics topics={topics} />
+        <TrendingTopics topics={initData.topics} />
       </MainContainer>
     </>
   );
