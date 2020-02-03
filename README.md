@@ -46,7 +46,7 @@ npm start
 
 
 
-## Built With a [React](https://reactjs.org/) front-end framework - https://reactjs.org/
+## Built using a [React](https://reactjs.org/) front-end - https://reactjs.org/
 
 
 
