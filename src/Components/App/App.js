@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { WindowContext } from '../Context/WindowProvider';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {
@@ -72,23 +72,23 @@ library.add(
   faThumbsDown
 );
 
-export class App extends Component {
-  static contextType = WindowContext;
-  updateWindowDimensions = this.context.actions.updateWindowDimensions;
+const App = () => {
+  const {
+    actions: { updateWindowDimensions }
+  } = useContext(WindowContext);
 
-  componentDidMount() {
-    this.updateWindowDimensions();
-    window.addEventListener('resize', this.updateWindowDimensions);
-  }
+  useEffect(() => {
+    updateWindowDimensions();
+    window.addEventListener('resize', updateWindowDimensions);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-  render() {
-    return (
-      <div className="App">
-        <Header />
-        <Main />
-      </div>
-    );
-  }
-}
+  return (
+    <div className="App">
+      <Header />
+      <Main />
+    </div>
+  );
+};
 
 export default App;
