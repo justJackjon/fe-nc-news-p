@@ -10,7 +10,7 @@ The code-base is intended to be as DRY as possible, though this is very much sti
 
 
 
-## Getting Started Locally
+## Getting Started Locally:
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
