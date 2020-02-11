@@ -6,9 +6,13 @@ A popular news aggregation service was used as the basis for this educational pr
 
 The code-base is intended to be as DRY as possible, though this is very much still a work in progress, and I would welcome any feedback.
 
-## **View a hosted version of this project at: [ncnews.justjackjon.dev](https://ncnews.justjackjon.dev/).**
+## View a hosted version of this project at: [ncnews.justjackjon.dev](https://ncnews.justjackjon.dev/).
 
+The front-end of this project is hosted by [netlify](https://www.netlify.com/). You can find more information about the [back-end for this project](https://github.com/justJackjon/be-nc-news) at the github repository page found [here](https://github.com/justJackjon/be-nc-news).
 
+## View the Scrum Board:
+
+Agile inspired development practices continue to fuel the development of this project. You can view the online [Scrum Board](https://ora.pm/project/197576/kanban) for this project [here](https://ora.pm/project/197576/kanban) to **see upcoming features and bug fixes**. Optionally, you can also view the current sprint for this project by clicking on the 'Sprint' tab at the top of the Scrum Board page. **Please bear in mind that a current sprint may not be in progress at all times**, as time is divided between this and other projects.
 
 ## Getting Started Locally:
 
@@ -44,13 +48,8 @@ npm start
 # Use CTRL+C to stop
 ```
 
-
-
 ## Built using a [React](https://reactjs.org/) front-end - https://reactjs.org/
 
-
-
-## Author
+## Author Information:
 
 **John Butcher** - _Find my other projects on github at: 'justJackjon'_
-
