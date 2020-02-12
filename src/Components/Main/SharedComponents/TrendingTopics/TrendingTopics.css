@@ -5,6 +5,7 @@
 }
 
 .topic-list {
+  max-width: 1024px;
   white-space: nowrap;
   overflow-x: scroll;
   overflow-y: hidden;
