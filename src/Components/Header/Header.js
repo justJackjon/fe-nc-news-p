@@ -3,8 +3,8 @@ import { Link } from '@reach/router';
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
 
 import { WindowConsumer } from '../Context/WindowProvider';
-import ncnewsLogo from '../../ncnewslogo-rb.svg';
-import ncnLogo from '../../ncnlogo-rb.svg';
+import ncnewsLogo from '../../assets/global/images/ncnewslogo-rb.svg';
+import ncnLogo from '../../assets/global/images/ncnlogo-rb.svg';
 import SearchBar from './SearchBar';
 import HeaderControls from './HeaderControls/HeaderControls';
 import Button from '../Controls/Buttons/Button';

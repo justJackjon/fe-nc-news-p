@@ -2,7 +2,7 @@ import React from 'react';
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
 import { Link } from '@reach/router';
 
-import placeholderAvatar from '../../../../../placeholder-avatar.svg';
+import placeholderAvatar from '../../../../../assets/global/images/placeholder-avatar.svg';
 import './UserListCard.css';
 
 const UserListCard = ({ itemNumber, displayLocation, user, children }) => {

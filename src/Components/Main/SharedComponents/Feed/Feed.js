@@ -4,7 +4,7 @@ import debounce from 'lodash.debounce';
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
 import { Link } from '@reach/router';
 
-import * as api from '../../../../api';
+import * as api from '../../../../utils/api';
 
 import Loader from '../../../Utils/Loader/Loader';
 import ArticleCard from '../../Cards/ArticleCard/ArticleCard';

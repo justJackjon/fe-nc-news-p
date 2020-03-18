@@ -1,5 +1,5 @@
 import React, { Component, createContext } from 'react';
-import placeholderAvatar from '../../placeholder-avatar.svg';
+import placeholderAvatar from '../../assets/global/images/placeholder-avatar.svg';
 
 export const UserSettingsContext = createContext();
 

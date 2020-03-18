@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback, createRef } from 'react';
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
 import { Link } from '@reach/router';
-import * as api from '../../../../api';
+import * as api from '../../../../utils/api';
 
 import Loader from '../../../Utils/Loader/Loader';
 import Article from '../ArticleContainer/Article/Article';

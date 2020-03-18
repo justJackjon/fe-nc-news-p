@@ -2,7 +2,7 @@ import React from 'react';
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
 import { Link } from '@reach/router';
 
-import { timeSinceCreation } from '../../../../utils';
+import { timeSinceCreation } from '../../../../utils/utils';
 import VoteControl from '../../../Controls/VoteControls/VoteControl';
 import { commentsMarker } from '../../Containers/ArticleContainer/Article/Comments/Comments';
 import './ArticleCard.css';

@@ -4,8 +4,8 @@ import { Link } from '@reach/router';
 
 import { postCommentMarker } from '../../Cards/PostCommentCard/PostCommentCard';
 import { UserSettingsContext } from '../../../Context/UserSettingsProvider';
-import * as api from '../../../../api';
-import { timeSinceCreation } from '../../../../utils';
+import * as api from '../../../../utils/api';
+import { timeSinceCreation } from '../../../../utils/utils';
 import VoteControl from '../../../Controls/VoteControls/VoteControl';
 import Modal from '../../../Modals/Modal';
 import Button from '../../../Controls/Buttons/Button';

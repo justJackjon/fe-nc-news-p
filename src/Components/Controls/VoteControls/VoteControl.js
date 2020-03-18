@@ -1,7 +1,7 @@
 import React, { useContext, useState, useRef } from 'react';
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
 
-import * as api from '../../../api';
+import * as api from '../../../utils/api';
 import { UserSettingsContext } from '../../Context/UserSettingsProvider';
 import Modal from '../../Modals/Modal';
 import Button from '../../Controls/Buttons/Button';
