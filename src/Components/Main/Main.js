@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Router } from '@reach/router';
 
-import * as api from '../../api';
+import * as api from '../../utils/api';
 import ScrollToTop from '../Utils/ScrollToTop';
 import Loader from '../Utils/Loader/Loader';
 

@@ -1,6 +1,6 @@
 import React, { createRef, useState } from 'react';
 import { navigate } from '@reach/router';
-import * as api from '../../api';
+import * as api from '../../utils/api';
 import SearchIcon from '../Icons/SearchIcon';
 
 export const searchInput = createRef();

@@ -5,7 +5,7 @@ import SelectDropdown from '../../Controls/SelectDropdown/SelectDropdown';
 import Links from '../../Navigation/NavigationLinks';
 
 import './SubHeader.css';
-import ncnLogo from '../../../ncnlogo-rb.svg';
+import ncnLogo from '../../../assets/global/images/ncnlogo-rb.svg';
 
 const SubHeader = ({ path, uri, sort_by, setSort_by }) => {
   const topicTitleContent = () => {

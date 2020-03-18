@@ -2,7 +2,7 @@ import React, { createRef, useContext, useState } from 'react';
 import { Link } from '@reach/router';
 
 import { UserSettingsContext } from '../../../Context/UserSettingsProvider';
-import * as api from '../../../../api';
+import * as api from '../../../../utils/api';
 import Button from '../../../Controls/Buttons/Button';
 
 import './PostCommentCard.css';

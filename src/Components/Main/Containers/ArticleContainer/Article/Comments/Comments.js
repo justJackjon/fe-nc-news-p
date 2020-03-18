@@ -1,6 +1,6 @@
 import React, { useState, useEffect, createRef, useCallback } from 'react';
 
-import * as api from '../../../../../../api';
+import * as api from '../../../../../../utils/api';
 import PostCommentCard from '../../../../Cards/PostCommentCard/PostCommentCard';
 import CommentCard from '../../../../Cards/CommentCard/CommentCard';
 

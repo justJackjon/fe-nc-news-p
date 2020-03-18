@@ -1,5 +1,5 @@
 import React from 'react';
-import ncnewsLogo from '../../ncnewslogo-rb.svg';
+import ncnewsLogo from '../../assets/global/images/ncnewslogo-rb.svg';
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
 import './Footer.css';
 
