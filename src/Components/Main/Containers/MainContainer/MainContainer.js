@@ -1,10 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
-import { WindowConsumer } from '../../../Context/WindowProvider';
 import Feed from '../../SharedComponents/Feed/Feed';
 import SideBar from '../../SharedComponents/SideBar/SideBar';
 
 import '../Containers.css';
+import Main from '../../Main';
 
 const MainContainer = props => {
   const {
@@ -19,7 +21,8 @@ const MainContainer = props => {
     refresh,
     setRefresh,
     setError,
-    children
+    children,
+    windowDimensions: { windowWidth }
   } = props;
 
   const pathRef = {
@@ -48,14 +51,16 @@ const MainContainer = props => {
             setError={setError}
           />
         )}
-        <WindowConsumer>
-          {({ windowWidth }) =>
-            windowWidth > 1024 && <SideBar users={initData.users} />
-          }
-        </WindowConsumer>
+        {windowWidth > 1024 && <SideBar users={initData.users} />}
       </div>
     </div>
   );
 };
 
-export default MainContainer;
+MainContainer.propTypes = {
+  windowDimensions: PropTypes.object.isRequired
+};
+
+const mapStateToProps = ({ windowDimensions }) => ({ windowDimensions });
+
+export default connect(mapStateToProps)(MainContainer);

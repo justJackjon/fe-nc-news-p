@@ -1,5 +1,7 @@
-import React, { useContext, useEffect } from 'react';
-import { WindowContext } from '../Context/WindowProvider';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import * as WindowActionCreators from '../../actions/window';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {
   faBars,
@@ -72,10 +74,11 @@ library.add(
   faThumbsDown
 );
 
-const App = () => {
-  const {
-    actions: { updateWindowDimensions }
-  } = useContext(WindowContext);
+const App = ({ dispatch }) => {
+  const updateWindowDimensions = bindActionCreators(
+    WindowActionCreators.updateWindowDimensions,
+    dispatch
+  );
 
   useEffect(() => {
     updateWindowDimensions();
@@ -91,4 +94,6 @@ const App = () => {
   );
 };
 
-export default App;
+// const mapStateToProps = state => state;
+
+export default connect()(App);
