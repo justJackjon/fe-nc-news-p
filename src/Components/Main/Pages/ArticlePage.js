@@ -1,6 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
-import { WindowConsumer } from '../../Context/WindowProvider';
 import SideBar from '../SharedComponents/SideBar/SideBar';
 import ArticleContainer from '../Containers/ArticleContainer/ArticleContainer';
 
@@ -8,21 +9,23 @@ const ArticlePage = ({
   path,
   articleId,
   setError,
-  initData
+  initData,
+  windowDimensions: { windowWidth }
   // getAddtlData,
   // loadAddtlData,
   // dataAvailable
 }) => {
   return (
     <ArticleContainer articleId={articleId} setError={setError}>
-      <WindowConsumer>
-        {({ windowWidth }) => {
-          const showSideBar = windowWidth > 1024;
-          return showSideBar && <SideBar path={path} users={initData.users} />;
-        }}
-      </WindowConsumer>
+      {windowWidth > 1024 && <SideBar path={path} users={initData.users} />}
     </ArticleContainer>
   );
 };
 
-export default ArticlePage;
+ArticlePage.propTypes = {
+  windowDimensions: PropTypes.object.isRequired
+};
+
+const mapStateToProps = ({ windowDimensions }) => ({ windowDimensions });
+
+export default connect(mapStateToProps)(ArticlePage);

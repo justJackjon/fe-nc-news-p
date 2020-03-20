@@ -6,7 +6,6 @@ import Feed from '../../SharedComponents/Feed/Feed';
 import SideBar from '../../SharedComponents/SideBar/SideBar';
 
 import '../Containers.css';
-import Main from '../../Main';
 
 const MainContainer = props => {
   const {
