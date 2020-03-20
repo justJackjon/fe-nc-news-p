@@ -1,7 +1,8 @@
 import React, { useContext, createRef, useEffect } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 import { SidebarContext } from '../../../Context/SidebarProvider';
-import { WindowConsumer } from '../../../Context/WindowProvider';
 import UserProfileCard from '../../Cards/UserCards/UserProfileCard/UserProfileCard';
 import TopUsersCard from '../../Cards/UserCards/TopUsersCard/TopUsersCard';
 import Footer from '../../../Footer/Footer';
@@ -11,7 +12,7 @@ import './SideBar.css';
 const sidebarContent = createRef();
 const sidebarContainer = createRef();
 
-const SideBar = ({ path, users }) => {
+const SideBar = ({ path, users, windowDimensions: { windowHeight } }) => {
   const {
     stickySidebar,
     actions: { setStickySidebar }
@@ -49,26 +50,17 @@ const SideBar = ({ path, users }) => {
   return (
     <aside ref={sidebarContainer} className="sidebar">
       <ul ref={sidebarContent} className={initClassNames()}>
-        <WindowConsumer>
-          {({ windowHeight }) => (
-            <>
-              <li>
-                <UserProfileCard />
-              </li>
-              <li className="top-users-card-li">
-                {windowHeight > 945 && (
-                  <TopUsersCard users={users?.slice(0, numOfTopUsers)} />
-                )}
-                {windowHeight <= 945 && windowHeight >= 840 && (
-                  <TopUsersCard users={users?.slice(0, 3)} />
-                )}
-              </li>
-            </>
+        <li>
+          <UserProfileCard />
+        </li>
+        <li className="top-users-card-li">
+          {windowHeight > 945 && (
+            <TopUsersCard users={users?.slice(0, numOfTopUsers)} />
           )}
-        </WindowConsumer>
-        {/* <li>
-          <PopularTopicsCard />
-        </li> */}
+          {windowHeight <= 945 && windowHeight >= 840 && (
+            <TopUsersCard users={users?.slice(0, 3)} />
+          )}
+        </li>
         <li>
           <Footer displayLocation="sidebar" />
         </li>
@@ -77,4 +69,10 @@ const SideBar = ({ path, users }) => {
   );
 };
 
-export default SideBar;
+SideBar.propTypes = {
+  windowDimensions: PropTypes.object.isRequired
+};
+
+const mapStateToProps = ({ windowDimensions }) => ({ windowDimensions });
+
+export default connect(mapStateToProps)(SideBar);
