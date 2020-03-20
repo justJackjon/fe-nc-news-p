@@ -14,13 +14,11 @@ const ArticlePage = ({
   // getAddtlData,
   // loadAddtlData,
   // dataAvailable
-}) => {
-  return (
-    <ArticleContainer articleId={articleId} setError={setError}>
-      {windowWidth > 1024 && <SideBar path={path} users={initData.users} />}
-    </ArticleContainer>
-  );
-};
+}) => (
+  <ArticleContainer articleId={articleId} setError={setError}>
+    {windowWidth > 1024 && <SideBar path={path} users={initData.users} />}
+  </ArticleContainer>
+);
 
 ArticlePage.propTypes = {
   windowDimensions: PropTypes.object.isRequired
