@@ -1,13 +1,20 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
-import { WindowConsumer } from '../../Context/WindowProvider';
 import SelectDropdown from '../../Controls/SelectDropdown/SelectDropdown';
 import Links from '../../Navigation/NavigationLinks';
 
 import './SubHeader.css';
 import ncnLogo from '../../../assets/global/images/ncnlogo-rb.svg';
 
-const SubHeader = ({ path, uri, sort_by, setSort_by }) => {
+const SubHeader = ({
+  path,
+  uri,
+  sort_by,
+  setSort_by,
+  windowDimensions: { windowWidth }
+}) => {
   const topicTitleContent = () => {
     if (!path) return;
     if (path === '/') return;
@@ -41,20 +48,13 @@ const SubHeader = ({ path, uri, sort_by, setSort_by }) => {
       )}
 
       <div className="sub-navigation-container">
-        {
-          <WindowConsumer>
-            {({ windowWidth }) => {
-              if (windowWidth > 600)
-                return (
-                  <>
-                    <nav className="sub-navigation">
-                      <ul>{Links.slice(0, 4)}</ul>
-                    </nav>
-                  </>
-                );
-            }}
-          </WindowConsumer>
-        }
+        {windowWidth > 600 && (
+          <>
+            <nav className="sub-navigation">
+              <ul>{Links.slice(0, 4)}</ul>
+            </nav>
+          </>
+        )}
         {showSortBy() && (
           <SelectDropdown sort_by={sort_by} setSort_by={setSort_by} />
         )}
@@ -63,4 +63,10 @@ const SubHeader = ({ path, uri, sort_by, setSort_by }) => {
   );
 };
 
-export default SubHeader;
+SubHeader.propTypes = {
+  windowDimensions: PropTypes.object.isRequired
+};
+
+const mapStateToProps = ({ windowDimensions }) => ({ windowDimensions });
+
+export default connect(mapStateToProps)(SubHeader);
