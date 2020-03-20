@@ -1,8 +1,9 @@
 import React, { createRef, useEffect } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { Link } from '@reach/router';
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
 
-import { WindowConsumer } from '../Context/WindowProvider';
 import ncnewsLogo from '../../assets/global/images/ncnewslogo-rb.svg';
 import ncnLogo from '../../assets/global/images/ncnlogo-rb.svg';
 import SearchBar from './SearchBar';
@@ -16,7 +17,7 @@ import './Header.css';
 const mainHeader = createRef();
 const backToTop = createRef();
 
-const Header = () => {
+const Header = ({ windowDimensions: { windowWidth } }) => {
   const stickyStuff = () => {
     const scrolled =
       document.body.scrollTop > 0 || document.documentElement.scrollTop > 0;
@@ -53,36 +54,35 @@ const Header = () => {
   return (
     <>
       <UserNotifcationBar className="notification-bar-top success" />
-
-      <WindowConsumer>
-        {({ windowWidth }) => (
-          <>
-            <header ref={mainHeader} className="main-header-container">
-              <div className="main-header">
-                <Link to="/">
-                  <img
-                    src={windowWidth <= 480 ? ncnLogo : ncnewsLogo}
-                    className="header-logo"
-                    alt="NCNews Logo"
-                  />
-                </Link>
-                <SearchBar />
-                <HeaderControls />
-              </div>
-            </header>
-            <Button
-              ref={backToTop}
-              className="btn-direction back-to-top"
-              onClick={handleClick}
-              aria-label="Back to top"
-            >
-              <Icon icon="angle-double-up"></Icon>
-            </Button>
-          </>
-        )}
-      </WindowConsumer>
+      <header ref={mainHeader} className="main-header-container">
+        <div className="main-header">
+          <Link to="/">
+            <img
+              src={windowWidth <= 480 ? ncnLogo : ncnewsLogo}
+              className="header-logo"
+              alt="NCNews Logo"
+            />
+          </Link>
+          <SearchBar />
+          <HeaderControls />
+        </div>
+      </header>
+      <Button
+        ref={backToTop}
+        className="btn-direction back-to-top"
+        onClick={handleClick}
+        aria-label="Back to top"
+      >
+        <Icon icon="angle-double-up"></Icon>
+      </Button>
     </>
   );
 };
 
-export default Header;
+Header.propTypes = {
+  windowDimensions: PropTypes.object.isRequired
+};
+
+const mapStateToProps = ({ windowDimensions }) => ({ windowDimensions });
+
+export default connect(mapStateToProps)(Header);
