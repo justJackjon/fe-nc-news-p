@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
-import WindowReducer from './reducers/window';
+import WindowReducer from './reducers/windowReducer';
 
 import { UserSettingsProvider } from './components/Context/UserSettingsProvider';
 import { SidebarProvider } from './components/Context/SidebarProvider';

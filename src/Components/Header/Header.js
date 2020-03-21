@@ -1,5 +1,5 @@
 import React, { createRef, useEffect } from 'react';
-import PropTypes from 'prop-types';
+import { object } from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from '@reach/router';
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
@@ -80,7 +80,7 @@ const Header = ({ windowDimensions: { windowWidth } }) => {
 };
 
 Header.propTypes = {
-  windowDimensions: PropTypes.object.isRequired
+  windowDimensions: object.isRequired
 };
 
 const mapStateToProps = ({ windowDimensions }) => ({ windowDimensions });

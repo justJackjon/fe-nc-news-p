@@ -1,5 +1,5 @@
 import React, { useContext, createRef, useEffect } from 'react';
-import PropTypes from 'prop-types';
+import { object } from 'prop-types';
 import { connect } from 'react-redux';
 
 import { SidebarContext } from '../../../Context/SidebarProvider';
@@ -31,11 +31,9 @@ const SideBar = ({ path, users, windowDimensions: { windowHeight } }) => {
     // sticky header + margin = 64px
     const scrolled = window.scrollY + 64;
     if (sidebarContent.current) {
-      if (scrolled >= window.scrollY + containerRect.top) {
-        setStickySidebar(true);
-      } else {
-        setStickySidebar(false);
-      }
+      scrolled >= window.scrollY + containerRect.top
+        ? setStickySidebar(true)
+        : setStickySidebar(false);
     }
   };
 
@@ -70,7 +68,7 @@ const SideBar = ({ path, users, windowDimensions: { windowHeight } }) => {
 };
 
 SideBar.propTypes = {
-  windowDimensions: PropTypes.object.isRequired
+  windowDimensions: object.isRequired
 };
 
 const mapStateToProps = ({ windowDimensions }) => ({ windowDimensions });
