@@ -1,4 +1,4 @@
-import * as windowActionTypes from '../actiontypes/window';
+import * as windowActionTypes from '../actiontypes/windowActionTypes';
 
 const initialState = {
   windowDimensions: {
@@ -7,7 +7,7 @@ const initialState = {
   }
 };
 
-const WindowReducer = (state = initialState, action) => {
+const windowReducer = (state = initialState, action) => {
   switch (action.type) {
     case windowActionTypes.UPDATE_WINDOW_DIMENSIONS:
       return {
@@ -21,4 +21,4 @@ const WindowReducer = (state = initialState, action) => {
   }
 };
 
-export default WindowReducer;
+export default windowReducer;

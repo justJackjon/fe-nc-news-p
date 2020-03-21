@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as WindowActionCreators from '../../actions/window';
+import * as WindowActionCreators from '../../actions/windowActions';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {
   faBars,
