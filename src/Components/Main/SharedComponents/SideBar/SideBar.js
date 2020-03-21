@@ -1,8 +1,8 @@
-import React, { useContext, createRef, useEffect } from 'react';
+import React, { createRef, useEffect } from 'react';
 import { object } from 'prop-types';
 import { connect } from 'react-redux';
-
-import { SidebarContext } from '../../../Context/SidebarProvider';
+import { setStickySidebar } from '../../../../actions/sidebarActions';
+// import { SidebarContext } from '../../../Context/SidebarProvider';
 import UserProfileCard from '../../Cards/UserCards/UserProfileCard/UserProfileCard';
 import TopUsersCard from '../../Cards/UserCards/TopUsersCard/TopUsersCard';
 import Footer from '../../../Footer/Footer';
@@ -12,11 +12,17 @@ import './SideBar.css';
 const sidebarContent = createRef();
 const sidebarContainer = createRef();
 
-const SideBar = ({ path, users, windowDimensions: { windowHeight } }) => {
-  const {
-    stickySidebar,
-    actions: { setStickySidebar }
-  } = useContext(SidebarContext);
+const SideBar = ({
+  path,
+  users,
+  dimensions: { windowHeight },
+  stickySidebar,
+  dispatch
+}) => {
+  // const {
+  //   stickySidebar,
+  //   actions: { setStickySidebar }
+  // } = useContext(SidebarContext);
 
   const onArticlePage = path === '/articles/:articleId' ? '-a-pg' : '';
 
@@ -32,8 +38,8 @@ const SideBar = ({ path, users, windowDimensions: { windowHeight } }) => {
     const scrolled = window.scrollY + 64;
     if (sidebarContent.current) {
       scrolled >= window.scrollY + containerRect.top
-        ? setStickySidebar(true)
-        : setStickySidebar(false);
+        ? dispatch(setStickySidebar(true))
+        : dispatch(setStickySidebar(false));
     }
   };
 
@@ -68,9 +74,15 @@ const SideBar = ({ path, users, windowDimensions: { windowHeight } }) => {
 };
 
 SideBar.propTypes = {
-  windowDimensions: object.isRequired
+  dimensions: object.isRequired
 };
 
-const mapStateToProps = ({ windowDimensions }) => ({ windowDimensions });
+const mapStateToProps = ({
+  window: { dimensions },
+  sidebar: { stickySidebar }
+}) => ({
+  dimensions,
+  stickySidebar
+});
 
 export default connect(mapStateToProps)(SideBar);

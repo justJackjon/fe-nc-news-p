@@ -17,7 +17,7 @@ import './Header.css';
 const mainHeader = createRef();
 const backToTop = createRef();
 
-const Header = ({ windowDimensions: { windowWidth } }) => {
+const Header = ({ dimensions: windowWidth }) => {
   const stickyStuff = () => {
     const scrolled =
       document.body.scrollTop > 0 || document.documentElement.scrollTop > 0;
@@ -80,9 +80,9 @@ const Header = ({ windowDimensions: { windowWidth } }) => {
 };
 
 Header.propTypes = {
-  windowDimensions: object.isRequired
+  dimensions: object.isRequired
 };
 
-const mapStateToProps = ({ windowDimensions }) => ({ windowDimensions });
+const mapStateToProps = ({ window: dimensions }) => ({ dimensions });
 
 export default connect(mapStateToProps)(Header);

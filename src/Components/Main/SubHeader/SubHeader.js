@@ -13,7 +13,7 @@ const SubHeader = ({
   uri,
   sort_by,
   setSort_by,
-  windowDimensions: { windowWidth }
+  dimensions: { windowWidth }
 }) => {
   const topicTitleContent = () => {
     if (!path) return;
@@ -64,9 +64,9 @@ const SubHeader = ({
 };
 
 SubHeader.propTypes = {
-  windowDimensions: object.isRequired
+  dimensions: object.isRequired
 };
 
-const mapStateToProps = ({ windowDimensions }) => ({ windowDimensions });
+const mapStateToProps = ({ window: { dimensions } }) => ({ dimensions });
 
 export default connect(mapStateToProps)(SubHeader);

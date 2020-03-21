@@ -8,7 +8,7 @@ const sidebarReducer = (state = initialState, action) => {
   switch (action.type) {
     case sidebarActionTypes.SET_STICKY_SIDEBAR:
       const { stickySidebar } = action;
-      return stickySidebar !== state.stickySidebar ? { stickySidebar } : null;
+      return stickySidebar !== state.stickySidebar ? { stickySidebar } : state;
     default:
       return state;
   }

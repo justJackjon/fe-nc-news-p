@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
+import { func } from 'prop-types';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import * as WindowActionCreators from '../../actions/windowActions';
+import { updateWindowDimensions } from '../../actions/windowActions';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {
   faBars,
@@ -75,14 +75,9 @@ library.add(
 );
 
 const App = ({ dispatch }) => {
-  const updateWindowDimensions = bindActionCreators(
-    WindowActionCreators.updateWindowDimensions,
-    dispatch
-  );
-
   useEffect(() => {
-    updateWindowDimensions();
-    window.addEventListener('resize', updateWindowDimensions);
+    dispatch(updateWindowDimensions());
+    window.addEventListener('resize', () => dispatch(updateWindowDimensions()));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -94,6 +89,8 @@ const App = ({ dispatch }) => {
   );
 };
 
-// const mapStateToProps = state => state;
+App.propTypes = {
+  dispatch: func.isRequired
+};
 
 export default connect()(App);
