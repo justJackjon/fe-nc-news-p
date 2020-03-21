@@ -1,16 +1,16 @@
-import React, { useContext } from 'react';
+import React from 'react';
+import { connect } from 'react-redux';
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
-import { UserSettingsContext } from '../../Context/UserSettingsProvider';
+
+import {
+  closeModalAndGoBack,
+  closeModalAndLogIn,
+  closeModalAndLogOut
+} from '../../../actions/userActions';
 import Modal from '../Modal';
 import Button from '../../Controls/Buttons/Button';
 
-const UserAuthModal = () => {
-  const {
-    loggedIn,
-    authModalRequestedBy,
-    actions: { closeModalAndGoBack, closeModalAndLogIn, closeModalAndLogOut }
-  } = useContext(UserSettingsContext);
-
+const UserAuthModal = ({ loggedIn, authModalRequestedBy, dispatch }) => {
   const logInModalHeader = {
     standard: (
       <>
@@ -44,7 +44,7 @@ const UserAuthModal = () => {
       <h3>Would you like to login as the default user?</h3>
       <Button
         className="btn-accept btn-lg"
-        onClick={event => closeModalAndLogIn(event)}
+        onClick={event => dispatch(closeModalAndLogIn(event))}
         value={'logIn'}
       >
         LOGIN
@@ -77,7 +77,7 @@ const UserAuthModal = () => {
       <h3>Would you like to log out?</h3>
       <Button
         className="btn-accept btn-lg"
-        onClick={event => closeModalAndLogOut(event)}
+        onClick={event => dispatch(closeModalAndLogOut(event))}
       >
         LOG OUT
       </Button>
@@ -92,7 +92,7 @@ const UserAuthModal = () => {
       {loggedIn ? logOutModalBody : logInModalBody}
       <Button
         className="btn-solid btn-lg"
-        onClick={event => closeModalAndGoBack(event)}
+        onClick={event => dispatch(closeModalAndGoBack(event))}
       >
         GO BACK
       </Button>
@@ -100,4 +100,9 @@ const UserAuthModal = () => {
   );
 };
 
-export default UserAuthModal;
+const mapStateToProps = ({ user: { loggedIn, authModalRequestedBy } }) => ({
+  loggedIn,
+  authModalRequestedBy
+});
+
+export default connect(mapStateToProps)(UserAuthModal);

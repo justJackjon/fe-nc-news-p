@@ -1,8 +1,7 @@
 import React, { createRef, useEffect } from 'react';
-import { object } from 'prop-types';
 import { connect } from 'react-redux';
+
 import { setStickySidebar } from '../../../../actions/sidebarActions';
-// import { SidebarContext } from '../../../Context/SidebarProvider';
 import UserProfileCard from '../../Cards/UserCards/UserProfileCard/UserProfileCard';
 import TopUsersCard from '../../Cards/UserCards/TopUsersCard/TopUsersCard';
 import Footer from '../../../Footer/Footer';
@@ -19,11 +18,6 @@ const SideBar = ({
   stickySidebar,
   dispatch
 }) => {
-  // const {
-  //   stickySidebar,
-  //   actions: { setStickySidebar }
-  // } = useContext(SidebarContext);
-
   const onArticlePage = path === '/articles/:articleId' ? '-a-pg' : '';
 
   const initClassNames = () => {
@@ -71,10 +65,6 @@ const SideBar = ({
       </ul>
     </aside>
   );
-};
-
-SideBar.propTypes = {
-  dimensions: object.isRequired
 };
 
 const mapStateToProps = ({

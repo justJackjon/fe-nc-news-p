@@ -1,22 +1,24 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
+import { connect } from 'react-redux';
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
 import { Link } from '@reach/router';
 
-import { postCommentMarker } from '../../Cards/PostCommentCard/PostCommentCard';
-import { UserSettingsContext } from '../../../Context/UserSettingsProvider';
 import * as api from '../../../../utils/api';
 import { timeSinceCreation } from '../../../../utils/utils';
+import { postCommentMarker } from '../../Cards/PostCommentCard/PostCommentCard';
 import VoteControl from '../../../Controls/VoteControls/VoteControl';
 import Modal from '../../../Modals/Modal';
 import Button from '../../../Controls/Buttons/Button';
 
 import './CommentCard.css';
 
-const CommentCard = ({ comment, setArticle, setComments, setError }) => {
-  const {
-    loggedInUser: { username: currentUser }
-  } = useContext(UserSettingsContext);
-
+const CommentCard = ({
+  comment,
+  setArticle,
+  setComments,
+  setError,
+  loggedInUser: { username: currentUser }
+}) => {
   const [votes, setVotes] = useState(comment.votes);
   const [openModal, setOpenModal] = useState(false);
 
@@ -117,4 +119,6 @@ const CommentCard = ({ comment, setArticle, setComments, setError }) => {
   );
 };
 
-export default CommentCard;
+const mapStateToProps = ({ user: { loggedInUser } }) => ({ loggedInUser });
+
+export default connect(mapStateToProps)(CommentCard);

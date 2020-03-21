@@ -1,8 +1,9 @@
-import React, { useContext, useState, useRef } from 'react';
+import React, { useState, useRef } from 'react';
+import { connect } from 'react-redux';
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
 
 import * as api from '../../../utils/api';
-import { UserSettingsContext } from '../../Context/UserSettingsProvider';
+import { setOpenAuthModal } from '../../../actions/userActions';
 import Modal from '../../Modals/Modal';
 import Button from '../../Controls/Buttons/Button';
 
@@ -14,12 +15,10 @@ const VoteControl = ({
   id,
   className,
   setCommentVotes,
-  setError
+  setError,
+  loggedIn,
+  dispatch
 }) => {
-  const {
-    loggedIn,
-    actions: { setOpenAuthModal }
-  } = useContext(UserSettingsContext);
   const prevVotes = useRef(voteCount);
   const [votes, setVotes] = useState(voteCount);
   const [openModal, setOpenModal] = useState(false);
@@ -41,7 +40,7 @@ const VoteControl = ({
   };
 
   const handleClick = (vote, event) => {
-    if (!loggedIn) setOpenAuthModal(true, 'voteControl', event);
+    if (!loggedIn) dispatch(setOpenAuthModal(true, 'voteControl', event));
     if (votes !== prevVotes.current) {
       setOpenModal(true);
       return;
@@ -100,4 +99,6 @@ const VoteControl = ({
   );
 };
 
-export default VoteControl;
+const mapStateToProps = ({ user: { loggedIn } }) => ({ loggedIn });
+
+export default connect(mapStateToProps)(VoteControl);

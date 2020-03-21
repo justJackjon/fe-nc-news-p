@@ -1,5 +1,4 @@
 import React from 'react';
-import { object } from 'prop-types';
 import { connect } from 'react-redux';
 
 import SideBar from '../SharedComponents/SideBar/SideBar';
@@ -19,10 +18,6 @@ const ArticlePage = ({
     {windowWidth > 1024 && <SideBar path={path} users={initData.users} />}
   </ArticleContainer>
 );
-
-ArticlePage.propTypes = {
-  dimensions: object.isRequired
-};
 
 const mapStateToProps = ({ window: { dimensions } }) => ({ dimensions });
 

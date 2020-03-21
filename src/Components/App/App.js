@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import { func } from 'prop-types';
 import { connect } from 'react-redux';
 import { updateWindowDimensions } from '../../actions/windowActions';
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -87,10 +86,6 @@ const App = ({ dispatch }) => {
       <Main />
     </div>
   );
-};
-
-App.propTypes = {
-  dispatch: func.isRequired
 };
 
 export default connect()(App);

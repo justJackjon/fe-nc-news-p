@@ -1,5 +1,4 @@
 import React from 'react';
-import { object } from 'prop-types';
 import { connect } from 'react-redux';
 
 import SelectDropdown from '../../Controls/SelectDropdown/SelectDropdown';
@@ -61,10 +60,6 @@ const SubHeader = ({
       </div>
     </div>
   );
-};
-
-SubHeader.propTypes = {
-  dimensions: object.isRequired
 };
 
 const mapStateToProps = ({ window: { dimensions } }) => ({ dimensions });

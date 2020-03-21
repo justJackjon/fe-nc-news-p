@@ -1,12 +1,17 @@
-import React, { createRef, useEffect, useRef, useContext } from 'react';
+import React, { createRef, useEffect, useRef } from 'react';
+import { connect } from 'react-redux';
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
-import { UserSettingsContext } from '../../Context/UserSettingsProvider';
+
 import './UserNotificationBar.css';
 
 const notificationBar = createRef();
 
-const UserNotificationBar = props => {
-  const { displayNotification } = useContext(UserSettingsContext);
+const UserNotificationBar = ({
+  displayNotification,
+  children,
+  dispatch,
+  ...restOfProps
+}) => {
   const prevNotification = useRef(displayNotification);
 
   useEffect(() => {
@@ -28,15 +33,19 @@ const UserNotificationBar = props => {
 
   return (
     prevNotification.current !== displayNotification && (
-      <div {...props} ref={notificationBar}>
+      <div {...restOfProps} ref={notificationBar}>
         <h3 className="notification-bar-message">
           {displayNotification}
           <Icon icon="check" />
-          {props.children}
+          {children}
         </h3>
       </div>
     )
   );
 };
 
-export default UserNotificationBar;
+const mapStateToProps = ({ user: { displayNotification } }) => ({
+  displayNotification
+});
+
+export default connect(mapStateToProps)(UserNotificationBar);
