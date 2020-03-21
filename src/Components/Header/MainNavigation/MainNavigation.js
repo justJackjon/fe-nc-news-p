@@ -1,20 +1,20 @@
-import React, { useContext } from 'react';
+import React from 'react';
+import { connect } from 'react-redux';
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
 
-import { UserSettingsContext } from '../../Context/UserSettingsProvider';
+import { setOpenAuthModal } from '../../../actions/userActions';
 import Footer from '../../Footer/Footer';
 import Links from '../../Navigation/NavigationLinks';
 import UserAuthModal from '../../Modals/UserAuthModal/UserAuthModal';
 
 import './MainNavigation.css';
 
-const MainNavigation = ({ toggleDrawer }) => {
-  const {
-    loggedIn,
-    openAuthModal,
-    actions: { setOpenAuthModal }
-  } = useContext(UserSettingsContext);
-
+const MainNavigation = ({
+  toggleDrawer,
+  loggedIn,
+  openAuthModal,
+  dispatch
+}) => {
   const handleClick = event => {
     toggleDrawer(event);
     window.scrollTo({
@@ -26,7 +26,9 @@ const MainNavigation = ({ toggleDrawer }) => {
   const logInOutButton = loggedIn ? (
     <li
       key="log out"
-      onClick={event => setOpenAuthModal(true, 'mainNavigation', event)}
+      onClick={event =>
+        dispatch(setOpenAuthModal(true, 'mainNavigation', event))
+      }
     >
       <Icon icon="sign-out-alt" />
       Log Out
@@ -34,7 +36,9 @@ const MainNavigation = ({ toggleDrawer }) => {
   ) : (
     <li
       key="log in"
-      onClick={event => setOpenAuthModal(true, 'mainNavigation', event)}
+      onClick={event =>
+        dispatch(setOpenAuthModal(true, 'mainNavigation', event))
+      }
     >
       <Icon icon="sign-in-alt" />
       Login / Sign Up
@@ -59,4 +63,9 @@ const MainNavigation = ({ toggleDrawer }) => {
   );
 };
 
-export default MainNavigation;
+const mapStateToProps = ({ user: { loggedIn, openAuthModal } }) => ({
+  loggedIn,
+  openAuthModal
+});
+
+export default connect(mapStateToProps)(MainNavigation);

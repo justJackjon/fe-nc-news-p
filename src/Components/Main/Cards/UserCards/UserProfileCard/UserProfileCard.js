@@ -1,50 +1,49 @@
-import React, { useContext } from 'react';
+import React from 'react';
+import { connect } from 'react-redux';
 import { navigate } from '@reach/router';
 
-import { UserSettingsContext } from '../../../../Context/UserSettingsProvider';
+import { setOpenAuthModal } from '../../../../../actions/userActions';
 import UserListCard from '../UserListCard/UserListCard';
 
 import './UserProfileCard.css';
 
-const UserProfileCard = () => {
-  const {
-    loggedInUser: user,
-    loggedIn,
-    actions: { setOpenAuthModal }
-  } = useContext(UserSettingsContext);
-
-  return (
-    <div className="user-profile-card">
-      <div className="user-profile-cover-image"></div>
-      <UserListCard
-        displayLocation="user-profile"
-        user={user}
-        loggedIn={loggedIn}
+const UserProfileCard = ({ loggedInUser: user, loggedIn, dispatch }) => (
+  <div className="user-profile-card">
+    <div className="user-profile-cover-image"></div>
+    <UserListCard
+      displayLocation="user-profile"
+      user={user}
+      loggedIn={loggedIn}
+    >
+      <button
+        className="btn-lg btn-regular"
+        onClick={event =>
+          dispatch(setOpenAuthModal(true, 'userProfileCard', event))
+        }
       >
-        <button
-          className="btn-lg btn-regular"
-          onClick={event => setOpenAuthModal(true, 'userProfileCard', event)}
-        >
-          {loggedIn ? 'LOG OUT' : 'LOG IN'}
+        {loggedIn ? 'LOG OUT' : 'LOG IN'}
+      </button>
+      {loggedIn ? (
+        <button className="btn-lg btn-solid" onClick={() => navigate('/post')}>
+          NEW POST
         </button>
-        {loggedIn ? (
-          <button
-            className="btn-lg btn-solid"
-            onClick={() => navigate('/post')}
-          >
-            NEW POST
-          </button>
-        ) : (
-          <button
-            className="btn-lg btn-solid"
-            onClick={event => setOpenAuthModal(true, 'signUpButton', event)}
-          >
-            SIGN UP
-          </button>
-        )}
-      </UserListCard>
-    </div>
-  );
-};
+      ) : (
+        <button
+          className="btn-lg btn-solid"
+          onClick={event =>
+            dispatch(setOpenAuthModal(true, 'signUpButton', event))
+          }
+        >
+          SIGN UP
+        </button>
+      )}
+    </UserListCard>
+  </div>
+);
 
-export default UserProfileCard;
+const mapStateToProps = ({ user: { loggedInUser, loggedIn } }) => ({
+  loggedInUser,
+  loggedIn
+});
+
+export default connect(mapStateToProps)(UserProfileCard);

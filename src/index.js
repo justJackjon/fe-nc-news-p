@@ -7,7 +7,13 @@ import { UserSettingsProvider } from './components/Context/UserSettingsProvider'
 import './index.css';
 import App from './components/App/App';
 
-const store = configStore();
+const loadState = () => {
+  const state = JSON.parse(sessionStorage.getItem('reduxStore'));
+  if (!state) return undefined;
+  return { ...state };
+};
+
+const store = configStore(loadState());
 
 ReactDOM.render(
   <Provider store={store}>

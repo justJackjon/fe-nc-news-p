@@ -1,21 +1,24 @@
-import React, { createRef, useContext, useState } from 'react';
+import React, { createRef, useState } from 'react';
+import { connect } from 'react-redux';
 import { Link } from '@reach/router';
 
-import { UserSettingsContext } from '../../../Context/UserSettingsProvider';
 import * as api from '../../../../utils/api';
+import { setOpenAuthModal } from '../../../../actions/userActions';
 import Button from '../../../Controls/Buttons/Button';
 
 import './PostCommentCard.css';
 
 export const postCommentMarker = createRef();
 
-const PostCommentCard = ({ articleId, setError, setArticle, setComments }) => {
-  const {
-    loggedInUser: user,
-    loggedIn,
-    actions: { setOpenAuthModal }
-  } = useContext(UserSettingsContext);
-
+const PostCommentCard = ({
+  articleId,
+  setError,
+  setArticle,
+  setComments,
+  loggedInUser: user,
+  loggedIn,
+  dispatch
+}) => {
   const [comment, setComment] = useState('');
 
   const handleSubmit = event => {
@@ -67,13 +70,17 @@ const PostCommentCard = ({ articleId, setError, setArticle, setComments }) => {
       <div className="login-to-comment-buttons">
         <Button
           className="btn-regular btn-lg comment-form-login"
-          onClick={event => setOpenAuthModal(true, 'postCommentCard', event)}
+          onClick={event =>
+            dispatch(setOpenAuthModal(true, 'postCommentCard', event))
+          }
         >
           LOG IN
         </Button>
         <Button
           className="btn-solid btn-lg comment-form-signup"
-          onClick={event => setOpenAuthModal(true, 'signUpButton', event)}
+          onClick={event =>
+            dispatch(setOpenAuthModal(true, 'signUpButton', event))
+          }
         >
           SIGN UP
         </Button>
@@ -122,4 +129,9 @@ const PostCommentCard = ({ articleId, setError, setArticle, setComments }) => {
   );
 };
 
-export default PostCommentCard;
+const mapStateToProps = ({ user: { loggedInUser, loggedIn } }) => ({
+  loggedInUser,
+  loggedIn
+});
+
+export default connect(mapStateToProps)(PostCommentCard);

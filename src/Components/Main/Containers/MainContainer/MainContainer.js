@@ -1,5 +1,4 @@
 import React from 'react';
-import { object } from 'prop-types';
 import { connect } from 'react-redux';
 
 import Feed from '../../SharedComponents/Feed/Feed';
@@ -54,10 +53,6 @@ const MainContainer = props => {
       </div>
     </div>
   );
-};
-
-MainContainer.propTypes = {
-  dimensions: object.isRequired
 };
 
 const mapStateToProps = ({ window: { dimensions } }) => ({ dimensions });

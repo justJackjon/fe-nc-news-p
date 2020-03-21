@@ -1,5 +1,4 @@
 import React, { createRef, useEffect } from 'react';
-import { object } from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from '@reach/router';
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
@@ -17,7 +16,7 @@ import './Header.css';
 const mainHeader = createRef();
 const backToTop = createRef();
 
-const Header = ({ dimensions: windowWidth }) => {
+const Header = ({ dimensions: { windowWidth } }) => {
   const stickyStuff = () => {
     const scrolled =
       document.body.scrollTop > 0 || document.documentElement.scrollTop > 0;
@@ -79,10 +78,6 @@ const Header = ({ dimensions: windowWidth }) => {
   );
 };
 
-Header.propTypes = {
-  dimensions: object.isRequired
-};
-
-const mapStateToProps = ({ window: dimensions }) => ({ dimensions });
+const mapStateToProps = ({ window: { dimensions } }) => ({ dimensions });
 
 export default connect(mapStateToProps)(Header);

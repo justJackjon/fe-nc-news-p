@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from '@reach/router';
-import ncnLogo from '../../../../../assets/global/images/ncnlogo-rb.svg';
 import './TopicListCard.css';
 
 const TopicListCard = ({ topic }) => {
