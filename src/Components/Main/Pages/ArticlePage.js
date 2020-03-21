@@ -10,7 +10,7 @@ const ArticlePage = ({
   articleId,
   setError,
   initData,
-  windowDimensions: { windowWidth }
+  dimensions: { windowWidth }
   // getAddtlData,
   // loadAddtlData,
   // dataAvailable
@@ -21,9 +21,9 @@ const ArticlePage = ({
 );
 
 ArticlePage.propTypes = {
-  windowDimensions: object.isRequired
+  dimensions: object.isRequired
 };
 
-const mapStateToProps = ({ windowDimensions }) => ({ windowDimensions });
+const mapStateToProps = ({ window: { dimensions } }) => ({ dimensions });
 
 export default connect(mapStateToProps)(ArticlePage);

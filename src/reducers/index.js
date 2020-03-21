@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
-import windowReducer from './windowReducer';
-import sidebarReducer from './sidebarReducer';
+import window from './windowReducer';
+import sidebar from './sidebarReducer';
 
 const rootReducer = combineReducers({
-  windowReducer,
-  sidebarReducer
+  window,
+  sidebar
 });
 
 export default rootReducer;

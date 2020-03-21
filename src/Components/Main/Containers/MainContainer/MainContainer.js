@@ -21,7 +21,7 @@ const MainContainer = props => {
     setRefresh,
     setError,
     children,
-    windowDimensions: { windowWidth }
+    dimensions: { windowWidth }
   } = props;
 
   const pathRef = {
@@ -57,9 +57,9 @@ const MainContainer = props => {
 };
 
 MainContainer.propTypes = {
-  windowDimensions: object.isRequired
+  dimensions: object.isRequired
 };
 
-const mapStateToProps = ({ windowDimensions }) => ({ windowDimensions });
+const mapStateToProps = ({ window: { dimensions } }) => ({ dimensions });
 
 export default connect(mapStateToProps)(MainContainer);
