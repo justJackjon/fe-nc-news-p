@@ -18,3 +18,21 @@ export const timeSinceCreation = created => {
 
   return `just now`;
 };
+
+export const loadState = () => {
+  try {
+    const state = JSON.parse(sessionStorage.getItem('reduxStore'));
+    if (!state) return undefined;
+    return state;
+  } catch (err) {
+    return undefined;
+  }
+};
+
+export const saveState = state => {
+  try {
+    sessionStorage.setItem('reduxStore', JSON.stringify(state));
+  } catch (err) {
+    // ignore write errors
+  }
+};
