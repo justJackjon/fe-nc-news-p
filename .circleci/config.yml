@@ -12,24 +12,27 @@ jobs:
       - node/with-cache:
           steps:
             - run: npm install
-            - run: npm run build
+      - run: npm run build
+      - save_cache:
+        paths:
+          - ~/usr/local/lib/node_modules
+        key: node-v1-{{ .Branch }}-{{ checksum "package-lock.json" }}
+
 
   test:
     executor:
       name: node/default
     steps:
-      # - node/with-cache:
-      #     steps:
-      #       - run: npm run test
-            - run: echo tests will run here...
+      - run: echo tests will run here...
 
   deploy:
     executor:
       name: node/default
     steps:
-      - node/with-cache:
-          steps:
-            - run: npm run netlify:deploy
+      - restore_cache:
+          keys:
+            - node-v1-{{ .Branch }}-{{ checksum "package-lock.json" }}
+      - run: npm run netlify:deploy
 
 workflows:
   build-test-deploy:
