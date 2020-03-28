@@ -19,7 +19,7 @@ jobs:
       name: node/default
     steps:
       # - run: npm run test
-      - echo tests will run here...
+      - run: echo tests will run here...
 
   deploy:
     executor:
