@@ -19,15 +19,17 @@ jobs:
       name: node/default
     steps:
       # - node/with-cache:
-      #   - run: npm run test
-        - run: echo tests will run here...
+      #     steps:
+      #       - run: npm run test
+            - run: echo tests will run here...
 
   deploy:
     executor:
       name: node/default
     steps:
       - node/with-cache:
-        - run: npm run netlify:deploy
+          steps:
+            - run: npm run netlify:deploy
 
 workflows:
   build-test-deploy:
