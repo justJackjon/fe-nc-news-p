@@ -1,4 +1,4 @@
-# **Northcoders News (Front-end)**
+# **Northcoders News (Front-end)** [![CircleCI](https://circleci.com/gh/justJackjon/fe-nc-news-p/tree/master.svg?style=svg)](https://circleci.com/gh/justJackjon/fe-nc-news-p/tree/master)
 
 Northcoders News (Front-end) is a **React application** built as the counterpart to the [back-end nc-news project](https://github.com/justJackjon/be-nc-news) accessible on github. Many of React's newer features such as hooks have been employed throughout, opting for function components over class components in order to reduce overhead for the transpiler. In addition, whilst the project originally relied upon React's Context API for application state management, the code base has since been refactored to utilise Redux.
 
