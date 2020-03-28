@@ -11,8 +11,8 @@ jobs:
           steps:
             - run: npm install
             - run: npm build
-            - run: npm netlify:deploy
+            # - run: npm netlify:deploy
 workflows:
-    build-and-test:
-      jobs:
-        - build-and-test
+  build-and-test:
+    jobs:
+      - build-and-test
