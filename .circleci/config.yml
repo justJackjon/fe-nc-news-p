@@ -1,10 +1,8 @@
 version: 2.1
-
 orbs:
   node: circleci/node@1.1.6
-
 jobs:
-  build:
+  build-test-deploy:
     executor:
       name: node/default
     steps:
@@ -12,35 +10,10 @@ jobs:
       - node/with-cache:
           steps:
             - run: npm install
-      - run: npm run build
-      - save_cache:
-        paths:
-          - ~/usr/local/lib/node_modules
-        key: node-v1-{{ .Branch }}-{{ checksum "package-lock.json" }}
-
-
-  test:
-    executor:
-      name: node/default
-    steps:
-      - run: echo tests will run here...
-
-  deploy:
-    executor:
-      name: node/default
-    steps:
-      - restore_cache:
-          keys:
-            - node-v1-{{ .Branch }}-{{ checksum "package-lock.json" }}
-      - run: npm run netlify:deploy
-
+            - run: npm run build
+            - run: echo tests will run here...
+            - run: npm run netlify:deploy
 workflows:
   build-test-deploy:
     jobs:
-      - build
-      - test:
-          requires:
-            - build
-      - deploy:
-          requires:
-            - test
+      - build-test-deploy
