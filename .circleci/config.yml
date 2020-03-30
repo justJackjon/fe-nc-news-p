@@ -15,11 +15,7 @@ jobs:
             - run: npm run build
             - persist_to_workspace:
                 root: .
-                paths:
-                  - build/*
-                  - package.json
-                  - netlify.toml
-                  - .git/*
+                paths: '*'
   
   test:
     executor:
