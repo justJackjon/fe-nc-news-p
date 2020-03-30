@@ -19,6 +19,7 @@ jobs:
                   - build/*
                   - package.json
                   - netlify.toml
+                  - .git
   
   test:
     executor:
