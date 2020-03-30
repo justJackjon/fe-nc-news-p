@@ -16,7 +16,7 @@ jobs:
             - persist_to_workspace:
                 root: .
                 paths: '*'
-  
+
   test:
     executor:
       name: node/default
@@ -26,14 +26,22 @@ jobs:
       - run: echo tests will run here...
       - run: pwd
       - run: ls -a
-  
-  deploy:
+
+  production-deploy:
     executor:
       name: node/default
     steps:
       - attach_workspace:
           at: .
       - run: npm run netlify:deploy
+
+  draft-deploy:
+    executor:
+      name: node/default
+    steps:
+      - attach_workspace:
+          at: .
+      - run: npm run netlify:draft-deploy
 
 workflows:
   build-test-deploy:
@@ -42,10 +50,17 @@ workflows:
       - test:
           requires:
             - build
-      - deploy:
+      - production-deploy:
           requires:
             - test
           filters:
             branches:
               only:
+                - master
+      - draft-deploy:
+          requires:
+            - test
+          filters:
+            branch:
+              ignore:
                 - master
