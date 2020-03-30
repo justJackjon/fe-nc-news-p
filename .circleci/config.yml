@@ -50,9 +50,13 @@ workflows:
       - test:
           requires:
             - build
-      - production-deploy:
+      - approve-production-deploy:
+          type: approval
           requires:
             - test
+      - production-deploy:
+          requires:
+            - approve-production-deploy
           filters:
             branches:
               only:
