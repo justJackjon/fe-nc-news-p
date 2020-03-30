@@ -1,18 +1,44 @@
 version: 2.1
+
 orbs:
   node: circleci/node@1.1.6
+
 jobs:
-  build-test-deploy:
+  build:
     executor:
       name: node/default
+    # working_directory: ~/repo
     steps:
       - checkout
       - node/with-cache:
           steps:
             - run: npm install
             - run: npm run build
-            - run: echo tests will run here...
-            - run: npm run netlify:deploy
+            - persist_to_workspace:
+                root: /
+                paths:
+                  - build/*
+  
+  test:
+    executor:
+      name: node/default
+    # working_directory: ~/repo
+    steps:
+      - attach_workspace:
+          at: /
+      - run: echo tests will run here...
+      - run: pwd
+      - run: ls -a
+  
+  deploy:
+    executor:
+      name: node/default
+    # working_directory: ~/repo
+    steps:
+      - attach_workspace:
+          at: /
+      - run: npm run netlify:deploy
+
 workflows:
   build-test-deploy:
     jobs:
