@@ -27,7 +27,8 @@ jobs:
       - run: pwd
       - run: ls -a
       - run: node -p "process.env.FOO_BAR"
-      - run: node -p "process.env.FOO_PWD"
+      - run: node -p "process.env.FOO_BAR === 'foobaz1'"
+      - run: node -p "process.env.PWD"
 
   production-deploy:
     executor:
