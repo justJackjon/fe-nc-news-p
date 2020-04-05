@@ -29,7 +29,7 @@ import {
   faCheck,
   faTrashAlt,
   faExclamationCircle,
-  faThumbsDown
+  faThumbsDown,
 } from '@fortawesome/free-solid-svg-icons';
 import { faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons';
 
@@ -73,12 +73,18 @@ library.add(
   faThumbsDown
 );
 
-const App = ({ dispatch }) => {
+const App = ({ dispatch, client: flags }) => {
   useEffect(() => {
     dispatch(updateWindowDimensions());
     window.addEventListener('resize', () => dispatch(updateWindowDimensions()));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    return () => {
+      flags.destroy();
+    };
+  }, [flags]);
 
   return (
     <div className="App">
@@ -88,4 +94,5 @@ const App = ({ dispatch }) => {
   );
 };
 
-export default connect()(App);
+const mapStateToProps = ({ flags: { client } }) => ({ client });
+export default connect(mapStateToProps)(App);
