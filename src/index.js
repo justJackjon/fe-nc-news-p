@@ -4,15 +4,21 @@ import configStore from './configReduxStore';
 import { Provider } from 'react-redux';
 import debounce from 'lodash.debounce';
 
+import { initFeatureFlags } from './utils/split';
 import { loadState, saveState } from './utils/utils';
-import './index.css';
 import App from './components/App/App';
 
-const store = configStore(loadState());
+import './index.css';
+
+export const store = configStore(loadState());
+// Initialise feature flag client after store has been instantiated.
+initFeatureFlags();
 
 store.subscribe(
   debounce(() => {
-    saveState(store.getState());
+    // filter out split client before saving redux store to web storage
+    const { flags, ...restOfStore } = store.getState();
+    saveState(restOfStore);
   }, 100)
 );
 
