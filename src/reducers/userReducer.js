@@ -1,5 +1,6 @@
 import * as userActionTypes from '../actiontypes/userActionTypes';
 import placeholderAvatar from '../assets/global/images/placeholder-avatar.svg';
+import { v4 as uuidv4 } from 'uuid';
 
 const initialState = {
   loggedIn: false,
@@ -56,6 +57,12 @@ const userReducer = (state = initialState, action) => {
           avatar_url: placeholderAvatar,
           name: 'Create an account or login'
         }
+      };
+
+    case userActionTypes.GENERATE_UUID:
+      return {
+        ...state,
+        UUID: uuidv4()
       };
 
     default:

@@ -34,3 +34,7 @@ export const closeModalAndLogOut = event => ({
   type: userActionTypes.CLOSE_MODAL_AND_LOG_OUT,
   event
 });
+
+export const generateUUID = () => ({
+  type: userActionTypes.GENERATE_UUID
+});
