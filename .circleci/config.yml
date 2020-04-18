@@ -43,6 +43,11 @@ jobs:
       - attach_workspace:
           at: .
       - run: npm run netlify:draft-deploy
+      - slack/notify:
+          color: '#50FA7B'
+          mentions: 'Jackjon,'
+          message: A draft deploy has been released and is awaiting review.
+          webhook: '${SLACK_WEBHOOK}'
 
 workflows:
   build-test-deploy:
