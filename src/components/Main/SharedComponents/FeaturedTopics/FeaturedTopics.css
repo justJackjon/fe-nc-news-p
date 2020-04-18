@@ -1,4 +1,4 @@
-.trending-topics {
+.featured-topics {
   grid-area: main-section-header;
   margin-top: 1.5em;
   position: relative;
@@ -41,7 +41,7 @@ ul.topic-list li.topic-item:last-child {
 }
 
 @media only screen and (max-width: 1024px) {
-  .trending-topics {
+  .featured-topics {
     padding: 0 1em;
   }
 
@@ -51,7 +51,7 @@ ul.topic-list li.topic-item:last-child {
 }
 
 @media only screen and (max-width: 480px) {
-  .trending-topics {
+  .featured-topics {
     margin-top: 1em;
   }
 }
