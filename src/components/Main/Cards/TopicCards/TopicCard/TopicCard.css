@@ -3,6 +3,8 @@
   height: 175px;
   background-color: #dae0e6;
   border-radius: 10px;
+  background-size: cover;
+  background-position: center;
 }
 
 .topic-card-overlay {
@@ -37,10 +39,10 @@
   letter-spacing: 0.03125rem;
 }
 
-.trending-topic-title {
+.featured-topic-title {
   color: white;
 }
 
-.trending-topic-desc {
+.featured-topic-desc {
   margin-top: 0.15rem;
 }
