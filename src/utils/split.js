@@ -1,15 +1,14 @@
+import {
+  initSplitSdk,
+  getSplitNames,
+  getTreatments
+} from '@splitsoftware/splitio-redux';
 import { store } from '../index';
 import { generateUUID } from '../actions/userActions';
-import { SplitFactory } from '@splitsoftware/splitio';
-import {
-  setFeatureFlagClient,
-  setFlagsReady,
-  setFlagsTimedOut,
-} from '../actions/featureFlagActions';
 
 export const initFeatureFlags = () => {
   let {
-    user: { UUID },
+    user: { UUID }
   } = store.getState();
 
   if (!UUID) {
@@ -19,33 +18,30 @@ export const initFeatureFlags = () => {
 
   const config = {
     development: {
-      authorizationKey: process.env.REACT_APP_SPLIT_STAGING_API_KEY,
+      authorizationKey: process.env.REACT_APP_SPLIT_STAGING_API_KEY
     },
     test: { authorizationKey: process.env.REACT_APP_SPLIT_STAGING_API_KEY },
-    production: { authorizationKey: process.env.REACT_APP_SPLIT_PROD_API_KEY },
+    production: { authorizationKey: process.env.REACT_APP_SPLIT_PROD_API_KEY }
   };
 
-  const factory = SplitFactory({
-    core: {
-      ...config[process.env.NODE_ENV || 'development'],
-      key: UUID,
-    },
-    startup: {
-      readyTimeout: 1.5,
-    },
-  });
+  store
+    .dispatch(
+      initSplitSdk({
+        config: {
+          core: {
+            ...config[process.env.NODE_ENV || 'development'],
+            key: UUID
+          },
+          startup: {
+            readyTimeout: 1.5
+          }
+        }
+      })
+    )
+    .then(() => {
+      const splitNames = getSplitNames();
+      store.dispatch(getTreatments({ splitNames }));
+    });
 
-  const splitClient = factory.client();
-
-  splitClient.on(splitClient.Event.SDK_READY, () => {
-    store.dispatch(setFlagsReady());
-  });
-
-  splitClient.on(splitClient.Event.SDK_READY_TIMED_OUT, () => {
-    store.dispatch(setFlagsTimedOut());
-  });
-
-  store.dispatch(setFeatureFlagClient(splitClient));
-
-  return splitClient;
+  return store.getState().flags;
 };
