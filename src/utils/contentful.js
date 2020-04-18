@@ -1,10 +1,13 @@
-import contentful from 'contentful';
+import { createClient } from 'contentful';
+
+import { store } from '../index';
+import { setCMSclient } from '../actions/cmsActions';
 
 // Add instructions to modify config and env variables in README
 // Refer to create-react-app documentation available here for test and dev environments:
 // https://create-react-app.dev/docs/adding-custom-environment-variables/
 
-export const createClient = () => {
+export const initCMS = () => {
   const clientConfig = {
     space: process.env.REACT_APP_CTF_SPACE_ID,
 
@@ -25,8 +28,12 @@ export const createClient = () => {
     }
   };
 
-  return contentful.createClient({
-    space: process.env.REACT_APP_CTF_SPACE_ID,
+  const contentfulClient = createClient({
+    space: clientConfig.space,
     ...clientConfig[process.env.NODE_ENV || 'development']
   });
+
+  store.dispatch(setCMSclient(contentfulClient));
+
+  return contentfulClient;
 };
