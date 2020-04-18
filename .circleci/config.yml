@@ -56,6 +56,10 @@ workflows:
           webhook: '${SLACK_WEBHOOK}'
           requires:
             - test
+          filters:
+            branches:
+              only:
+                - master
       - approve-production-deploy:
           type: approval
           requires:
