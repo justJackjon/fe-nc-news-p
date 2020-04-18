@@ -53,7 +53,10 @@ const TendingTopics = memo(({ topics: defaultTopics, flags, CMS }) => {
         });
       }
       if (cmsCarousel) {
-        CMS.getEntries()
+        CMS.getEntries({
+          content_type: 'trendingTopicCard',
+          order: 'fields.slot'
+        })
           .then(({ items }) => {
             return items.map(item => {
               const img = `https:${item.fields.img.fields.file.url}`;
