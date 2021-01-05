@@ -9,7 +9,7 @@
     "@fortawesome/react-fontawesome": "^0.1.8",
     "@reach/router": "^1.2.1",
     "@splitsoftware/splitio-redux": "^1.0.1",
-    "axios": "^0.19.1",
+    "axios": "^0.21.1",
     "contentful": "^7.14.2",
     "lodash": "^4.17.15",
     "lodash.debounce": "^4.0.8",
